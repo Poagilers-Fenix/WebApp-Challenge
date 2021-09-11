@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace Cardapp.WebApp.Models
 {
@@ -15,17 +12,9 @@ namespace Cardapp.WebApp.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CodigoItem { get; set; }
 
-        [Column("CD_ESTABELECIMENTO")]
-        public int CodigoEstab { get; set; }
-
         [Column("ST_DESTAQUE")]
         [Display(Name = "Destaque")]
         public char Destaque { get; set; }
-
-        [Column("CD_CATEGORIA")]
-        [ForeignKey("CD_CATEGORIA")]
-        [Display(Name = "Categoria")]
-        public int CodCategoria { get; set; }
 
         [Column("NM_ITEM_CARDAPIO")]
         [Display(Name = "Nome")]
@@ -38,8 +27,6 @@ namespace Cardapp.WebApp.Models
         [Column("VL_ITEM_CARDAPIO")]
         [Display(Name = "Preço")]
         public decimal Preco { get; set; }
-
-        //public string Ingredientes { get; set; }
 
         [Column("VL_CALORICO")]
         [Display(Name = "Valor calórico")]
