@@ -23,16 +23,24 @@ namespace Cardapp.WebApp.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
+
+        [HttpGet]
+        public IActionResult CadastroRestaurante()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult CadastroGerente()
+        {
+            return View();
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

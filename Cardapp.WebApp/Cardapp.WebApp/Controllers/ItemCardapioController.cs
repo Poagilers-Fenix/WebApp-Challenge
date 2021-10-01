@@ -16,6 +16,8 @@ namespace Cardapp.WebApp.Controllers
             ViewBag.itens = ctx.Item.ToList<Item>();
             return View();
         }
+
+        [HttpPost]
         public IActionResult Login()
         {
             return RedirectToAction("Index");
