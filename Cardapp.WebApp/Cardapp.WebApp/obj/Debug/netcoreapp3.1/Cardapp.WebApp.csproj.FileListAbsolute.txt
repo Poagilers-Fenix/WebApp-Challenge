@@ -2076,3 +2076,5 @@ C:\Users\CLIENTE\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp
 C:\Users\CLIENTE\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Home\CadastroRestaurante.cshtml.g.cs
 C:\Users\CLIENTE\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Home\CadastroGerente.cshtml.g.cs
 C:\Users\CLIENTE\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutNavSide.cshtml.g.cs
+C:\Users\CLIENTE\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\ItemCardapio\_Form.cshtml.g.cs
+C:\Users\CLIENTE\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\ItemCardapio\_FormCreateUpdate.cshtml.g.cs
