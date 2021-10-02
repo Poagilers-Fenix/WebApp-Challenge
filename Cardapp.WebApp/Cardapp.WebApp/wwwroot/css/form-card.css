@@ -1,0 +1,27 @@
+﻿html {
+    background-color: #4196A6;
+}
+
+.cardStyle {
+    width: 90%;
+    border: 2px solid #800;
+    height: 80%;
+    padding: 2%;
+}
+
+.formRowStyleButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3vh;
+}
+
+
+.formRowStyle {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+

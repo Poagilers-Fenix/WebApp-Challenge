@@ -1,0 +1,26 @@
+﻿.btnNavAtual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #800;
+    color: white;
+}
+
+    .btnNavAtual:hover {
+        color: white;
+        background-color: #a00
+    }
+
+    .btnNavAtual:focus, .btnNav:focus {
+        box-shadow: 0 0 0 0;
+        border: 0 none;
+        outline: 0;
+    }
+
+.btnNav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ddd;
+    color: #666;
+}
