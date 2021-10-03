@@ -9358,19 +9358,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\CLIENTE\\.nuget\\packages\\": {}
+    "C:\\Users\\gih_m\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\CLIENTE\\Documents\\GitHub\\WebApp-Challenge\\Cardapp.WebApp\\Cardapp.WebApp\\Cardapp.WebApp.csproj",
+      "projectUniqueName": "D:\\Arquivos de Programas (x86)\\Git-Hub\\WebApp-Challenge\\Cardapp.WebApp\\Cardapp.WebApp\\Cardapp.WebApp.csproj",
       "projectName": "Cardapp.WebApp",
-      "projectPath": "C:\\Users\\CLIENTE\\Documents\\GitHub\\WebApp-Challenge\\Cardapp.WebApp\\Cardapp.WebApp\\Cardapp.WebApp.csproj",
-      "packagesPath": "C:\\Users\\CLIENTE\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\CLIENTE\\Documents\\GitHub\\WebApp-Challenge\\Cardapp.WebApp\\Cardapp.WebApp\\obj\\",
+      "projectPath": "D:\\Arquivos de Programas (x86)\\Git-Hub\\WebApp-Challenge\\Cardapp.WebApp\\Cardapp.WebApp\\Cardapp.WebApp.csproj",
+      "packagesPath": "C:\\Users\\gih_m\\.nuget\\packages\\",
+      "outputPath": "D:\\Arquivos de Programas (x86)\\Git-Hub\\WebApp-Challenge\\Cardapp.WebApp\\Cardapp.WebApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\CLIENTE\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\gih_m\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9437,12 +9437,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[3.1.18, 3.1.18]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -9451,7 +9445,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   },

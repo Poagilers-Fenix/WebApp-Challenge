@@ -2,9 +2,6 @@
 using FireSharp.Config;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Cardapp.WebApp.Models;
 using FireSharp.Response;
 
@@ -24,18 +21,6 @@ namespace Cardapp.WebApp.Controllers
             return View();
         }
 
-        
-        [HttpPost]
-        public IActionResult CadastroEstabelecimento(Estabelecimento estabelecimento)
-        {
-            if (ModelState.IsValid)
-            {
-                return View();
-            }
-
-            return View();
-        }
-        
 
         [HttpGet]
         public IActionResult CadastroEstabelecimento()
@@ -43,33 +28,29 @@ namespace Cardapp.WebApp.Controllers
             return View();
         }
 
-
-        /*
+        
         [HttpPost]
         public IActionResult CadastroEstabelecimento(Estabelecimento estab)
         {
-            try
+            if (ModelState.IsValid)
             {
-                AddEstabelecimentoNoFirebase(estab);
-                ModelState.AddModelError(string.Empty, "Salvo com sucesso");
-            }
-            catch(Exception ex)
-            {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                try
+                {
+                    client = new FireSharp.FirebaseClient(config);
+                    var data = estab;
+                    PushResponse response = client.Push("estab/", data);
+                    data.id_Estab_Firebase = response.Result.name;
+                    SetResponse setResponse = client.Set("estab/" + data.id_Estab_Firebase, data);
+                    ModelState.AddModelError(string.Empty, "Salvo com sucesso");
+                }
+                catch(Exception ex)
+                {
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                }
+                return RedirectToAction("CadastroGerente");
             }
             return View();
         }
         
-
-        
-        private void AddEstabelecimentoNoFirebase(Estabelecimento estabelecimento)
-        {
-            client = new FileShare.FirebaseClient(config);
-            var data = estabelecimento;
-            PushResponse response = client.Push("estab/", data);
-            data.id_Estab_Firebase = response.Result.name;
-            SetResponse setResponse = client.Set("estab/" + data.id_Estab_Firebase, data);
-        }
-        */
     }
 }

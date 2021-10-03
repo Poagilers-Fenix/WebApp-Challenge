@@ -41,7 +41,7 @@ namespace Cardapp.WebApp.Models
         [MaxLength(100, ErrorMessage = "O endereço deve ter menos de 100 caracteres")]
         public string Endereco { get; set; }
 
-        [RegularExpression(@"[0-9]{11}", ErrorMessage = "O telefone deve ter 11 caracteres sem pontuação (ddd + número) 11912345678.")]
+        [RegularExpression(@"(^[0-9]{2})([9]{1})?([0-9]{8})", ErrorMessage = "O telefone deve ter 11 caracteres sem pontuação (ddd + número). Ex: 11912345678.")]
         [Required(ErrorMessage = "Este campo é obrigatório.")]
         [Column("NR_TELEFONE")]
         [Display(Name = "Qual o telefone do seu estabelecimento?")]
