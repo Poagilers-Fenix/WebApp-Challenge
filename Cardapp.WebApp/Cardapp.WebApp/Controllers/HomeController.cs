@@ -29,18 +29,6 @@ namespace Cardapp.WebApp.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult CadastroRestaurante()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public IActionResult CadastroGerente()
-        {
-            return View();
-        }
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

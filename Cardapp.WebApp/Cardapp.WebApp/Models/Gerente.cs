@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
@@ -13,6 +14,10 @@ namespace Cardapp.WebApp.Models
         [Column("CD_GERENTE")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CodigoGerente { get; set; }
+
+        [Column("CD_ESTABELECIMENTO")]
+        [Display(Name = "Qual o nome do gerente responsável pelo estabelecimento?")]
+        public Estabelecimento Estabelecimento { get; set; }
 
         [Column("NM_GERENTE")]
         [Display(Name = "Qual o nome do gerente responsável pelo estabelecimento?")]

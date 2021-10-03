@@ -33,7 +33,7 @@
                         <td class="align-middle" width="200px">R$ @item.Preco</td>
                         <td class="align-middle" width="200px">@(item.ValCalorico != 0 ? $"{@item.ValCalorico} Kcal" : "----------" )</td>
                         <td class="align-middle">
-                            <form asp-action="Index">
+                            <form asp-action="Remover">
                                 <div style="display: flex; flex-direction: column; margin-right: 2vw;">
                                     <a class="mb-3 btn btn-info" asp-action="Editar" asp-route-id="@item.CodigoItem">Editar</a>
                                     <input type="submit" asp-route-id="@item.CodigoItem" class="btn btn-danger" value="Excluir" />

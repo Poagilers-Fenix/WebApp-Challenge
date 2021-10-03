@@ -49,18 +49,20 @@ namespace Cardapp.WebApp.Controllers
         [HttpPost]
         public IActionResult Cadastrar(Item item)
         {
-           try
-            {
+            try
+                {
                 ctx.Item.Add(item);
                 ctx.SaveChanges();
-                TempData["msg"] = "Cadastrado com sucesso";
-                return RedirectToAction("Index");
-            } catch (Exception e)
+                TempData["Sucesso"] = "Cadastrado com sucesso";
+                return RedirectToAction("Cadastrar");
+            }
+            catch (Exception e)
             {
-                TempData["msg"] = "Erro ao cadastrar";
+                TempData["Erro"] = "Erro ao cadastrar";
                 Console.WriteLine(e);
                 return RedirectToAction("Cadastrar");
             }
+
         }
         public IActionResult Editar(int id)
         {
@@ -70,25 +72,40 @@ namespace Cardapp.WebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(int id)
+        public IActionResult Remover(int id)
         {
-            var conta = ctx.Item.Find(id);
-            ctx.Item.Remove(conta);
-            ctx.SaveChanges();
-            TempData["msg"] = "Item Removido!";
-            return RedirectToAction("Index");
+            try
+            {
+                var conta = ctx.Item.Find(id);
+                ctx.Item.Remove(conta);
+                ctx.SaveChanges();
+                TempData["Sucesso"] = "Item Removido!";
+                return RedirectToAction("Index");
+            } catch(Exception e)
+            {
+                TempData["Erro"] = "Erro ao remover";
+                Console.WriteLine(e);
+                return RedirectToAction("Index");
+            }
 
         }
 
         [HttpPost]
         public IActionResult Editar(Item item)
         {
-
+            //try
+            //{
                 var entry = ctx.Item.First(e => e.CodigoItem == item.CodigoItem);
                 ctx.Entry(entry).CurrentValues.SetValues(item);
                 ctx.SaveChanges();
-                TempData["msg"] = "Item atualizado!";
+                TempData["Sucesso"] = "Item atualizado!";
                 return RedirectToAction("Index");
+            //} catch(Exception e)
+            //{
+            //    TempData["Erro"] = "Erro ao editar";
+            //    Console.WriteLine(e);
+            //    return RedirectToAction("Index");
+            //}
         }
 
 

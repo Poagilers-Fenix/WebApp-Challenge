@@ -15,31 +15,37 @@
         <form asp-action="Cadastrar">
             <div class="form-row">
                 <label asp-for="RazaoSocial"></label>
-                <input asp-for="RazaoSocial" class="form-control">
+                <input  required asp-for="RazaoSocial" class="form-control">
+                <span asp-validation-for="RazaoSocial" class="text-danger"></span>
             </div>
             <div class="form-row">
                 <label asp-for="NomeFantasia"></label>
-                <input asp-for="NomeFantasia" class="form-control">
+                <input required asp-for="NomeFantasia" class="form-control">
+                <span asp-validation-for="NomeFantasia" class="text-danger"></span>
             </div>
             <div class="form-row">
                 <label asp-for="Cnpj"></label>
-                <input asp-for="Cnpj" class="form-control">
+                <input required asp-for="Cnpj" class="form-control">
+                <span asp-validation-for="Cnpj" class="text-danger"></span>
             </div>
             <div class="form-row">
                 <label asp-for="Endereco"></label>
-                <input asp-for="Endereco" class="form-control">
+                <input required asp-for="Endereco" class="form-control">
+                <span asp-validation-for="Endereco" class="text-danger"></span>
             </div>
             <div class="form-row">
                 <label asp-for="Telefone"></label>
-                <input asp-for="Telefone" class="form-control">
+                <input required asp-for="Telefone" class="form-control">
+                <span asp-validation-for="Telefone" class="text-danger"></span>
             </div>
             <div class="form-row">
                 <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control">
+                <input required asp-for="Email" class="form-control">
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-row formRowStyleButton">
                 <input type="submit" value="Salvar" class="btn btn-info mr-3 px-5" />
-                <a asp-action="Index" class="btn btn-outline-danger px-5">Cancelar</a>
+                <a asp-action="Index" asp-controller="About" class="btn btn-outline-danger px-5">Cancelar</a>
             </div>
         </form>
     </div>

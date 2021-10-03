@@ -11,13 +11,25 @@
 <link href="~/css/buttons.css" rel="stylesheet" />
 
 
-<style>
-    html {
-        background-color: #4196A6;
-    }
-</style>
-
 <div style="display: flex; flex-direction: column; justify-content: center; margin-left: 8%;">
+    @if (@TempData["Sucesso"] != null)
+    {
+        <Feedback Texto="@TempData["Sucesso"]" is-error="false"></Feedback>
+    }
+    else
+    {
+        <Feedback Texto="@TempData["Erro"]" is-error="true"></Feedback>
+    }
     <h1 style="display: flex; justify-content: center;" class="my-5 text-white">Cadastre um item</h1>
-    <partial name="_FormCreateUpdate" />
+    <div class="card cardStyle mx-auto" style="width: 70%">
+        <form asp-action="Cadastrar">
+            <partial name="_FormCreateUpdate" />
+            <row>
+                <div class="form-row formRowStyleButton">
+                    <input type="submit" value="Salvar" class="btn btn-info mr-3 px-5" />
+                    <a asp-action="Index" class="btn btn-outline-danger px-5">Cancelar</a>
+                </div>
+            </row>
+        </form>
+    </div>
 </div>

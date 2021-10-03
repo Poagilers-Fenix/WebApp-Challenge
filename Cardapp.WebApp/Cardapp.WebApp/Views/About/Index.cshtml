@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewData["Title"] = "Login";
+    Layout = "_LayoutNavSide";
 }
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +21,9 @@
             <a class="btn btn-info btn-lg mb-4 menu-button" role="button" asp-action="index">Sobre o projeto </a>
             <a class="btn btn-info btn-lg mb-4 menu-button" role="button" asp-action="index">Sobre nós</a>
             <a class="btn btn-info btn-lg mb-4 menu-button" role="button" asp-action="index">Contato</a>
-            <a class="btn btn-primary btn-lg menu-button" asp-action="Login" asp-controller="Home" role="button">Login</a>
+            <a class="btn btn-primary btn-lg mb-4 menu-button" asp-action="Login" asp-controller="Home" role="button">Login</a>
+            <a class="btn btn-primary btn-lg menu-button" asp-action="CadastroEstabelecimento" asp-controller="Estabelecimento" role="button">Cadastro</a>
+
         </div>
         <a asp-action="index" asp-controller="Home" class="mb-3" style="-moz-transform: scaleX(-1); -o-transform: scaleX(-1); -webkit-transform: scaleX(-1); transform: scaleX(-1);">
             <img src="/img/next.svg" class="animated-button" />
@@ -34,7 +37,7 @@
             <div class="d-flex align-items-center justify-content-around">
                 <img src="~/img/dinnerV2.png" class="main-image" width="600" />
                 <p class="paragraph" style="width: 40%;">
-                    O Cardapp foi criado para oferecer uma melhor experiência gastronômica utilizando IoT. Pensamos em um sistema que presasse pelo bem-estar do cliente dentro e fora de um restaurante. A ideia se baseia em um aplicativo mobile que irá controlar grande parte dos serviços manuais que já são realizados no estabelecimento.
+                    O Cardapp foi criado para oferecer uma melhor experiência gastronômica utilizando IoT. Pensamos em um sistema que prezasse pelo bem-estar do cliente dentro e fora de um restaurante. A ideia se baseia em um aplicativo mobile que irá controlar grande parte dos serviços manuais que já são realizados no estabelecimento.
                     Para isso acontecer, um cardápio digital será feito exclusivamente para cada restaurante, a fim de atender as necessidades de cada negócio.
                 </p>
             </div>

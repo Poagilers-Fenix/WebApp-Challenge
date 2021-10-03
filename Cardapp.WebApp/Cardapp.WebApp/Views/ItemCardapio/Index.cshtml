@@ -9,19 +9,17 @@
 <link href="~/css/master.css" rel="stylesheet" />
 <link href="~/css/buttons.css" rel="stylesheet" />
 
-<style>
-    html {
-        background-color: #4196A6;
-    }
-</style>
 
 <div style="display: flex; flex-direction: column; justify-content: center; margin-left: 8%">
-    @if (@TempData["msg"] != null)
+    @if (@TempData["Sucesso"] != null)
     {
-        <div class="alert alert-success">
-            <h5 class="text-center">@TempData["msg"]</h5>
-        </div>
+        <Feedback Texto="@TempData["Sucesso"]" is-error="false"></Feedback>
     }
+    else
+    {
+        <Feedback Texto="@TempData["Erro"]" is-error="true"></Feedback>
+    }
+
     <h1 style="display: flex; justify-content: center;" class="my-5 text-white">Edite o cardápio do seu restaurante</h1>
     <partial name="_Form" />
 
