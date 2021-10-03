@@ -4,11 +4,21 @@ using Cardapp.WebApp.Models;
 using System.Linq;
 using System;
 using Cardapp.WebApp.Repository.Context;
+using FireSharp.Interfaces;
+using FireSharp.Config;
+using FireSharp.Response;
 
 namespace Cardapp.WebApp.Controllers
 {
     public class ItemCardapioController : Controller
     {
+        IFirebaseConfig config = new FirebaseConfig
+        {
+            AuthSecret = "wvg4O1GNPzXqpGK95uGjhVValAjRiLX4iIM3P6YK",
+            BasePath = "https://cardapp-d8eba-default-rtdb.firebaseio.com/"
+        };
+        IFirebaseClient client;
+
         private static DataBaseContext ctx = new DataBaseContext();
 
         public IActionResult Index()
@@ -51,10 +61,13 @@ namespace Cardapp.WebApp.Controllers
         {
             try
                 {
-                ctx.Item.Add(item);
-                ctx.SaveChanges();
+                client = new FireSharp.FirebaseClient(config);
+                var data = item;
+                PushResponse response = client.Push("item/", data);
+                data.CodigoEstabelecimento = response.Result.name;
+                SetResponse setResponse = client.Set("item/" + data.CodigoEstabelecimento, data);
                 TempData["Sucesso"] = "Cadastrado com sucesso";
-                return RedirectToAction("Cadastrar");
+                return RedirectToAction("index");
             }
             catch (Exception e)
             {

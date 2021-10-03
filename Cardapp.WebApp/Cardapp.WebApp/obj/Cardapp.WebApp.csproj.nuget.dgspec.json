@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Arquivos de Programas (x86)\\Git-Hub\\WebApp-Challenge\\Cardapp.WebApp\\Cardapp.WebApp\\Cardapp.WebApp.csproj": {}
+    "C:\\Users\\Henrique\\Documents\\GitHub\\WebApp-Challenge\\Cardapp.WebApp\\Cardapp.WebApp\\Cardapp.WebApp.csproj": {}
   },
   "projects": {
-    "D:\\Arquivos de Programas (x86)\\Git-Hub\\WebApp-Challenge\\Cardapp.WebApp\\Cardapp.WebApp\\Cardapp.WebApp.csproj": {
+    "C:\\Users\\Henrique\\Documents\\GitHub\\WebApp-Challenge\\Cardapp.WebApp\\Cardapp.WebApp\\Cardapp.WebApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Arquivos de Programas (x86)\\Git-Hub\\WebApp-Challenge\\Cardapp.WebApp\\Cardapp.WebApp\\Cardapp.WebApp.csproj",
+        "projectUniqueName": "C:\\Users\\Henrique\\Documents\\GitHub\\WebApp-Challenge\\Cardapp.WebApp\\Cardapp.WebApp\\Cardapp.WebApp.csproj",
         "projectName": "Cardapp.WebApp",
-        "projectPath": "D:\\Arquivos de Programas (x86)\\Git-Hub\\WebApp-Challenge\\Cardapp.WebApp\\Cardapp.WebApp\\Cardapp.WebApp.csproj",
-        "packagesPath": "C:\\Users\\gih_m\\.nuget\\packages\\",
-        "outputPath": "D:\\Arquivos de Programas (x86)\\Git-Hub\\WebApp-Challenge\\Cardapp.WebApp\\Cardapp.WebApp\\obj\\",
+        "projectPath": "C:\\Users\\Henrique\\Documents\\GitHub\\WebApp-Challenge\\Cardapp.WebApp\\Cardapp.WebApp\\Cardapp.WebApp.csproj",
+        "packagesPath": "C:\\Users\\Henrique\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Henrique\\Documents\\GitHub\\WebApp-Challenge\\Cardapp.WebApp\\Cardapp.WebApp\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\gih_m\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Henrique\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

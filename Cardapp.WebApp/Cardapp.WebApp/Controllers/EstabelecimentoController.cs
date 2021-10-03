@@ -41,7 +41,6 @@ namespace Cardapp.WebApp.Controllers
                     PushResponse response = client.Push("estab/", data);
                     data.id_Estab_Firebase = response.Result.name;
                     SetResponse setResponse = client.Set("estab/" + data.id_Estab_Firebase, data);
-                    ModelState.AddModelError(string.Empty, "Salvo com sucesso");
                 }
                 catch(Exception ex)
                 {

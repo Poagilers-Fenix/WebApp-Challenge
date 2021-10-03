@@ -14,7 +14,7 @@ namespace Cardapp.WebApp.Models
 
 
         [Column("CD_ESTABELECIMENTO")]
-        public int CodigoEstabelecimento { get; set; }
+        public string CodigoEstabelecimento { get; set; }
 
         [Column("CD_CATEGORIA")]
         public int CodigoCategoria { get; set; }
