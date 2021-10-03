@@ -47,6 +47,6 @@ namespace Cardapp.WebApp.Models
         [Display(Name = "Qual o email do seu estabelecimento?")]
         public string Email { get; set; }
 
-
+        public string id_Estab_Firebase { get; set; }
     }
 }
