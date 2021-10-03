@@ -2569,3 +2569,9 @@ C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebAp
 C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\bin\Debug\netcoreapp3.1\Microsoft.Threading.Tasks.dll
 C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\bin\Debug\netcoreapp3.1\System.Net.Http.Extensions.dll
 C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\bin\Debug\netcoreapp3.1\System.Net.Http.Primitives.dll
+C:\Users\CLIENTE\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\bin\Debug\netcoreapp3.1\FireSharp.dll
+C:\Users\CLIENTE\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\bin\Debug\netcoreapp3.1\Microsoft.Threading.Tasks.Extensions.Desktop.dll
+C:\Users\CLIENTE\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\bin\Debug\netcoreapp3.1\Microsoft.Threading.Tasks.Extensions.dll
+C:\Users\CLIENTE\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\bin\Debug\netcoreapp3.1\Microsoft.Threading.Tasks.dll
+C:\Users\CLIENTE\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\bin\Debug\netcoreapp3.1\System.Net.Http.Extensions.dll
+C:\Users\CLIENTE\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\bin\Debug\netcoreapp3.1\System.Net.Http.Primitives.dll

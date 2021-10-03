@@ -24,11 +24,27 @@ namespace Cardapp.WebApp.Controllers
             return View();
         }
 
+        
+        [HttpPost]
+        public IActionResult CadastroEstabelecimento(Estabelecimento estabelecimento)
+        {
+            if (ModelState.IsValid)
+            {
+                return View();
+            }
+
+            return View();
+        }
+        
+
+        [HttpGet]
         public IActionResult CadastroEstabelecimento()
         {
             return View();
         }
 
+
+        /*
         [HttpPost]
         public IActionResult CadastroEstabelecimento(Estabelecimento estab)
         {
@@ -43,14 +59,17 @@ namespace Cardapp.WebApp.Controllers
             }
             return View();
         }
+        
 
+        
         private void AddEstabelecimentoNoFirebase(Estabelecimento estabelecimento)
         {
-            client = new FireSharp.FirebaseClient(config);
+            client = new FileShare.FirebaseClient(config);
             var data = estabelecimento;
             PushResponse response = client.Push("estab/", data);
             data.id_Estab_Firebase = response.Result.name;
             SetResponse setResponse = client.Set("estab/" + data.id_Estab_Firebase, data);
         }
+        */
     }
 }
