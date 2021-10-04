@@ -35,8 +35,10 @@
                         <td class="align-middle">
                             <form asp-action="Remover">
                                 <div style="display: flex; flex-direction: column; margin-right: 2vw;">
+                                    <button onclick="idItemCardapio.value = @item.CodigoItem" type="button" class="mb-3 btn btn-danger" data-toggle="modal" data-target="#modalConfirma">
+                                        Remover
+                                    </button>
                                     <a class="mb-3 btn btn-info" asp-action="Editar" asp-route-id="@item.CodigoItem">Editar</a>
-                                    <input type="submit" asp-route-id="@item.CodigoItem" class="btn btn-danger" value="Excluir" />
                                 </div>
                             </form>
                         </td>
@@ -45,4 +47,28 @@
             </tbody>
         </table>
     </row>
+</div>
+
+
+
+<!-- Modal -->
+<!--Gi, estiliza isso aqui depois pra deixar no estilo geral do projeto-->
+<div class="modal fade" id="modalConfirma" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #23272B; color: white">
+                <h5 class="modal-title" id="modalLabel">Confirmação</h5>
+            </div>
+            <div class="modal-body" style="background-color: powderblue">
+                Você tem certeza que deseja deletar o registro desse item do cardápio?
+            </div>
+            <div class="modal-footer border-top-0" style="background-color: powderblue; color: white">
+                <form asp-action="Remover">
+                    <input type="hidden" id="idItemCardapio" name="id" />
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">Não</button>
+                    <button type="submit" class="btn btn-danger">Sim, delete o item do cardápio</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

@@ -16,8 +16,43 @@ namespace Cardapp.WebApp.Controllers
         };
         IFirebaseClient client;
 
-        public IActionResult CadastroGerente()
+        [HttpGet]
+        public IActionResult CadastroGerente(Estabelecimento estab)
         {
+            if(estab != null)
+            {
+                Gerente gerente = new Gerente()
+                {
+                    CodigoEstabelecimento = estab.CodigoEstabelecimento,
+                };
+
+                return View(gerente);
+            }
+            return View();
+
+        }
+
+
+        [HttpPost]
+        public IActionResult CadastroGerente(Gerente gerente)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    client = new FireSharp.FirebaseClient(config);
+                    var data = gerente;
+                    PushResponse response = client.Push("gerente/", data);
+                    data.id_Gerente_Firebase = response.Result.name;
+                    SetResponse setResponse = client.Set("gerente/" + data.id_Gerente_Firebase, data);
+                    ModelState.AddModelError(string.Empty, "Salvo com sucesso");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                }
+                return RedirectToAction("CadastroGerente");
+            }
             return View();
         }
 
@@ -34,21 +69,9 @@ namespace Cardapp.WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    client = new FireSharp.FirebaseClient(config);
-                    var data = estab;
-                    PushResponse response = client.Push("estab/", data);
-                    data.id_Estab_Firebase = response.Result.name;
-                    SetResponse setResponse = client.Set("estab/" + data.id_Estab_Firebase, data);
-                    ModelState.AddModelError(string.Empty, "Salvo com sucesso");
-                }
-                catch(Exception ex)
-                {
-                    ModelState.AddModelError(string.Empty, ex.Message);
-                }
-                return RedirectToAction("CadastroGerente");
+                return RedirectToAction("CadastroGerente", estab);
             }
+            TempData["Erro"] = "Erro ao cadastrar o estabelecimento, cheque se as informações estão corretas e tente novamente.";
             return View();
         }
         

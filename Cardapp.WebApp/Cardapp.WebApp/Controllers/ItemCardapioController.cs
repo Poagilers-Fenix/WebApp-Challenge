@@ -4,12 +4,22 @@ using Cardapp.WebApp.Models;
 using System.Linq;
 using System;
 using Cardapp.WebApp.Repository.Context;
+using FireSharp.Interfaces;
+using FireSharp.Config;
+using FireSharp.Response;
 
 namespace Cardapp.WebApp.Controllers
 {
     public class ItemCardapioController : Controller
     {
         private static DataBaseContext ctx = new DataBaseContext();
+        IFirebaseConfig config = new FirebaseConfig
+        {
+            AuthSecret = "wvg4O1GNPzXqpGK95uGjhVValAjRiLX4iIM3P6YK",
+            BasePath = "https://cardapp-d8eba-default-rtdb.firebaseio.com/"
+        };
+        IFirebaseClient client;
+
 
         public IActionResult Index()
         {
@@ -46,48 +56,37 @@ namespace Cardapp.WebApp.Controllers
             return View();
         }
 
+        /*
         [HttpPost]
         public IActionResult Cadastrar(Item item)
         {
-            try
-                {
-                ctx.Item.Add(item);
-                ctx.SaveChanges();
-                TempData["Sucesso"] = "Cadastrado com sucesso";
-                return RedirectToAction("Cadastrar");
-            }
-            catch (Exception e)
+            if (ModelState.IsValid)
             {
-                TempData["Erro"] = "Erro ao cadastrar";
-                Console.WriteLine(e);
+                try
+                {
+                    client = new FireSharp.FirebaseClient(config);
+                    var data = item;
+                    PushResponse response = client.Push("itemCardapio/", data);
+                    data.id_ItemCardapio_Firebase = response.Result.name;
+                    SetResponse setResponse = client.Set("itemCardapio/" + data.id_ItemCardapio_Firebase, data);
+                    ModelState.AddModelError(string.Empty, "Salvo com sucesso");
+                }
+                catch (Exception ex)
+                {
+                    TempData["Erro"] = "Erro ao cadastrar";
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                }
                 return RedirectToAction("Cadastrar");
             }
-
+            return View();      
         }
+        */
+        [HttpGet]
         public IActionResult Editar(int id)
         {
             var item = ctx.Item.Find(id);
             ViewBag.status = new List<string>(new string[] { "S", "N" });
             return View(item);
-        }
-
-        [HttpPost]
-        public IActionResult Remover(int id)
-        {
-            try
-            {
-                var conta = ctx.Item.Find(id);
-                ctx.Item.Remove(conta);
-                ctx.SaveChanges();
-                TempData["Sucesso"] = "Item Removido!";
-                return RedirectToAction("Index");
-            } catch(Exception e)
-            {
-                TempData["Erro"] = "Erro ao remover";
-                Console.WriteLine(e);
-                return RedirectToAction("Index");
-            }
-
         }
 
         [HttpPost]
@@ -107,6 +106,27 @@ namespace Cardapp.WebApp.Controllers
             //    return RedirectToAction("Index");
             //}
         }
+
+        [HttpPost]
+        public IActionResult Remover(int id)
+        {
+            try
+            {
+                var conta = ctx.Item.Find(id);
+                ctx.Item.Remove(conta);
+                ctx.SaveChanges();
+                TempData["Sucesso"] = "Item Removido!";
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                TempData["Erro"] = "Erro ao remover";
+                Console.WriteLine(e);
+                return RedirectToAction("Index");
+            }
+
+        }
+
 
 
     }
