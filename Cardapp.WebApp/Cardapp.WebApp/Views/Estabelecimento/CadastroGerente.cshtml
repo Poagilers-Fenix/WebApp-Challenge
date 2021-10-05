@@ -1,44 +1,60 @@
 ﻿@model Gerente
 @{ ViewData["Title"] = "Cadastro de gerente";
-    Layout = "_LayoutNavSide";}
-
-
+    Layout = "_LayoutNavSide"; }
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="~/css/master.css" rel="stylesheet" />
 <link href="~/css/form-card.css" rel="stylesheet" />
 
 
+
 <div style="display: flex; flex-direction: column; justify-content: center; margin-left: 8%;">
     <h1 style="display: flex; justify-content: center;" class="my-5 text-white">Cadastre um gerente</h1>
     <div class="card cardStyle mx-auto" style="width: 70%">
-        <form asp-action="Cadastrar">
-            <div class="form-row">
-                <label asp-for="NomeGerente"></label>
-                <input asp-for="NomeGerente" class="form-control">
+        <form asp-action="CadastroGerente">
+
+            <p> @Model</p>
+            <div class="form-row d-flex flex-row justify-content-around">
+                <div style="width: 45%;">
+                    <div class="d-flex justify-content-center">
+                        <label asp-for="NomeGerente"></label>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <input asp-for="NomeGerente" class="form-control mb-2">
+                        <span asp-validation-for="NomeGerente" class="text-danger mb-3" style="text-align: center"></span>
+                    </div>
+                </div>
+                <div style="width: 45%;">
+                    <div class="d-flex justify-content-center">
+                        <label asp-for="Salario"></label>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <input asp-for="Salario" pattern="(^[0-9]{0,5}[,][0-9]{2})" title="No formato: 999,00 | 1000,00 | 10000,00" class="form-control mb-2">
+                        <span asp-validation-for="Salario" class="text-danger mb-3" style="text-align: center"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-row">
+
+            <div class="form-row justify-content-center mx-auto my-3" style="width: 96%;">
                 <label asp-for="Email"></label>
                 <input asp-for="Email" class="form-control">
+                <span asp-validation-for="Email" class="text-danger mb-3" style="text-align: center"></span>
             </div>
-            <div class="form-row">
-                <label asp-for="Salario"></label>
-                <input asp-for="Salario" class="form-control">
-            </div>
-            <div class="form-row">
+            <div class="form-row justify-content-center mx-auto my-3" style="width: 96%;">
                 <label asp-for="Endereco"></label>
                 <input asp-for="Endereco" class="form-control">
+                <span asp-validation-for="Endereco" class="text-danger mb-3" style="text-align: center"></span>
             </div>
-            <div class="form-row">
+            <div class="form-row justify-content-center mx-auto my-3" style="width: 96%;">
                 <label asp-for="Senha"></label>
                 <input asp-for="Senha" class="form-control">
+                <span asp-validation-for="Senha" class="text-danger mb-3" style="text-align: center"></span>
             </div>
 
             <div class="form-row formRowStyleButton">
-                <a asp-action="Index" class="btn btn-outline-danger px-5">Cancelar</a>
+                <a asp-action="CadastroEstabelecimento" asp-controller="Estabelecimento" class="btn btn-outline-danger px-5">Voltar</a>
                 <input type="submit" value="Salvar" class="btn btn-info ml-3 px-5" />
             </div>
         </form>
     </div>
 </div>
-
