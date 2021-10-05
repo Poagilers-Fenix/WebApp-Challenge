@@ -12,7 +12,7 @@ namespace Cardapp.WebApp.Models
         [Column("CD_ESTABELECIMENTO")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [HiddenInput]
-        public int CodigoEstabelecimento { get; set; }
+        public string CodigoEstabelecimento { get; set; }
 
         [Column("NM_RAZAO_SOCIAL")]
         [Display(Name = "Qual a razão social do seu estabelecimento?")]
@@ -54,7 +54,5 @@ namespace Cardapp.WebApp.Models
         [Column("DS_EMAIL")]
         [Display(Name = "Qual o email do seu estabelecimento?")]
         public string Email { get; set; }
-
-        public string id_Estab_Firebase { get; set; }
     }
 }

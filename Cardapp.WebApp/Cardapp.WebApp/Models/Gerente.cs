@@ -9,11 +9,11 @@ namespace Cardapp.WebApp.Models
         [Key]
         [Column("CD_GERENTE")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CodigoGerente { get; set; }
+        public string CodigoGerente { get; set; }
 
         [Column("CD_ESTABELECIMENTO")]
         [HiddenInput]
-        public int CodigoEstabelecimento { get; set; }
+        public string CodigoEstabelecimento { get; set; }
 
         [Column("NM_GERENTE")]
         [Required(ErrorMessage = "Este campo é obrigatório.")]
@@ -46,9 +46,6 @@ namespace Cardapp.WebApp.Models
         [MaxLength(25, ErrorMessage = "A senha deve ter 25 caracteres ou menos.")]
         [Display(Name = "Informe a senha que será utilizada na sua conta")]
         public string Senha { get; set; }
-
-        public string id_Gerente_Firebase { get; set; }
-
 
     }
 }

@@ -1,4 +1,4 @@
-﻿
+﻿@model Gerente
 @{
     ViewData["Title"] = "Login";
     Layout = "_LayoutNavSide";
@@ -13,12 +13,12 @@
         <div class="text-center" style="background-color: #fffa; width: 50%; margin: 5% 0;
                     border-radius: 15px; padding: 2%;">
             <h2 style="color: #555; margin-bottom: 2%">Login</h2>
-            <form asp-action="Login" asp-controller="ItemCardapio" style="padding-left: 15%; padding-right: 15% ">
+            <form asp-action="Login" style="padding-left: 15%; padding-right: 15% ">
                 <label for="id-email">E-mail</label>
-                <input id="id-email" name="email" class="form-control" />
+                <input id="id-email" asp-for="NomeGerente" name="email" class="form-control" />
 
                 <label for="id-senha">Senha</label>
-                <input id="id-senha" name="senha" class="form-control" />
+                <input id="id-senha" asp-for="Senha" name="senha" class="form-control" />
 
                 <input type="submit" value="Entrar" class="btn btn-info" style="margin-top: 5%; margin-bottom: 5%;" />
             </form>

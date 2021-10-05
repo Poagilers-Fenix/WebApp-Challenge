@@ -2225,7 +2225,6 @@ C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebAp
 C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\bin\Debug\netcoreapp3.1\refs\Microsoft.VisualBasic.Core.dll
 C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\bin\Debug\netcoreapp3.1\refs\Microsoft.VisualBasic.dll
 C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\bin\Debug\netcoreapp3.1\refs\Microsoft.Win32.Primitives.dll
-C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\bin\Debug\netcoreapp3.1\refs\Microsoft.Win32.Registry.dll
 C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\bin\Debug\netcoreapp3.1\refs\mscorlib.dll
 C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\bin\Debug\netcoreapp3.1\refs\netstandard.dll
 C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\bin\Debug\netcoreapp3.1\refs\System.AppContext.dll

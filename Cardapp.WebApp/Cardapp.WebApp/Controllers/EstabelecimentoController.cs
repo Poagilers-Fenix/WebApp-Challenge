@@ -23,16 +23,11 @@ namespace Cardapp.WebApp.Controllers
         {
             var estabelecimento = HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao");
 
-            if (estabelecimento != null)
+            if (estabelecimento == null)
             {
-                Gerente gerente = new Gerente()
-                {
-                    CodigoEstabelecimento = estabelecimento.CodigoEstabelecimento,
-                };
-
-                return View(gerente);
+                return RedirectToAction("CadastroEstabelecimento");
             }
-            return RedirectToAction("CadastroEstabelecimento");
+                return View();
 
         }
 
@@ -47,15 +42,16 @@ namespace Cardapp.WebApp.Controllers
                     client = new FireSharp.FirebaseClient(config);
 
                     var estabelecimento = HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao");
-                    PushResponse response = client.Push("estabelecimento/", estabelecimento);
-                    estabelecimento.id_Estab_Firebase = response.Result.name;
-                    SetResponse setResponse = client.Set("estabelecimento/" + estabelecimento.id_Estab_Firebase, estabelecimento);
+                    PushResponse response = client.Push("estab/", estabelecimento);
+                    estabelecimento.CodigoEstabelecimento = response.Result.name;
+                    SetResponse setResponse = client.Set("estab/" + estabelecimento.CodigoEstabelecimento, estabelecimento);
                     ModelState.AddModelError(string.Empty, "Salvo com sucesso");
 
                     var data = gerente;
+                    gerente.CodigoEstabelecimento = estabelecimento.CodigoEstabelecimento;
                     response = client.Push("gerente/", data);
-                    data.id_Gerente_Firebase = response.Result.name;
-                    setResponse = client.Set("gerente/" + data.id_Gerente_Firebase, data);
+                    data.CodigoGerente = response.Result.name;
+                    setResponse = client.Set("gerente/" + data.CodigoGerente, data);
                     ModelState.AddModelError(string.Empty, "Salvo com sucesso");
                 }
                 catch (Exception ex)

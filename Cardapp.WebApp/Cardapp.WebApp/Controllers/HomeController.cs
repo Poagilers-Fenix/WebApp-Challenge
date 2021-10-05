@@ -1,6 +1,11 @@
 ﻿using Cardapp.WebApp.Models;
+using FireSharp.Config;
+using FireSharp.Interfaces;
+using FireSharp.Response;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,6 +16,13 @@ namespace Cardapp.WebApp.Controllers
 {
     public class HomeController : Controller
     {
+        IFirebaseConfig config = new FirebaseConfig
+        {
+            AuthSecret = "wvg4O1GNPzXqpGK95uGjhVValAjRiLX4iIM3P6YK",
+            BasePath = "https://cardapp-d8eba-default-rtdb.firebaseio.com/"
+        };
+        IFirebaseClient client;
+
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -29,6 +41,15 @@ namespace Cardapp.WebApp.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Login(Gerente gerente)
+        {
+            List<Gerente> arrayGerente = new List<Gerente>();
+            client = new FireSharp.FirebaseClient(config);
+            var res = client.Get("/gerente/").Body;
+            JObject json = JObject.Parse(res);
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
