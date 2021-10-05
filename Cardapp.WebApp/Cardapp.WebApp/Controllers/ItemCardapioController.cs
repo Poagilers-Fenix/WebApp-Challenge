@@ -12,21 +12,22 @@ namespace Cardapp.WebApp.Controllers
 {
     public class ItemCardapioController : Controller
     {
+        private static DataBaseContext ctx = new DataBaseContext();
+
         IFirebaseConfig config = new FirebaseConfig
         {
             AuthSecret = "wvg4O1GNPzXqpGK95uGjhVValAjRiLX4iIM3P6YK",
             BasePath = "https://cardapp-d8eba-default-rtdb.firebaseio.com/"
         };
+
         IFirebaseClient client;
 
-        private static DataBaseContext ctx = new DataBaseContext();
 
         public IActionResult Index()
         {
             ViewBag.itens = ctx.Item.ToList<Item>();
             return View();
         }
-
         [HttpPost]
         public IActionResult Login()
         {
@@ -48,7 +49,6 @@ namespace Cardapp.WebApp.Controllers
         {
             return View();
         }
-
         [HttpGet]
         public IActionResult Cadastrar()
         {
@@ -56,32 +56,55 @@ namespace Cardapp.WebApp.Controllers
             return View();
         }
 
+        /*
         [HttpPost]
         public IActionResult Cadastrar(Item item)
         {
-            try
-                {
-                client = new FireSharp.FirebaseClient(config);
-                var data = item;
-                PushResponse response = client.Push("item/", data);
-                data.CodigoEstabelecimento = response.Result.name;
-                SetResponse setResponse = client.Set("item/" + data.CodigoEstabelecimento, data);
-                TempData["Sucesso"] = "Cadastrado com sucesso";
-                return RedirectToAction("index");
-            }
-            catch (Exception e)
+            if (ModelState.IsValid)
             {
-                TempData["Erro"] = "Erro ao cadastrar";
-                Console.WriteLine(e);
+                try
+                {
+                    client = new FireSharp.FirebaseClient(config);
+                    var data = item;
+                    PushResponse response = client.Push("itemCardapio/", data);
+                    data.id_ItemCardapio_Firebase = response.Result.name;
+                    SetResponse setResponse = client.Set("itemCardapio/" + data.id_ItemCardapio_Firebase, data);
+                    ModelState.AddModelError(string.Empty, "Salvo com sucesso");
+                }
+                catch (Exception ex)
+                {
+                    TempData["Erro"] = "Erro ao cadastrar";
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                }
                 return RedirectToAction("Cadastrar");
             }
-
+            return View();      
         }
+        */
+        [HttpGet]
         public IActionResult Editar(int id)
         {
             var item = ctx.Item.Find(id);
             ViewBag.status = new List<string>(new string[] { "S", "N" });
             return View(item);
+        }
+
+        [HttpPost]
+        public IActionResult Editar(Item item)
+        {
+            //try
+            //{
+            var entry = ctx.Item.First(e => e.CodigoItem == item.CodigoItem);
+            ctx.Entry(entry).CurrentValues.SetValues(item);
+            ctx.SaveChanges();
+            TempData["Sucesso"] = "Item atualizado!";
+            return RedirectToAction("Index");
+            //} catch(Exception e)
+            //{
+            //    TempData["Erro"] = "Erro ao editar";
+            //    Console.WriteLine(e);
+            //    return RedirectToAction("Index");
+            //}
         }
 
         [HttpPost]
@@ -94,7 +117,8 @@ namespace Cardapp.WebApp.Controllers
                 ctx.SaveChanges();
                 TempData["Sucesso"] = "Item Removido!";
                 return RedirectToAction("Index");
-            } catch(Exception e)
+            }
+            catch (Exception e)
             {
                 TempData["Erro"] = "Erro ao remover";
                 Console.WriteLine(e);
@@ -103,23 +127,6 @@ namespace Cardapp.WebApp.Controllers
 
         }
 
-        [HttpPost]
-        public IActionResult Editar(Item item)
-        {
-            //try
-            //{
-                var entry = ctx.Item.First(e => e.CodigoItem == item.CodigoItem);
-                ctx.Entry(entry).CurrentValues.SetValues(item);
-                ctx.SaveChanges();
-                TempData["Sucesso"] = "Item atualizado!";
-                return RedirectToAction("Index");
-            //} catch(Exception e)
-            //{
-            //    TempData["Erro"] = "Erro ao editar";
-            //    Console.WriteLine(e);
-            //    return RedirectToAction("Index");
-            //}
-        }
 
 
     }
