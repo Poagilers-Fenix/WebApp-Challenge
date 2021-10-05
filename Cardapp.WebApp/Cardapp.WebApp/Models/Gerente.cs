@@ -12,6 +12,7 @@ namespace Cardapp.WebApp.Models
         public int CodigoGerente { get; set; }
 
         [Column("CD_ESTABELECIMENTO")]
+        [HiddenInput]
         public int CodigoEstabelecimento { get; set; }
 
         [Column("NM_GERENTE")]

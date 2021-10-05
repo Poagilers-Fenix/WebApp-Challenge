@@ -12,8 +12,7 @@
     <h1 style="display: flex; justify-content: center;" class="my-5 text-white">Cadastre um gerente</h1>
     <div class="card cardStyle mx-auto" style="width: 70%">
         <form asp-action="CadastroGerente">
-
-            <p> @Model</p>
+            <input asp-for="CodigoEstabelecimento" />
             <div class="form-row d-flex flex-row justify-content-around">
                 <div style="width: 45%;">
                     <div class="d-flex justify-content-center">
