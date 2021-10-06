@@ -54,7 +54,21 @@ namespace Cardapp.WebApp.Controllers
                 var gerente = g.Value.ToObject<Gerente>();
                 if (gerente.Email == email && gerente.Senha == senha)
                 {
-                    return RedirectToAction("Index", "ItemCardapio");
+                    if (ModelState.IsValid)
+                    {
+                        response = client.Get("/estab/");
+                        json = JObject.Parse(response.Body);
+                        foreach (var e in json)
+                        {
+                            var estab = e.Value.ToObject<Estabelecimento>();
+                            if (gerente.CodigoEstabelecimento == estab.CodigoEstabelecimento)
+                            {
+                                HttpContext.Session.SetObjectAsJson("EstabelecimentoSessao", estab);
+                                HttpContext.Session.SetObjectAsJson("GerenteSessao", gerente);
+                                return RedirectToAction("Index", "ItemCardapio");
+                            }
+                        }
+                    }
                 }
             }
 

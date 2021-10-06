@@ -8,6 +8,7 @@ using FireSharp.Interfaces;
 using FireSharp.Config;
 using FireSharp.Response;
 using Cardapp.WebApp.SessionHelper;
+using Newtonsoft.Json.Linq;
 
 namespace Cardapp.WebApp.Controllers
 {
@@ -20,14 +21,30 @@ namespace Cardapp.WebApp.Controllers
             AuthSecret = "wvg4O1GNPzXqpGK95uGjhVValAjRiLX4iIM3P6YK",
             BasePath = "https://cardapp-d8eba-default-rtdb.firebaseio.com/"
         };
-
         IFirebaseClient client;
 
 
         public IActionResult Index()
         {
-            ViewBag.itens = ctx.Item.ToList<Item>();
-            return View();
+            client = new FireSharp.FirebaseClient(config);
+            //ViewBag.itens = ctx.Item.ToList<Item>();
+            IList<Item> items = new List<Item>();
+            Estabelecimento estab = HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao");
+
+            FirebaseResponse response = client.Get("/itemCardapio/");
+            JObject json = JObject.Parse(response.Body);
+
+            
+            foreach (var i in json)
+            {
+                var item = i.Value.ToObject<Item>();
+                if (item.CodigoEstabelecimento == estab.CodigoEstabelecimento)
+                {
+                    items.Add(item);
+                }
+            }
+                    
+            return View(items);
         }
         [HttpPost]
         public IActionResult Login()

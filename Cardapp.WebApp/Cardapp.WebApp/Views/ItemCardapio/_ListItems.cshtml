@@ -1,4 +1,6 @@
-﻿<div class="card mx-auto" style="width: 80%; border: 2px solid #800; height: 80%">
+﻿@model IList<Item>
+
+<div class="card mx-auto" style="width: 80%; border: 2px solid #800; height: 80%">
     <row style="height: 5vh">
         <div class="btn-group w-100 h-100" role="group">
             <a class="btn btnNavAtual text-white"><span class="material-icons pr-2">star</span>Destaques</a>
@@ -22,7 +24,7 @@
             </tr>
         </thead>
         <tbody>
-           @foreach (var item in ViewBag.itens)
+           @foreach (var item in Model)
             {
             <tr>
                 <td width="250px">
