@@ -42,23 +42,26 @@ namespace Cardapp.WebApp.Controllers
                     client = new FireSharp.FirebaseClient(config);
 
                     var estabelecimento = HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao");
-                    PushResponse response = client.Push("estab/", estabelecimento);
-                    estabelecimento.CodigoEstabelecimento = response.Result.name;
-                    SetResponse setResponse = client.Set("estab/" + estabelecimento.CodigoEstabelecimento, estabelecimento);
-                    ModelState.AddModelError(string.Empty, "Salvo com sucesso");
+                    PushResponse responseEstab = client.Push("estab/", estabelecimento);
+                    estabelecimento.CodigoEstabelecimento = responseEstab.Result.name;
+                    SetResponse setResponseEstab = client.Set("estab/" + estabelecimento.CodigoEstabelecimento, estabelecimento);
+                    TempData["Erro"] = "Salvo com sucesso";
 
                     var data = gerente;
                     gerente.CodigoEstabelecimento = estabelecimento.CodigoEstabelecimento;
-                    response = client.Push("gerente/", data);
-                    data.CodigoGerente = response.Result.name;
-                    setResponse = client.Set("gerente/" + data.CodigoGerente, data);
-                    ModelState.AddModelError(string.Empty, "Salvo com sucesso");
+                    PushResponse responseGerente = client.Push("gerente/", data);
+                    data.CodigoGerente = responseGerente.Result.name;
+                    SetResponse setResponseGerente = client.Set("gerente/" + data.CodigoGerente, data);
+
+                    // Guardar estab na sessão novamente
+                    HttpContext.Session.SetObjectAsJson("EstabelecimentoSessao", estabelecimento);
+
                 }
                 catch (Exception ex)
                 {
-                    ModelState.AddModelError(string.Empty, ex.Message);
+                    TempData["Erro"] = "Erro ao cadastrar";
                 }
-                return RedirectToAction("CadastroGerente");
+                return RedirectToAction("index", "ItemCardapio");
             }
             return View();
         }

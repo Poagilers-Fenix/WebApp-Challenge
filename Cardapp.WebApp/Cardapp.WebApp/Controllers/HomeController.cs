@@ -46,9 +46,14 @@ namespace Cardapp.WebApp.Controllers
         {
             List<Gerente> arrayGerente = new List<Gerente>();
             client = new FireSharp.FirebaseClient(config);
-            var res = client.Get("/gerente/").Body;
-            JObject json = JObject.Parse(res);
+            teste();
             return View();
+        }
+        async void teste()
+        {
+            FirebaseResponse response = await client.GetAsync("/gerente/");
+            JObject json = JObject.Parse(response.Body);
+            Console.WriteLine(json);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

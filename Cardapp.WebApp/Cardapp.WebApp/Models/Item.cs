@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace Cardapp.WebApp.Models
 {
@@ -8,11 +9,12 @@ namespace Cardapp.WebApp.Models
         [Key]
         [Column("CD_ITEM_CARDAPIO")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CodigoItem { get; set; }
+        public string CodigoItem { get; set; }
+        [HiddenInput]
         [Column("CD_ESTABELECIMENTO")]
-        public int CodigoEstabelecimento { get; set; }
+        public string CodigoEstabelecimento { get; set; }
         [Column("CD_CATEGORIA")]
-        public int CodigoCategoria { get; set; }
+        public string CodigoCategoria { get; set; }
 
         [Column("ST_DESTAQUE")]
         [Display(Name = "Destaque")]
@@ -46,8 +48,6 @@ namespace Cardapp.WebApp.Models
         [Display(Name = "Foto")]
         [MaxLength(1000, ErrorMessage = "A url de imagem do item deve ter 1000 caracteres ou menos.")]
         public string Foto { get; set; }
-
-        //public string id_ItemCardapio_Firebase { get; set; }
 
     }
 }

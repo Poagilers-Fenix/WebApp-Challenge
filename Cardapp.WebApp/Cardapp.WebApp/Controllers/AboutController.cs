@@ -12,7 +12,6 @@ namespace Cardapp.WebApp.Controllers
         // GET: AboutController
         public ActionResult Index()
         {
-            HttpContext.Session.Clear();
             return View();
         }
     }

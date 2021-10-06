@@ -7,6 +7,7 @@ using Cardapp.WebApp.Repository.Context;
 using FireSharp.Interfaces;
 using FireSharp.Config;
 using FireSharp.Response;
+using Cardapp.WebApp.SessionHelper;
 
 namespace Cardapp.WebApp.Controllers
 {
@@ -52,35 +53,38 @@ namespace Cardapp.WebApp.Controllers
         [HttpGet]
         public IActionResult Cadastrar()
         {
+            var estabelecimento = HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao");
             ViewBag.status = new List<string>(new string[] { "S", "N" });
-            return View();
+            if (estabelecimento == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            Item item = new Item()
+            {
+                CodigoEstabelecimento = estabelecimento.CodigoEstabelecimento
+            };
+            return View(item);
         }
 
-        /*
         [HttpPost]
         public IActionResult Cadastrar(Item item)
         {
-            if (ModelState.IsValid)
-            {
-                try
+            try
                 {
                     client = new FireSharp.FirebaseClient(config);
                     var data = item;
                     PushResponse response = client.Push("itemCardapio/", data);
-                    data.id_ItemCardapio_Firebase = response.Result.name;
-                    SetResponse setResponse = client.Set("itemCardapio/" + data.id_ItemCardapio_Firebase, data);
-                    ModelState.AddModelError(string.Empty, "Salvo com sucesso");
+                    data.CodigoItem = response.Result.name;
+                    SetResponse setResponse = client.Set("itemCardapio/" + data.CodigoItem, data);
+                    TempData["success"] = "Cadastrado com sucesso";
                 }
                 catch (Exception ex)
                 {
                     TempData["Erro"] = "Erro ao cadastrar";
-                    ModelState.AddModelError(string.Empty, ex.Message);
                 }
                 return RedirectToAction("Cadastrar");
             }
-            return View();      
-        }
-        */
         [HttpGet]
         public IActionResult Editar(int id)
         {
