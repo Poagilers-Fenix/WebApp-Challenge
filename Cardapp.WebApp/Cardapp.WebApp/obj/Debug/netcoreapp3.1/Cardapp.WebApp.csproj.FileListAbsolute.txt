@@ -2698,7 +2698,6 @@ D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.W
 D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\bin\Debug\netcoreapp3.1\refs\Microsoft.VisualBasic.Core.dll
 D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\bin\Debug\netcoreapp3.1\refs\Microsoft.VisualBasic.dll
 D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\bin\Debug\netcoreapp3.1\refs\Microsoft.Win32.Primitives.dll
-D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\bin\Debug\netcoreapp3.1\refs\Microsoft.Win32.Registry.dll
 D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\bin\Debug\netcoreapp3.1\refs\mscorlib.dll
 D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\bin\Debug\netcoreapp3.1\refs\netstandard.dll
 D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\bin\Debug\netcoreapp3.1\refs\System.AppContext.dll
@@ -3026,7 +3025,6 @@ D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.W
 D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\ItemCardapio\Lanches.cshtml.g.cs
 D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\ItemCardapio\Pratos.cshtml.g.cs
 D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\ItemCardapio\Sobremesas.cshtml.g.cs
-D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\ItemCardapio\_Form.cshtml.g.cs
 D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\ItemCardapio\_FormCreateUpdate.cshtml.g.cs
 D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
@@ -3041,3 +3039,4 @@ D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.W
 D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Cardapp.WebApp.dll
 D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Cardapp.WebApp.pdb
 D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Cardapp.WebApp.genruntimeconfig.cache
+D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\ItemCardapio\_ListItems.cshtml.g.cs

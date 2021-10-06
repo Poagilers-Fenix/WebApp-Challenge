@@ -1,21 +1,21 @@
 ﻿using Cardapp.WebApp.Models;
+using Cardapp.WebApp.SessionHelper;
 using FireSharp.Config;
 using FireSharp.Interfaces;
 using FireSharp.Response;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Cardapp.WebApp.Controllers
 {
     public class HomeController : Controller
     {
+
+        public bool Logado { get; set; }
+
         IFirebaseConfig config = new FirebaseConfig
         {
             AuthSecret = "wvg4O1GNPzXqpGK95uGjhVValAjRiLX4iIM3P6YK",
@@ -42,18 +42,24 @@ namespace Cardapp.WebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(Gerente gerente)
+        public IActionResult Login(string email, string senha)
         {
-            List<Gerente> arrayGerente = new List<Gerente>();
             client = new FireSharp.FirebaseClient(config);
-            teste();
-            return View();
-        }
-        async void teste()
-        {
-            FirebaseResponse response = await client.GetAsync("/gerente/");
+
+            FirebaseResponse response = client.Get("/gerente/");
             JObject json = JObject.Parse(response.Body);
-            Console.WriteLine(json);
+
+            foreach (var g in json)
+            {
+                var gerente = g.Value.ToObject<Gerente>();
+                if (gerente.Email == email && gerente.Senha == senha)
+                {
+                    return RedirectToAction("Index", "ItemCardapio");
+                }
+            }
+
+            TempData["Erro"] = "Login inválido! Verifique se o e-mail e senha estão corretos.";
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
