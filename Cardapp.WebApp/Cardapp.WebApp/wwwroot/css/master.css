@@ -10,3 +10,7 @@
 
     position: fixed;
 }
+
+.btnNav, .btnNavAtual{
+    height: 3rem;
+}

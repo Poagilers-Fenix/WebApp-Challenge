@@ -18,6 +18,20 @@
 
 <div style="display: flex; flex-direction: column; justify-content: center; margin-left: 8%">
     <h1 style="display: flex; justify-content: center;" class="my-5">Edite o cardápio do seu restaurante</h1>
-    <partial name="_ListItems" />
+
+    <div class="card mx-auto" style="width: 80%; border: 2px solid #800; height: 80%">
+
+        <row>
+            <div class="btn-group w-100" role="group">
+                <a class="btn btnNav" asp-action="Index"><span class="material-icons pr-2">star</span>Destaques</a>
+                <a class="btn btnNav" asp-action="Pratos"><span class="material-icons pr-2">restaurant_menu</span>Pratos principais</a>
+                <a class="btn btnNav" asp-action="Bebidas"><span class="material-icons pr-2">local_bar</span>Bebidas</a>
+                <a class="btn btnNav" asp-action="Lanches"><span class="material-icons pr-2">fastfood</span>Lanches</a>
+                <a class="btn btnNavAtual text-white" asp-action="Sobremesas"><span class="material-icons pr-2">icecream</span>Sobremesas</a>
+            </div>
+        </row>
+
+        <partial name="_ListItems" />
+    </div>
 
 </div>

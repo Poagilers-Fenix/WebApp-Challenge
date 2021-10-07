@@ -2,7 +2,6 @@
 
 <row>
     <input asp-for="CodigoEstabelecimento" />
-    <input type="hidden" asp-for="CodigoCategoria" value="1" />
     <div class="form-row">
         <div class="col-4">
             <label asp-for="Nome" for="name">Nome</label>
@@ -40,8 +39,15 @@
     <div class="form-row formRowStyle">
         <div class="col-4">
             <label asp-for="Foto" for="foto">Link da foto do item</label>
-            <input asp-for="Foto" type="text" class="form-control-file" id="foto">
+            <input asp-for="Foto" type="text" class="form-control" id="foto">
             <span asp-validation-for="Foto" class="text-danger mb-3" style="text-align: center"></span>
+        </div>
+        <div class="col-4">
+            <label asp-for="Categoria"></label>
+            <select asp-items="@Html.GetEnumSelectList<CategoriaItem>()" asp-for=" Categoria"
+                    class="form-control">
+                <option>-- Selecione --</option>
+            </select>
         </div>
         <div class="col-4">
             <label class="form-check-label mr-5 mb-3" for="destaque">

@@ -10,11 +10,13 @@ namespace Cardapp.WebApp.Models
         [Column("CD_ITEM_CARDAPIO")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string CodigoItem { get; set; }
+        
         [HiddenInput]
         [Column("CD_ESTABELECIMENTO")]
         public string CodigoEstabelecimento { get; set; }
+
         [Column("CD_CATEGORIA")]
-        public string CodigoCategoria { get; set; }
+        public CategoriaItem Categoria { get; set; }
 
         [Column("ST_DESTAQUE")]
         [Display(Name = "Destaque")]
@@ -49,5 +51,10 @@ namespace Cardapp.WebApp.Models
         [MaxLength(1000, ErrorMessage = "A url de imagem do item deve ter 1000 caracteres ou menos.")]
         public string Foto { get; set; }
 
+    }
+
+    public enum CategoriaItem
+    {
+        Bebida, Sobremesa, Prato, Lanche
     }
 }

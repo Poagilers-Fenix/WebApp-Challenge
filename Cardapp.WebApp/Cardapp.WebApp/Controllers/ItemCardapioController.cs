@@ -15,6 +15,7 @@ namespace Cardapp.WebApp.Controllers
     public class ItemCardapioController : Controller
     {
         private static DataBaseContext ctx = new DataBaseContext();
+        IList<Item> items; Estabelecimento estab; JObject json;
 
         IFirebaseConfig config = new FirebaseConfig
         {
@@ -23,50 +24,92 @@ namespace Cardapp.WebApp.Controllers
         };
         IFirebaseClient client;
 
-
-        public IActionResult Index()
+        private void GetItems(out IList<Item> items, out Estabelecimento estab, out JObject json)
         {
             client = new FireSharp.FirebaseClient(config);
             //ViewBag.itens = ctx.Item.ToList<Item>();
-            IList<Item> items = new List<Item>();
-            Estabelecimento estab = HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao");
-
+            items = new List<Item>();
+            estab = HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao");
             FirebaseResponse response = client.Get("/itemCardapio/");
-            JObject json = JObject.Parse(response.Body);
+            json = JObject.Parse(response.Body);
+        }
 
-            
+        public IActionResult Index()
+        {
+            GetItems(out items, out estab, out json);
+
             foreach (var i in json)
             {
                 var item = i.Value.ToObject<Item>();
-                if (item.CodigoEstabelecimento == estab.CodigoEstabelecimento)
+                if (item.CodigoEstabelecimento == estab.CodigoEstabelecimento && item.Destaque == 'S')
                 {
                     items.Add(item);
                 }
             }
-                    
+
             return View(items);
-        }
-        [HttpPost]
-        public IActionResult Login()
-        {
-            return RedirectToAction("Index");
         }
         public IActionResult Pratos()
         {
-            return View();
+            GetItems(out items, out estab, out json);
+
+            foreach (var i in json)
+            {
+                var item = i.Value.ToObject<Item>();
+                if (item.CodigoEstabelecimento == estab.CodigoEstabelecimento && item.Categoria == CategoriaItem.Prato)
+                {
+                    items.Add(item);
+                }
+            }
+
+            return View(items);
         }
         public IActionResult Bebidas()
         {
-            return View();
+            GetItems(out items, out estab, out json);
+
+            foreach (var i in json)
+            {
+                var item = i.Value.ToObject<Item>();
+                if (item.CodigoEstabelecimento == estab.CodigoEstabelecimento && item.Categoria == CategoriaItem.Bebida)
+                {
+                    items.Add(item);
+                }
+            }
+
+            return View(items);
         }
         public IActionResult Lanches()
         {
-            return View();
+            GetItems(out items, out estab, out json);
+
+            foreach (var i in json)
+            {
+                var item = i.Value.ToObject<Item>();
+                if (item.CodigoEstabelecimento == estab.CodigoEstabelecimento && item.Categoria == CategoriaItem.Lanche)
+                {
+                    items.Add(item);
+                }
+            }
+
+            return View(items);
         }
         public IActionResult Sobremesas()
         {
-            return View();
+            GetItems(out items, out estab, out json);
+
+            foreach (var i in json)
+            {
+                var item = i.Value.ToObject<Item>();
+                if (item.CodigoEstabelecimento == estab.CodigoEstabelecimento && item.Categoria == CategoriaItem.Sobremesa)
+                {
+                    items.Add(item);
+                }
+            }
+
+            return View(items);
         }
+        
         [HttpGet]
         public IActionResult Cadastrar()
         {
@@ -88,20 +131,21 @@ namespace Cardapp.WebApp.Controllers
         public IActionResult Cadastrar(Item item)
         {
             try
-                {
-                    client = new FireSharp.FirebaseClient(config);
-                    var data = item;
-                    PushResponse response = client.Push("itemCardapio/", data);
-                    data.CodigoItem = response.Result.name;
-                    SetResponse setResponse = client.Set("itemCardapio/" + data.CodigoItem, data);
-                    TempData["success"] = "Cadastrado com sucesso";
-                }
-                catch (Exception ex)
-                {
-                    TempData["Erro"] = "Erro ao cadastrar";
-                }
-                return RedirectToAction("Cadastrar");
+            {
+                client = new FireSharp.FirebaseClient(config);
+                var data = item;
+                PushResponse response = client.Push("itemCardapio/", data);
+                data.CodigoItem = response.Result.name;
+                SetResponse setResponse = client.Set("itemCardapio/" + data.CodigoItem, data);
+                TempData["success"] = "Cadastrado com sucesso";
             }
+            catch (Exception ex)
+            {
+                TempData["Erro"] = "Erro ao cadastrar";
+            }
+            return RedirectToAction("Cadastrar");
+        }
+
         [HttpGet]
         public IActionResult Editar(int id)
         {
