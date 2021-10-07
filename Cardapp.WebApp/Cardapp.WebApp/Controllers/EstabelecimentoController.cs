@@ -45,7 +45,7 @@ namespace Cardapp.WebApp.Controllers
                     PushResponse responseEstab = client.Push("estab/", estabelecimento);
                     estabelecimento.CodigoEstabelecimento = responseEstab.Result.name;
                     SetResponse setResponseEstab = client.Set("estab/" + estabelecimento.CodigoEstabelecimento, estabelecimento);
-                    TempData["Erro"] = "Salvo com sucesso";
+                    TempData["Sucesso"] = "Salvo com sucesso";
 
                     var data = gerente;
                     gerente.CodigoEstabelecimento = estabelecimento.CodigoEstabelecimento;

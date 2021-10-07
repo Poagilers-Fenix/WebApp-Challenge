@@ -3,6 +3,7 @@ using Cardapp.WebApp.SessionHelper;
 using FireSharp.Config;
 using FireSharp.Interfaces;
 using FireSharp.Response;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
@@ -65,6 +66,7 @@ namespace Cardapp.WebApp.Controllers
                             {
                                 HttpContext.Session.SetObjectAsJson("EstabelecimentoSessao", estab);
                                 HttpContext.Session.SetObjectAsJson("GerenteSessao", gerente);
+                                HttpContext.Session.SetString("NomeEstabelecimento", estab.NomeFantasia);
                                 return RedirectToAction("Index", "ItemCardapio");
                             }
                         }

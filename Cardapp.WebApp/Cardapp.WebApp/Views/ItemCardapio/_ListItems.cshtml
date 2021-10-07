@@ -1,6 +1,9 @@
 ﻿@model IList<Item>
 
-<a asp-action="Cadastrar" class="btn btn-danger ml-3 my-3 py-2 px-2" style="width: 20%;">Adicionar um novo item no cardápio</a>
+<a asp-action="Cadastrar" class="btn btn-danger ml-3 my-3 py-2 px-2" style="width: 20%;">
+    Adicionar um novo item ao cardápio
+</a>
+
 
 <row>
     <table class="table">
@@ -14,37 +17,39 @@
                 <th scope="col"></th>
             </tr>
         </thead>
-        @(Model != null) ?
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td width="250px">
-                            <img src="@(item.Foto == null ? "https://raw.githubusercontent.com/Poagilers-Fenix/WebApp-Challenge/main/Imagens/no-image-found.png?token=AOXNWKVBRD3WDDJKASDBZT3BHUBDY" : @item.Foto)" style="width: 300px; height: 150px" class="img-thumbnail" alt="...">
-                        </td>
-                        <td class="align-middle">@item.Nome</td>
-                        <td class="align-middle" width="480px">@item.Descricao</td>
-                        <td class="align-middle" width="200px">R$ @item.Preco</td>
-                        <td class="align-middle" width="200px">@(item.ValCalorico != 0 ? $"{@item.ValCalorico} Kcal" : "----------" )</td>
-                        <td class="align-middle">
-                            <form asp-action="Remover">
-                                <div style="display: flex; flex-direction: column; margin-right: 2vw;">
-                                    <button onclick="idItemCardapio.value = @item.CodigoItem" type="button" class="mb-3 btn btn-danger" data-toggle="modal" data-target="#modalConfirma">
-                                        Remover
-                                    </button>
-                                    <a class="mb-3 btn btn-info" asp-action="Editar" asp-route-id="@item.CodigoItem">Editar</a>
-                                </div>
-                            </form>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-            :
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td width="250px">
+                        <img src="@(item.Foto == null ? "https://raw.githubusercontent.com/Poagilers-Fenix/WebApp-Challenge/main/Imagens/no-image-found.png?token=AOXNWKVBRD3WDDJKASDBZT3BHUBDY" : @item.Foto)" style="width: 300px; height: 150px" class="img-thumbnail" alt="...">
+                    </td>
+                    <td class="align-middle">@item.Nome</td>
+                    <td class="align-middle" width="480px">@item.Descricao</td>
+                    <td class="align-middle" width="200px">R$ @item.Preco</td>
+                    <td class="align-middle" width="200px">@(item.ValCalorico != 0 ? $"{@item.ValCalorico} Kcal" : "----------" )</td>
+                    <td class="align-middle">
+                        <form asp-action="Remover">
+                            <div style="display: flex; flex-direction: column; margin-right: 2vw;">
+                                <a class="mb-3 btn btn-info" asp-action="Editar" asp-route-id="@item.CodigoItem">Editar</a>
+                                <button onclick="idItemCardapio.value = @item.CodigoItem" type="button" class="mb-3 btn btn-danger" data-toggle="modal" data-target="#modalConfirma">
+                                    Remover
+                                </button>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+        @if (Model.Count == 0)
+        {
             <tbody>
                 <tr>
-                    <td colspan="6" class="text-info ml-4"> Não há nada por aqui!</td>
+                    <td colspan="6" class="text-info ml-4">  Não há nada por aqui!</td>
                 </tr>
             </tbody>
+        }
     </table>
 </row>
 
@@ -62,7 +67,7 @@
             </div>
             <div class="modal-footer border-top-0" style="background-color: powderblue; color: white">
                 <form asp-action="Remover">
-                    <input type="hidden" id="idItemCardapio" name="id" />
+                    <input readonly name="id" id="idItemCardapio" />
                     <button type="button" class="btn btn-dark" data-dismiss="modal">Não</button>
                     <button type="submit" class="btn btn-danger">Sim, delete o item do cardápio</button>
                 </form>

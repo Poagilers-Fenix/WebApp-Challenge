@@ -1,4 +1,6 @@
-﻿
+﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
 @{
     ViewData["Title"] = "Visualização do Cardápio - Bebidas";
     Layout = "_LayoutNavSide";
@@ -18,7 +20,16 @@
 
 
 <div style="display: flex; flex-direction: column; justify-content: center; margin-left: 8%">
-    <h1 style="display: flex; justify-content: center;" class="my-5">Edite o cardápio do seu restaurante</h1>
+    @if (@TempData["Sucesso"] != null)
+    {
+        <Feedback Texto="@TempData["Sucesso"]" is-error="false"></Feedback>
+    }
+    else
+    {
+        <Feedback Texto="@TempData["Erro"]" is-error="true"></Feedback>
+    }
+    <h2 style="display: flex; justify-content: center;" class="my-5 text-white">Gerencie seu cardápio - @HttpContextAccessor.HttpContext.Session.GetString("NomeEstabelecimento")</h2>
+
     <div class="card mx-auto" style="width: 80%; border: 2px solid #800; height: 80%">
 
         <row>
