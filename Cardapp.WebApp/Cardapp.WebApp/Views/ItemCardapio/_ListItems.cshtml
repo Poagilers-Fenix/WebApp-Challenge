@@ -29,14 +29,12 @@
                     <td class="align-middle" width="200px">R$ @item.Preco</td>
                     <td class="align-middle" width="200px">@(item.ValCalorico != 0 ? $"{@item.ValCalorico} Kcal" : "----------" )</td>
                     <td class="align-middle">
-                        <form asp-action="Remover">
-                            <div style="display: flex; flex-direction: column; margin-right: 2vw;">
-                                <a class="mb-3 btn btn-info" asp-action="Editar" asp-route-id="@item.CodigoItem">Editar</a>
-                                <button onclick="idItemCardapio.value = @item.CodigoItem" type="button" class="mb-3 btn btn-danger" data-toggle="modal" data-target="#modalConfirma">
-                                    Remover
-                                </button>
-                            </div>
-                        </form>
+                        <div style="display: flex; flex-direction: column; margin-right: 2vw;">
+                            <a class="mb-3 btn btn-info" asp-action="Editar" asp-route-id="@item.CodigoItem">Editar</a>
+                            <button onclick="idItemCardapio.value = '@item.CodigoItem'" type="button" class="mb-3 btn btn-danger" data-toggle="modal" data-target="#modalConfirma">
+                                Remover
+                            </button>
+                        </div>
                     </td>
                 </tr>
             }
@@ -63,11 +61,11 @@
                 <h5 class="modal-title" id="modalLabel">Confirmação</h5>
             </div>
             <div class="modal-body" style="background-color: powderblue">
-                Você tem certeza que deseja deletar o registro desse item do cardápio?
+                <p>Você tem certeza que deseja deletar o registro desse item do cardápio?</p>
             </div>
             <div class="modal-footer border-top-0" style="background-color: powderblue; color: white">
-                <form asp-action="Remover">
-                    <input readonly name="id" id="idItemCardapio" />
+                <form asp-action="remover">
+                    <input type="hidden" name="id" id="idItemCardapio" />
                     <button type="button" class="btn btn-dark" data-dismiss="modal">Não</button>
                     <button type="submit" class="btn btn-danger">Sim, delete o item do cardápio</button>
                 </form>
