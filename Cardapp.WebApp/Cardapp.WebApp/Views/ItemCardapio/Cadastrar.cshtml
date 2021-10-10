@@ -12,17 +12,17 @@
 
 
 <div style="display: flex; flex-direction: column; justify-content: center; margin-left: 8%;">
-    @if (@TempData["Sucesso"] != null)
-    {
-        <Feedback Texto="@TempData["Sucesso"]" is-error="false"></Feedback>
-    }
-    else
-    {
-        <Feedback Texto="@TempData["Erro"]" is-error="true"></Feedback>
-    }
     <h1 style="display: flex; justify-content: center;" class="my-5 text-white">Cadastre um item</h1>
     <div class="card cardStyle mx-auto" style="width: 70%">
         <form asp-action="Cadastrar">
+            @if (@TempData["Sucesso"] != null)
+            {
+                <Feedback Texto="@TempData["Sucesso"]" is-error="false"></Feedback>
+            }
+            else
+            {
+                <Feedback Texto="@TempData["Erro"]" is-error="true"></Feedback>
+            }
             <partial name="_FormCreateUpdate" />
             <row>
                 <div class="form-row formRowStyleButton">

@@ -150,10 +150,20 @@ namespace Cardapp.WebApp.Controllers
         [HttpPost]
         public IActionResult Cadastrar(Item item)
         {
+            GetItems(out items, out estab, out json);
+            client = new FireSharp.FirebaseClient(config);
             try
             {
-                client = new FireSharp.FirebaseClient(config);
                 var data = item;
+                foreach (var i in json)
+                {
+                    var itemJson = i.Value.ToObject<Item>();
+                    if (itemJson.Nome == item.Nome)
+                    {
+                        TempData["Erro"] = "Um item com o nome '" + item.Nome + "' já está cadastrado!";
+                        return RedirectToAction("Cadastrar");
+                    }
+                }
                 PushResponse response = client.Push("itemCardapio/", data);
                 data.CodigoItem = response.Result.name;
                 SetResponse setResponse = client.Set("itemCardapio/" + data.CodigoItem, data);

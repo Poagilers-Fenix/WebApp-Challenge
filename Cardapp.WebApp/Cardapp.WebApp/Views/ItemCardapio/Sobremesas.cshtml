@@ -19,15 +19,11 @@
 
 
 <div style="display: flex; flex-direction: column; justify-content: center; margin-left: 8%">
-    @if (@TempData["Sucesso"] != null)
-    {
-        <Feedback Texto="@TempData["Sucesso"]" is-error="false"></Feedback>
-    }
-    else
-    {
-        <Feedback Texto="@TempData["Erro"]" is-error="true"></Feedback>
-    }
-    <h2 style="display: flex; justify-content: center;" class="my-5 text-white">Gerencie seu cardápio - @HttpContextAccessor.HttpContext.Session.GetString("NomeEstabelecimento")</h2>
+    <div class="mr-5 mt-5 d-flex justify-content-end">
+        <a class="btn btn-warning btn-lg menu-button" role="button" asp-action="Index" asp-controller="Estabelecimento">Gerenciar conta</a>
+    </div>
+
+    <h2 style="display: flex; justify-content: center;" class="mb-5 mt-3 text-white">Gerencie seu cardápio - @HttpContextAccessor.HttpContext.Session.GetString("NomeEstabelecimento")</h2>
 
 
     <div class="card mx-auto" style="width: 80%; border: 2px solid #800; height: 80%">
@@ -42,6 +38,14 @@
             </div>
         </row>
 
+        @if (@TempData["Sucesso"] != null)
+        {
+            <Feedback Texto="@TempData["Sucesso"]" is-error="false"></Feedback>
+        }
+        else
+        {
+            <Feedback Texto="@TempData["Erro"]" is-error="true"></Feedback>
+        }
         <partial name="_ListItems" />
     </div>
 

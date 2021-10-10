@@ -52,6 +52,7 @@ namespace Cardapp.WebApp.Controllers
 
             foreach (var g in json)
             {
+                //Console.WriteLine(g.Value.ToObject<Gerente>().NomeGerente);
                 var gerente = g.Value.ToObject<Gerente>();
                 if (gerente.Email == email && gerente.Senha == senha)
                 {

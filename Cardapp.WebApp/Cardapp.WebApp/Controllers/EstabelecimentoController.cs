@@ -31,7 +31,6 @@ namespace Cardapp.WebApp.Controllers
 
         }
 
-
         [HttpPost]
         public IActionResult CadastroGerente(Gerente gerente)
         {
@@ -55,6 +54,7 @@ namespace Cardapp.WebApp.Controllers
 
                     // Guardar estab na sessão novamente
                     HttpContext.Session.SetObjectAsJson("EstabelecimentoSessao", estabelecimento);
+                    HttpContext.Session.SetObjectAsJson("GerenteSessao", gerente);
 
                 }
                 catch (Exception ex)
@@ -66,6 +66,37 @@ namespace Cardapp.WebApp.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult EditarGerente()
+        {
+            Gerente gerente = HttpContext.Session.GetObjectFromJson<Gerente>("GerenteSessao");
+
+            return View(gerente);
+        }
+
+        [HttpPost]
+        public IActionResult EditarGerente(Gerente gerente)
+        {
+            try
+            {
+                client = new FireSharp.FirebaseClient(config);
+                client.Update("/gerente/" + gerente.CodigoGerente, gerente);
+                HttpContext.Session.SetObjectAsJson("GerenteSessao", gerente);
+                TempData["Sucesso"] = "Alterações salvas com sucesso!";
+                return RedirectToAction("Index", "ItemCardapio");
+            } catch(Exception)
+            {
+                TempData["Erro"] = "Não foi possível salvar as alterações!";
+                return RedirectToAction("EditarGerente");
+            }
+        }
+
 
         [HttpGet]
         public IActionResult CadastroEstabelecimento()
@@ -74,17 +105,43 @@ namespace Cardapp.WebApp.Controllers
             return View();
         }
 
-
         [HttpPost]
         public IActionResult CadastroEstabelecimento(Estabelecimento estab)
         {
             if (ModelState.IsValid)
             {
                 HttpContext.Session.SetObjectAsJson("EstabelecimentoSessao", estab);
+                HttpContext.Session.SetString("NomeEstabelecimento", estab.NomeFantasia);
                 return RedirectToAction("CadastroGerente");
             }
             TempData["Erro"] = "Erro ao cadastrar o estabelecimento, cheque se as informações estão corretas e tente novamente.";
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult EditarEstabelecimento()
+        {
+            Estabelecimento estab = HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao");
+            return View(estab);
+        }
+
+        [HttpPost]
+        public IActionResult EditarEstabelecimento(Estabelecimento estab)
+        {
+            try
+            {
+                client = new FireSharp.FirebaseClient(config);
+                client.Update("/estab/" + estab.CodigoEstabelecimento, estab);
+                HttpContext.Session.SetObjectAsJson("EstabelecimentoSessao", estab);
+                HttpContext.Session.SetString("NomeEstabelecimento", estab.NomeFantasia);
+                TempData["Sucesso"] = "Alterações salvas com sucesso!";
+                return RedirectToAction("Index", "ItemCardapio");
+            }
+            catch (Exception)
+            {
+                TempData["Erro"] = "Não foi possível salvar as alterações!";
+                return RedirectToAction("EditarEstabelecimento");
+            }
         }
 
     }

@@ -9845,19 +9845,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\danie\\.nuget\\packages\\": {}
+    "C:\\Users\\gih_m\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\VisualStudio Projects\\WebApp_Cardapp\\Cardapp.WebApp\\Cardapp.WebApp\\Cardapp.WebApp.csproj",
+      "projectUniqueName": "D:\\Arquivos de Programas (x86)\\Git-Hub\\WebApp-Challenge\\Cardapp.WebApp\\Cardapp.WebApp\\Cardapp.WebApp.csproj",
       "projectName": "Cardapp.WebApp",
-      "projectPath": "D:\\VisualStudio Projects\\WebApp_Cardapp\\Cardapp.WebApp\\Cardapp.WebApp\\Cardapp.WebApp.csproj",
-      "packagesPath": "C:\\Users\\danie\\.nuget\\packages\\",
-      "outputPath": "D:\\VisualStudio Projects\\WebApp_Cardapp\\Cardapp.WebApp\\Cardapp.WebApp\\obj\\",
+      "projectPath": "D:\\Arquivos de Programas (x86)\\Git-Hub\\WebApp-Challenge\\Cardapp.WebApp\\Cardapp.WebApp\\Cardapp.WebApp.csproj",
+      "packagesPath": "C:\\Users\\gih_m\\.nuget\\packages\\",
+      "outputPath": "D:\\Arquivos de Programas (x86)\\Git-Hub\\WebApp-Challenge\\Cardapp.WebApp\\Cardapp.WebApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\danie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\gih_m\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9940,7 +9940,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   },

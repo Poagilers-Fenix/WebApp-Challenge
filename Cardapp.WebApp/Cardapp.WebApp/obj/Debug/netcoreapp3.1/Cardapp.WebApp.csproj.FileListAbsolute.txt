@@ -3508,3 +3508,9 @@ D:\VisualStudio Projects\WebApp_Cardapp\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\
 D:\VisualStudio Projects\WebApp_Cardapp\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Cardapp.WebApp.pdb
 D:\VisualStudio Projects\WebApp_Cardapp\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Cardapp.WebApp.genruntimeconfig.cache
 D:\VisualStudio Projects\WebApp_Cardapp\Cardapp.WebApp\Cardapp.WebApp\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.Web.BrowserLink.dll
+D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.Web.BrowserLink.dll
+D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Estabelecimento\Index.cshtml.g.cs
+D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Estabelecimento\EditarGerente.cshtml.g.cs
+D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Estabelecimento\_FormCreateUpdateEstabelecimento.cshtml.g.cs
+D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Estabelecimento\_FormCreateUpdateGerente.cshtml.g.cs
+D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Estabelecimento\EditarEstabelecimento.cshtml.g.cs
