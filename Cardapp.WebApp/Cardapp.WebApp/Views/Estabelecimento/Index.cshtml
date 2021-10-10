@@ -1,5 +1,7 @@
-﻿@{
-    ViewData["Title"] = "GerenciarConta";
+﻿@model Estabelecimento
+
+@{
+    ViewData["Title"] = "Gerenciar Conta";
     Layout = "_LayoutNavSide";
 }
 
@@ -8,13 +10,31 @@
 <link href="~/css/buttons.css" rel="stylesheet" />
 
 <div style="display: flex; flex-direction: column; justify-content: center; margin-left: 7%; height: 80vh">
-    <div class="card mx-auto" style="width: 70%; height: 60%; border-radius: 20px; border: 2px solid #800; ">
-        <h2 style="display: flex; justify-content: center;" class="mb-5 mt-5 bold">Gerenciar Conta</h2>
+    <div class="card mx-auto" style="width: 70%; height: 70%; border-radius: 20px; box-shadow: 6px 6px 15px #333; ">
+        <div class="d-flex row my-auto justify-content-around align-content-center">
+            <div class="col-md-5 div-warning">
+                <span style="display: flex; justify-content: center; font-size: 40px; color: #FFc107" class="material-icons ml-2 mb-1">manage_accounts</span>
+                <h2 style="display: flex; justify-content: center;" class="mb-5 bold">Gerenciar Conta</h2>
 
-        <h3 style="display: flex; justify-content: center;" class="mb-3">Editar informações</h3>
-        <div class="mx-auto row">
-            <a asp-action="EditarGerente" asp-controller="Estabelecimento" class="btn btn-warning mx-2">Gerente</a>
-            <a asp-action="EditarEstabelecimento" asp-controller="Estabelecimento" class="btn btn-warning mx-2">Estabelecimento</a>
+                <h3 style="display: flex; justify-content: center;" class="mb-3">Editar informações</h3>
+                <div class="mx-auto row justify-content-center">
+                    <a asp-action="EditarGerente" asp-controller="Estabelecimento" class="btn btn-warning mx-2">Gerente</a>
+                    <a asp-action="EditarEstabelecimento" asp-controller="Estabelecimento" class="btn btn-warning mx-2">Estabelecimento</a>
+                </div>
+            </div>
+            <div class="col-md-5 div-danger">
+                <h2 style="display: flex; justify-content: center;" class="mb-3 bold"><span class="material-icons text-danger" style="font-size: 50px">report_gmailerrorred</span></h2>
+
+                <h3 style="display: flex; justify-content: center;" class="mb-3">Apagar estabelecimento</h3>
+                <div class="mx-auto row justify-content-center">
+                    <button onclick="idEstab.value = '@Model.CodigoEstabelecimento'" type="button" class="mb-3 btn btn-danger" data-toggle="modal" data-target="#modalConfirma">
+                        Apagar definitivamente
+                    </button>
+                </div>
+            </div>
+            <div class="mt-4">
+                <a asp-action="Index" asp-controller="ItemCardapio" class="btn btn-voltar">Voltar para o cardápio</a>
+            </div>
         </div>
     </div>
 </div>
@@ -23,5 +43,45 @@
     html {
         background-color: #4196A6;
     }
+    .div-danger {
+        border: #DC3545 solid 1px; 
+        border-radius: 20px; 
+        padding: 5% 0;
+    }
+    .div-warning {
+        border: #FFC107 solid 1px;
+        border-radius: 20px;
+        padding: 2.5% 0;
+    }
+    .btn-voltar{
+        background-color: #800;
+        color: aliceblue;  
+    }
+    .btn-voltar:hover {
+        background-color: #600;
+        color: aliceblue;
+    }
 </style>
+
+
+<div class="modal fade" id="modalConfirma" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #23272B; color: white">
+                <h5 class="modal-title" id="modalLabel">Confirmação</h5>
+            </div>
+            <div class="modal-body" style="background-color: powderblue">
+                <p>Não será possível reverter esta ação. Você não poderá mais acessar o sistema, seus dados, os do estabelecimento e todos os itens do cardápio serão apagados. Tem certeza que deseja apagar <b>definitivamente</b> o estabelecimento? </p>
+            </div>
+            <div class="modal-footer border-top-0" style="background-color: powderblue; color: white">
+                <form asp-action="Remover">
+                    <input type="hidden" name="id" id="idEstab" />
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">Não</button>
+                    <button type="submit" class="btn btn-danger">Sim, apagar estabelecimento</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 

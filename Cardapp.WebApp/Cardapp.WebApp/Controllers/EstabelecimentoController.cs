@@ -6,6 +6,8 @@ using Cardapp.WebApp.Models;
 using FireSharp.Response;
 using Microsoft.AspNetCore.Http;
 using Cardapp.WebApp.SessionHelper;
+using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 namespace Cardapp.WebApp.Controllers
 {
@@ -44,7 +46,7 @@ namespace Cardapp.WebApp.Controllers
                     PushResponse responseEstab = client.Push("estab/", estabelecimento);
                     estabelecimento.CodigoEstabelecimento = responseEstab.Result.name;
                     SetResponse setResponseEstab = client.Set("estab/" + estabelecimento.CodigoEstabelecimento, estabelecimento);
-                    TempData["Sucesso"] = "Salvo com sucesso";
+                    TempData["Sucesso"] = "Bem vindo(a) ao Cardapp!";
 
                     var data = gerente;
                     gerente.CodigoEstabelecimento = estabelecimento.CodigoEstabelecimento;
@@ -55,13 +57,14 @@ namespace Cardapp.WebApp.Controllers
                     // Guardar estab na sessão novamente
                     HttpContext.Session.SetObjectAsJson("EstabelecimentoSessao", estabelecimento);
                     HttpContext.Session.SetObjectAsJson("GerenteSessao", gerente);
+                    return RedirectToAction("index", "ItemCardapio");
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    TempData["Erro"] = "Erro ao cadastrar";
+                    TempData["Erro"] = "Erro ao cadastrar!";
+                    return View();
                 }
-                return RedirectToAction("index", "ItemCardapio");
             }
             return View();
         }
@@ -69,7 +72,8 @@ namespace Cardapp.WebApp.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            Estabelecimento estab = HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao");
+            return View(estab);
         }
 
         [HttpGet]
@@ -96,7 +100,6 @@ namespace Cardapp.WebApp.Controllers
                 return RedirectToAction("EditarGerente");
             }
         }
-
 
         [HttpGet]
         public IActionResult CadastroEstabelecimento()
@@ -142,6 +145,34 @@ namespace Cardapp.WebApp.Controllers
                 TempData["Erro"] = "Não foi possível salvar as alterações!";
                 return RedirectToAction("EditarEstabelecimento");
             }
+        }
+
+        [HttpPost]
+        public IActionResult Remover(string id)
+        {
+            client = new FireSharp.FirebaseClient(config);
+            Gerente gerente = HttpContext.Session.GetObjectFromJson<Gerente>("GerenteSessao");
+            FirebaseResponse response = client.Get("/itemCardapio/");
+            if (response.Body != "null")
+            {
+                JObject json = JObject.Parse(response.Body);
+
+                foreach (var i in json)
+                {
+                    var item = i.Value.ToObject<Item>();
+                    if (item.CodigoEstabelecimento == gerente.CodigoEstabelecimento)
+                    {
+                        client.Delete("/itemCardapio/"+item.CodigoItem);
+                    }
+                }
+
+            }
+            client.Delete("/gerente/" + gerente.CodigoGerente);
+            client.Delete("/estab/" + gerente.CodigoEstabelecimento);
+
+            //GetItems(out items, out estab, out json);
+
+            return RedirectToAction("Index", "Home");
         }
 
     }

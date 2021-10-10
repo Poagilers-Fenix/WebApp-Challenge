@@ -15,7 +15,6 @@ namespace Cardapp.WebApp.Controllers
 {
     public class ItemCardapioController : Controller
     {
-        private static DataBaseContext ctx = new DataBaseContext();
         IList<Item> items; Estabelecimento estab; JObject json;
 
         IFirebaseConfig config = new FirebaseConfig
