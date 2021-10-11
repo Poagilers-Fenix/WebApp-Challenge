@@ -16,11 +16,11 @@ namespace Cardapp.WebApp.Models
         public string CodigoEstabelecimento { get; set; }
 
         [Column("CD_CATEGORIA")]
+        [Display(Name =  "Selecione a categoria do item")]
         public CategoriaItem Categoria { get; set; }
 
         [Column("ST_DESTAQUE")]
-        [Display(Name = "Destaque")]
-        [Required(ErrorMessage = "Este campo é obrigatório.")]
+        [Display(Name = "Esse item está em destaque?")]
         public char Destaque { get; set; }
 
         [Column("NM_ITEM_CARDAPIO")]
@@ -36,15 +36,15 @@ namespace Cardapp.WebApp.Models
         public string Descricao { get; set; }
 
         [Column("VL_ITEM_CARDAPIO")]
-        [RegularExpression(@"(^[0-9]{0,5}[,][0-9]{2})", ErrorMessage = "O salário deve ser somente números. Ex: 1000,00.")]
+        [RegularExpression(@"(^[0-9]{0,5}[,][0-9]{2})", ErrorMessage = "O valor do item deve ser somente números, no formato: 1000,00.")]
         [Display(Name = "Preço")]
         [Required(ErrorMessage = "Este campo é obrigatório.")]
-        public decimal Preco { get; set; }
+        public decimal? Preco { get; set; }
 
         [Column("VL_CALORICO")]
-        [RegularExpression(@"(^[0-9]{0,4})", ErrorMessage = "O valor calórico deve ser somente números. Ex: 1009.")]
+        [RegularExpression(@"(^[0-9]{0,4})", ErrorMessage = "O valor calórico deve ser somente números, no formato: 1009.")]
         [Display(Name = "Valor calórico")]
-        public int ValCalorico { get; set; }
+        public decimal? ValCalorico { get; set; }
 
         [Column("FL_FOTO_IC")]
         [Display(Name = "Foto")]
