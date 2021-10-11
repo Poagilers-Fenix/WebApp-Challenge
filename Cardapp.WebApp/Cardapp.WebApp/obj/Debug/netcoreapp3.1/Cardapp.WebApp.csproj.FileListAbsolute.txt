@@ -3013,7 +3013,6 @@ D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.W
 D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Cardapp.WebApp.TagHelpers.input.cache
 D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Cardapp.WebApp.TagHelpers.output.cache
 D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Cardapp.WebApp.RazorCoreGenerate.cache
-D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\About\Index.cshtml.g.cs
 D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Estabelecimento\CadastroEstabelecimento.cshtml.g.cs
 D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Estabelecimento\CadastroGerente.cshtml.g.cs
 D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
@@ -3514,3 +3513,6 @@ D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.W
 D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Estabelecimento\_FormCreateUpdateEstabelecimento.cshtml.g.cs
 D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Estabelecimento\_FormCreateUpdateGerente.cshtml.g.cs
 D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Estabelecimento\EditarEstabelecimento.cshtml.g.cs
+D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Home\Projeto.cshtml.g.cs
+D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Home\Grupo.cshtml.g.cs
+D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Home\_LeftContent.cshtml.g.cs

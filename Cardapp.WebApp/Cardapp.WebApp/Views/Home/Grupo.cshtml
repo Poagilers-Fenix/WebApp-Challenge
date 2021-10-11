@@ -1,0 +1,156 @@
+﻿
+@{
+    ViewData["Title"] = "Sobre Nós";
+    Layout = "_Layout";
+}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Wendy+One&display=swap" rel="stylesheet">
+<link href="~/css/master.css" rel="stylesheet" />
+<link href="~/css/index-about.css" rel="stylesheet" />
+
+<div class="page-content">
+    <partial name="_LeftContent" />
+    <div class="right-content mb-5">
+        <div>
+            <div>
+                <p class="page-title">Sobre Nós</p>
+            </div>
+            <div class="d-flex align-items-center justify-content-around">
+                <p class="paragraph" style="width: 40%;">
+                    Um recomeço. Novas descobertas, infinitas possibilidades e vontade de fazer bonito e com a melhor qualidade,
+                    independente do prazo. Então nos encontramos, nos unimos e demos início ao longo processo do conhecimento.
+                </p>
+                <img src="~/img/group-work.svg" class="main-image" width="600" />
+            </div>
+        </div>
+        <div>
+            <div class="d-flex align-items-center justify-content-around">
+                <img src="~/img/meeting.svg" class="main-image" width="600" />
+                <p class="paragraph" style="width: 40%;">
+                    Com muita dedicação, conquistamos em 2020 o prêmio DISRUPT 21, algo que trouxe muito conhecimento e experiencia para todos os membros de nosso grupo.
+                    Um dos pontos fortes de nossa equipe, cada membro tem habilidades em setores diferentes, o que nos torna eficientes e produtivos em uma rotina de entregas e trabalhos.
+                </p>
+            </div>
+        </div>
+        <div>
+            <div class="d-flex align-items-center justify-content-around">
+                <p class="paragraph" style="width: 40%;">
+                    Conquistamos não apenas prêmios, mas também uma amizade que transcende estudos e trabalhos. E é claro, que se estamos em um ambiente confortável e prazeroso, conseguimos desenvolver mais e criar ideias incríveis.
+                </p>
+                <img src="~/img/team.svg" class="main-image" width="600" />
+            </div>
+        </div>
+        <div class="d-flex flex-column align-items-center mb-5 func-disp">
+            <p class="paragraph">Conheça um pouco sobre os membros da nossa equipe</p>
+            <img src="~/img/arrowDown.png" width="100" />
+        </div>
+
+        <div class="container">
+            <!-- Example row of columns -->
+            <div class="row">
+                <div class="col-md-4 img-card">
+                    <div class="front">
+                        <img alt="ftKaue" src="~/img/poagilers/kaue.png">
+                        <h2>Kaue Augusto</h2>
+                        <p>RM 85707</p>
+                    </div>
+                    <div class="back">
+
+                    </div>
+                </div>
+
+
+                <div class="col-md-4">
+                    <img alt="ftLari" src="~/img/poagilers/larissa.png">
+                    <h2>Larissa Alves</h2>
+                    <p>RM 86351</p>
+                </div>
+
+                <div class="col-md-4">
+                    <img alt="ftDan" src="~/img/poagilers/daniel.png">
+                    <h2>Daniel Sanchez</h2>
+                    <p>RM 85109</p>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-4">
+                    <img alt="ftDan" src="~/img/poagilers/henrique.png">
+                    <h2>Henrique Neves</h2>
+                    <p>RM 84549</p>
+                </div>
+
+                <div class="col-md-4">
+                    <img alt="ftGi" src="~/img/poagilers/gi.png">
+                    <h2>Giovanna de Mello</h2>
+                    <p>RM 85817</p>
+                </div>
+
+                <div class="col-md-4">
+                    <img alt="ftEric" src="~/img/poagilers/eric.png">
+                    <h2>Eric Luiz</h2>
+                    <p>RM 86405</p>
+                </div>
+            </div>
+
+            <hr>
+        </div>
+
+        <footer class="mt-4 col-11 d-flex justify-content-center align-content-center">
+            <p>&copy; Poagilers Company</p>
+        </footer>
+    </div>
+</div>
+
+<style>
+    .img-card {
+        transform-style: preserve-3d;
+        transition: all 0.8s ease;
+    }
+    .img-card:hover {
+        transform: rotateY(180deg);
+    }
+    .front {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        backface-visibility: hidden;
+        overflow: hidden;
+        background: #ffc728;
+        color: #000;
+    }
+    .back {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        backface-visibility: hidden;
+        overflow: hidden;
+        background: #fafafa;
+        color: #333;
+        text-align: center;
+        transform: rotateY(180deg);
+    }
+    /*This block (starts here) is merely styling for the flip card, and is NOT an essential part of the flip code */
+    .front h1, .back h1 {
+        font-family: 'zilla slab', sans-serif;
+        padding: 30px;
+        font-weight: bold;
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .front p, .back p {
+        font-family: 'zilla slab', sans-serif;
+        padding: 30px;
+        font-weight: normal;
+        font-size: 12px;
+        text-align: center;
+    }
+</style>

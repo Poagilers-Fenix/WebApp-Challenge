@@ -36,6 +36,16 @@ namespace Cardapp.WebApp.Controllers
             return View();
         }
 
+        public ActionResult Projeto()
+        {
+            return View();
+        }
+
+        public ActionResult Grupo()
+        {
+            return View();
+        }
+
         [HttpGet]
         public IActionResult Login()
         {
