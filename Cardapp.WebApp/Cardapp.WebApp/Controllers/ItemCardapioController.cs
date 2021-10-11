@@ -15,7 +15,9 @@ namespace Cardapp.WebApp.Controllers
 {
     public class ItemCardapioController : Controller
     {
-        IList<Item> items; Estabelecimento estab; JObject json;
+        IList<Item> items; 
+        Estabelecimento estab;
+        JObject json;
 
         IFirebaseConfig config = new FirebaseConfig
         {
@@ -24,7 +26,7 @@ namespace Cardapp.WebApp.Controllers
         };
         IFirebaseClient client;
 
-        private void GetItems(out IList<Item> items, out Estabelecimento estab, out JObject json)
+        private void GetItems(string Categoria, bool Destaque = false)
         {
             client = new FireSharp.FirebaseClient(config);
             items = new List<Item>();
@@ -33,6 +35,27 @@ namespace Cardapp.WebApp.Controllers
             if (response.Body != "null")
             {
                 json = JObject.Parse(response.Body);
+                foreach (var i in json)
+                {
+                    var item = i.Value.ToObject<Item>();
+                    if (item.CodigoEstabelecimento == estab.CodigoEstabelecimento)
+                    {
+                        if(Categoria != "None")
+                        {
+                            if(item.Categoria == (CategoriaItem)Enum.Parse(typeof(CategoriaItem), Categoria))
+                            {
+                                items.Add(item);
+                            }
+                        }
+                        else if(Destaque)
+                        {
+                            if(item.Destaque == 'S')
+                            {
+                                items.Add(item);
+                            }
+                        }
+                    }
+                }
                 return;
             }
             json = null;
@@ -40,92 +63,27 @@ namespace Cardapp.WebApp.Controllers
 
         public IActionResult Index()
         {
-            GetItems(out items, out estab, out json);
-
-            if (json != null)
-            {
-                foreach (var i in json)
-                {
-                    var item = i.Value.ToObject<Item>();
-                    if (item.CodigoEstabelecimento == estab.CodigoEstabelecimento && item.Destaque == 'S')
-                    {
-                        items.Add(item);
-                    }
-                }
-            }
-
+            GetItems("None", true);
             return View(items);
         }
         public IActionResult Pratos()
         {
-            GetItems(out items, out estab, out json);
-
-            if (json != null)
-            {
-                foreach (var i in json)
-                {
-                    var item = i.Value.ToObject<Item>();
-                    if (item.CodigoEstabelecimento == estab.CodigoEstabelecimento && item.Categoria == CategoriaItem.Prato)
-                    {
-                        items.Add(item);
-                    }
-                }
-            }
-
+            GetItems("Prato");
             return View(items);
         }
         public IActionResult Bebidas()
         {
-            GetItems(out items, out estab, out json);
-
-            if(json != null)
-            {
-                foreach (var i in json)
-                {
-                    var item = i.Value.ToObject<Item>();
-                    if (item.CodigoEstabelecimento == estab.CodigoEstabelecimento && item.Categoria == CategoriaItem.Bebida)
-                    {
-                        items.Add(item);
-                    }
-                }
-            }
-
+            GetItems("Bebida");
             return View(items);
         }
         public IActionResult Lanches()
         {
-            GetItems(out items, out estab, out json);
-
-            if (json != null)
-            {
-                foreach (var i in json)
-                {
-                    var item = i.Value.ToObject<Item>();
-                    if (item.CodigoEstabelecimento == estab.CodigoEstabelecimento && item.Categoria == CategoriaItem.Lanche)
-                    {
-                        items.Add(item);
-                    }
-                }
-            }
-
+            GetItems("Lanche");
             return View(items);
         }
         public IActionResult Sobremesas()
         {
-            GetItems(out items, out estab, out json);
-
-            if (json != null)
-            {
-                foreach (var i in json)
-                {
-                    var item = i.Value.ToObject<Item>();
-                    if (item.CodigoEstabelecimento == estab.CodigoEstabelecimento && item.Categoria == CategoriaItem.Sobremesa)
-                    {
-                        items.Add(item);
-                    }
-                }
-            }
-
+            GetItems("Sobremesa");
             return View(items);
         }
 
@@ -149,7 +107,7 @@ namespace Cardapp.WebApp.Controllers
         [HttpPost]
         public IActionResult Cadastrar(Item item)
         {
-            GetItems(out items, out estab, out json);
+            GetItems("None");
             client = new FireSharp.FirebaseClient(config);
             try
             {
