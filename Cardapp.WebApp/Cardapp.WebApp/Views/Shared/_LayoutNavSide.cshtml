@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="~/css/index-about.css" rel="stylesheet" />
+    <script src="~/js/site.js"></script>
 </head>
 <body style="background-color: #4196A6">
     <div class="d-flex flex-column justify-content-between align-items-center small-left-content">
@@ -14,9 +15,9 @@
             <img src="~/img/logo.svg" width="100" />
         </a>
         <div class="mb-3 d-flex flex-column align-items-center">
-            <a asp-action="index" asp-controller="Home" class="mb-3 d-flex justify-content-center" title="Página Inicial">
-                <img src="/img/next.svg" style="width: 65%; -moz-transform: scaleX(-1); -o-transform: scaleX(-1); -webkit-transform: scaleX(-1); transform: scaleX(-1);"/>
-            </a>
+            <button onclick="goBack()" class="mb-3 btn d-flex justify-content-center">
+                <img src="/img/next.svg" style="width: 65%; -moz-transform: scaleX(-1); -o-transform: scaleX(-1); -webkit-transform: scaleX(-1); transform: scaleX(-1);" />
+            </button>
         </div>
     </div>
     <main role="main">
@@ -28,3 +29,9 @@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
