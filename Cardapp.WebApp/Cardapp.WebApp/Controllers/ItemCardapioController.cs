@@ -40,7 +40,7 @@ namespace Cardapp.WebApp.Controllers
                     var item = i.Value.ToObject<Item>();
                     if (item.CodigoEstabelecimento == estab.CodigoEstabelecimento)
                     {
-                        if(Categoria != "None")
+                        if(Categoria != "None" && Categoria != "All")
                         {
                             if(item.Categoria == (CategoriaItem)Enum.Parse(typeof(CategoriaItem), Categoria))
                             {
@@ -53,6 +53,10 @@ namespace Cardapp.WebApp.Controllers
                             {
                                 items.Add(item);
                             }
+                        }
+                        else if(Categoria == "All")
+                        {
+                            items.Add(item);
                         }
                     }
                 }
@@ -90,47 +94,45 @@ namespace Cardapp.WebApp.Controllers
         [HttpGet]
         public IActionResult Cadastrar()
         {
-            var estabelecimento = HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao");
             ViewBag.status = new List<string>(new string[] { "S", "N" });
-            if (estabelecimento == null)
-            {
-                return RedirectToAction("Index");
-            }
-
-            Item item = new Item()
-            {
-                CodigoEstabelecimento = estabelecimento.CodigoEstabelecimento
-            };
-            return View(item);
+            return View();
         }
 
         [HttpPost]
         public IActionResult Cadastrar(Item item)
         {
-            GetItems("None");
-            client = new FireSharp.FirebaseClient(config);
-            try
+            if (ModelState.IsValid)
             {
-                var data = item;
-                foreach (var i in json)
+                GetItems("All");
+                client = new FireSharp.FirebaseClient(config);
+                try
                 {
-                    var itemJson = i.Value.ToObject<Item>();
-                    if (itemJson.Nome == item.Nome)
+                    foreach (var i in json)
                     {
-                        TempData["Erro"] = "Um item com o nome '" + item.Nome + "' já está cadastrado!";
-                        return RedirectToAction("Cadastrar");
+                        var itemJson = i.Value.ToObject<Item>();
+                        if (itemJson.Nome == item.Nome)
+                        {
+                            TempData["Erro"] = "Um item com o nome '" + item.Nome + "' já está cadastrado!";
+                            return RedirectToAction("Cadastrar");
+                        }
                     }
+                    var estabelecimento = HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao");
+                    item.CodigoEstabelecimento = estabelecimento.CodigoEstabelecimento;
+                    PushResponse response = client.Push("itemCardapio/", item);
+                    item.CodigoItem = response.Result.name;
+                    SetResponse setResponse = client.Set("itemCardapio/" + item.CodigoItem, item);
+                    TempData["Sucesso"] = "Cadastrado com sucesso";
+                    return RedirectToAction("Cadastrar");
                 }
-                PushResponse response = client.Push("itemCardapio/", data);
-                data.CodigoItem = response.Result.name;
-                SetResponse setResponse = client.Set("itemCardapio/" + data.CodigoItem, data);
-                TempData["Sucesso"] = "Cadastrado com sucesso";
+                catch (Exception)
+                {
+                    TempData["Erro"] = "Erro ao cadastrar";
+                    return RedirectToAction("Cadastrar");
+                }
             }
-            catch (Exception)
-            {
-                TempData["Erro"] = "Erro ao cadastrar";
-            }
-            return RedirectToAction("Cadastrar");
+            TempData["Erro"] = "Erro ao cadastrar o item, cheque se as informações estão corretas e tente novamente.";
+            ViewBag.status = new List<string>(new string[] { "S", "N" });
+            return View();
         }
 
         [HttpGet]
@@ -167,20 +169,19 @@ namespace Cardapp.WebApp.Controllers
         [HttpPost]
         public IActionResult Remover(string id)
         {
-            //try
-            //{
-                client = new FireSharp.FirebaseClient(config);
+            try
+            {
+            client = new FireSharp.FirebaseClient(config);
             client.Delete("/itemCardapio/"+id);
             Console.WriteLine("id:"+id);
                 TempData["Sucesso"] = "Item Removido!";
                 return RedirectToAction("Index");
-            //}
-            //catch (Exception e)
-            //{
-                //TempData["Erro"] = "Erro ao remover";
-                //Console.WriteLine(e);
-                //return RedirectToAction("Index");
-            //}
+            }
+            catch (Exception)
+            {
+                TempData["Erro"] = "Erro ao remover";
+                return RedirectToAction("Index");
+            }
 
         }
 
