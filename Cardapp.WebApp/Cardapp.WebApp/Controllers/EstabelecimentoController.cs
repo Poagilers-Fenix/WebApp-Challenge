@@ -73,12 +73,22 @@ namespace Cardapp.WebApp.Controllers
         public IActionResult Index()
         {
             Estabelecimento estab = HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao");
+            if (estab == null)
+            {
+                TempData["Erro"] = "Faça o login para acessar o sistema!";
+                return RedirectToAction("Login", "Home");
+            }
             return View(estab);
         }
 
         [HttpGet]
         public IActionResult EditarGerente()
         {
+            if (HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao") == null)
+            {
+                TempData["Erro"] = "Faça o login para acessar o sistema!";
+                return RedirectToAction("Login", "Home");
+            }
             Gerente gerente = HttpContext.Session.GetObjectFromJson<Gerente>("GerenteSessao");
 
             return View(gerente);
@@ -131,6 +141,11 @@ namespace Cardapp.WebApp.Controllers
         [HttpPost]
         public IActionResult EditarEstabelecimento(Estabelecimento estab)
         {
+            if (HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao") == null)
+            {
+                TempData["Erro"] = "Faça o login para acessar o sistema!";
+                return RedirectToAction("Login", "Home");
+            }
             try
             {
                 client = new FireSharp.FirebaseClient(config);

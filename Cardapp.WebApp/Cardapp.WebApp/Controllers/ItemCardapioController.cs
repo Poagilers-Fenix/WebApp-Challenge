@@ -15,7 +15,7 @@ namespace Cardapp.WebApp.Controllers
 {
     public class ItemCardapioController : Controller
     {
-        IList<Item> items; 
+        List<Item> items; 
         Estabelecimento estab;
         JObject json;
 
@@ -219,7 +219,6 @@ namespace Cardapp.WebApp.Controllers
 
         }
 
-        [HttpGet]
         public IActionResult BuscarTodos(string nomeBusca)
         {
             if (HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao") == null)
@@ -230,10 +229,12 @@ namespace Cardapp.WebApp.Controllers
             GetItems("All");
             if (!string.IsNullOrEmpty(nomeBusca))
             {
-                return View(items.Where(i => i.Nome.Contains(nomeBusca)));
+                var filter = items.FindAll(i => i.Nome.ToLower().Contains(nomeBusca.ToLower()));
+                ViewBag.nomeItem = nomeBusca;
+                return View(filter);
             }
+
             return View(items);
-            
         }
 
     }

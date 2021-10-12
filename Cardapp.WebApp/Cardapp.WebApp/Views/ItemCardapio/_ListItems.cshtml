@@ -16,6 +16,16 @@
             Listar todos os itens
         </a>
     </div>
+    @if (ViewBag.nomeItem != null)
+    {
+        <div class="my-auto mr-3">
+            <p style="border: 2px #ccc solid; padding: 5px 5px 5px 10px; border-radius: 5px; display: flex">@ViewBag.nomeItem 
+                <a asp-action="BuscarTodos">
+                    <span class="material-icons d-flex align-content-center text-danger ml-3">cancel</span>
+                </a>
+            </p>
+        </div>
+    }
 </div>
 
 
