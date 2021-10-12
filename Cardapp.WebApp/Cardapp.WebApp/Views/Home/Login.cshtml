@@ -1,29 +1,33 @@
 ﻿@model Gerente
 @{
     ViewData["Title"] = "Login";
-    Layout = "_LayoutNavSide";
+    //Layout = "_LayoutNavSide";
 }
 
 <link href="~/css/login.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Wendy+One&display=swap" rel="stylesheet">
+<link href="~/css/index-about.css" rel="stylesheet" />
 <link href="~/css/master.css" rel="stylesheet" />
 
-
-<div style="background-color: #4196A6;">
-    <div class="d-flex justify-content-center">
-        <div class="text-center" style="background-color: #fffa; width: 50%; margin: 5% 0;
+<div class="page-content">
+    <partial name="_LeftContent" />
+    <div style="background-color: #4196A6;">
+        <div class="d-flex justify-content-center right-content">
+            <div class="text-center" style="background-color: #fffa; width: 60%; margin: 5% 0;
                     border-radius: 15px; padding: 2%;">
-            <feedback texto="@TempData["Erro"]" is-error="true"></feedback>
-            <h2 style="color: #555; margin-bottom: 2%">Login</h2>
-            <form asp-action="Login" style="padding-left: 15%; padding-right: 15% ">
-                <label for="id-email">E-mail</label>
-                <input id="id-email" asp-for="NomeGerente" name="email" class="form-control" />
+                <feedback texto="@TempData["Erro"]" is-error="true"></feedback>
+                <h2 style="color: #555; margin-bottom: 2%">Login</h2>
+                <form asp-action="Login" style="padding-left: 15%; padding-right: 15% ">
+                    <label for="id-email">E-mail</label>
+                    <input id="id-email" asp-for="NomeGerente" name="email" class="form-control" />
 
-                <label for="id-senha">Senha</label>
-                <input id="id-senha" asp-for="Senha" name="senha" class="form-control" />
+                    <label for="id-senha">Senha</label>
+                    <input id="id-senha" asp-for="Senha" name="senha" class="form-control" />
 
-                <input type="submit" value="Entrar" class="btn btn-info" style="margin-top: 5%; margin-bottom: 5%;" />
-            </form>
-            <a asp-action="CadastroEstabelecimento" asp-controller="Estabelecimento">Não possui conta? Cadastre-se clicando aqui!</a>
+                    <input type="submit" value="Entrar" class="btn btn-info" style="margin-top: 5%; margin-bottom: 5%;" />
+                </form>
+                <a asp-action="CadastroEstabelecimento" asp-controller="Estabelecimento">Não possui conta? Cadastre-se clicando aqui!</a>
+            </div>
         </div>
     </div>
 </div>
