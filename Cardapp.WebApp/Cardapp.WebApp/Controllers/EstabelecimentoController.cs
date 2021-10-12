@@ -57,7 +57,7 @@ namespace Cardapp.WebApp.Controllers
                     // Guardar estab na sessão novamente
                     HttpContext.Session.SetObjectAsJson("EstabelecimentoSessao", estabelecimento);
                     HttpContext.Session.SetObjectAsJson("GerenteSessao", gerente);
-                    return RedirectToAction("index", "ItemCardapio");
+                    return RedirectToAction("index");
 
                 }
                 catch (Exception)
@@ -93,7 +93,7 @@ namespace Cardapp.WebApp.Controllers
                 client.Update("/gerente/" + gerente.CodigoGerente, gerente);
                 HttpContext.Session.SetObjectAsJson("GerenteSessao", gerente);
                 TempData["Sucesso"] = "Alterações salvas com sucesso!";
-                return RedirectToAction("Index", "ItemCardapio");
+                return RedirectToAction("Index");
             } catch(Exception)
             {
                 TempData["Erro"] = "Não foi possível salvar as alterações!";
@@ -138,7 +138,7 @@ namespace Cardapp.WebApp.Controllers
                 HttpContext.Session.SetObjectAsJson("EstabelecimentoSessao", estab);
                 HttpContext.Session.SetString("NomeEstabelecimento", estab.NomeFantasia);
                 TempData["Sucesso"] = "Alterações salvas com sucesso!";
-                return RedirectToAction("Index", "ItemCardapio");
+                return RedirectToAction("Index");
             }
             catch (Exception)
             {

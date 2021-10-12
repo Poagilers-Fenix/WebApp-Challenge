@@ -78,7 +78,7 @@ namespace Cardapp.WebApp.Controllers
                                 HttpContext.Session.SetObjectAsJson("EstabelecimentoSessao", estab);
                                 HttpContext.Session.SetObjectAsJson("GerenteSessao", gerente);
                                 HttpContext.Session.SetString("NomeEstabelecimento", estab.NomeFantasia);
-                                return RedirectToAction("Index", "ItemCardapio");
+                                return RedirectToAction("Index", "Estabelecimento");
                             }
                         }
                     }
@@ -87,6 +87,12 @@ namespace Cardapp.WebApp.Controllers
 
             TempData["Erro"] = "Login inválido! Verifique se o e-mail e senha estão corretos.";
             return View();
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

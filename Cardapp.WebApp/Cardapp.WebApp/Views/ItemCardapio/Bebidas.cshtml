@@ -2,7 +2,7 @@
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
 @{
-    ViewData["Title"] = "Visualização do Cardápio - Bebidas";
+    ViewData["Title"] = "Bebidas";
     Layout = "_LayoutNavSide";
 
 }
@@ -20,10 +20,6 @@
 
 
 <div style="display: flex; flex-direction: column; justify-content: center; margin-left: 8%">
-    <div class="mr-5 mt-5 d-flex justify-content-end">
-        <a class="btn btn-warning btn-lg menu-button" role="button" asp-action="Index" asp-controller="Estabelecimento">Gerenciar conta</a>
-    </div>
-
     <h2 style="display: flex; justify-content: center;" class="mb-5 mt-3 text-white">Gerencie seu cardápio - @HttpContextAccessor.HttpContext.Session.GetString("NomeEstabelecimento")</h2>
 
     <div class="card mx-auto" style="width: 80%; border: 2px solid #800; height: 80%">

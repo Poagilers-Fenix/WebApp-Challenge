@@ -67,26 +67,51 @@ namespace Cardapp.WebApp.Controllers
 
         public IActionResult Index()
         {
+            if (HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao") == null)
+            {
+                TempData["Erro"] = "Faça o login para acessar o sistema!";
+                return RedirectToAction("Login", "Home");
+            }
             GetItems("None", true);
             return View(items);
         }
         public IActionResult Pratos()
         {
+            if (HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao") == null)
+            {
+                TempData["Erro"] = "Faça o login para acessar o sistema!";
+                return RedirectToAction("Login", "Home");
+            }
             GetItems("Prato");
             return View(items);
         }
         public IActionResult Bebidas()
         {
+            if (HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao") == null)
+            {
+                TempData["Erro"] = "Faça o login para acessar o sistema!";
+                return RedirectToAction("Login", "Home");
+            }
             GetItems("Bebida");
             return View(items);
         }
         public IActionResult Lanches()
         {
+            if (HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao") == null)
+            {
+                TempData["Erro"] = "Faça o login para acessar o sistema!";
+                return RedirectToAction("Login", "Home");
+            }
             GetItems("Lanche");
             return View(items);
         }
         public IActionResult Sobremesas()
         {
+            if (HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao") == null)
+            {
+                TempData["Erro"] = "Faça o login para acessar o sistema!";
+                return RedirectToAction("Login", "Home");
+            }
             GetItems("Sobremesa");
             return View(items);
         }
@@ -110,7 +135,7 @@ namespace Cardapp.WebApp.Controllers
                     foreach (var i in json)
                     {
                         var itemJson = i.Value.ToObject<Item>();
-                        if (itemJson.Nome == item.Nome)
+                        if (itemJson.Nome.ToLower() == item.Nome.ToLower())
                         {
                             TempData["Erro"] = "Um item com o nome '" + item.Nome + "' já está cadastrado!";
                             return RedirectToAction("Cadastrar");
@@ -138,6 +163,11 @@ namespace Cardapp.WebApp.Controllers
         [HttpGet]
         public IActionResult Editar(string id)
         {
+            if (HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao") == null)
+            {
+                TempData["Erro"] = "Faça o login para acessar o sistema!";
+                return RedirectToAction("Login", "Home");
+            }
             client = new FireSharp.FirebaseClient(config);
             FirebaseResponse response = client.Get("/itemCardapio/"+id);
             json = JObject.Parse(response.Body);
@@ -154,11 +184,15 @@ namespace Cardapp.WebApp.Controllers
                 client = new FireSharp.FirebaseClient(config);
                 client.Update("/itemCardapio/" + item.CodigoItem, item);
                 TempData["Sucesso"] = "Item atualizado!";
-                if (item.Categoria.ToString() == "Bebida") { return RedirectToAction("Bebidas"); }
-                else if (item.Categoria.ToString() == "Sobremesa") { return RedirectToAction("Sobremesas"); }
-                else if (item.Categoria.ToString() == "Prato") { return RedirectToAction("Pratos"); }
-                else if (item.Categoria.ToString() == "Lanche") { return RedirectToAction("Lanches"); }
-                return RedirectToAction("Index");
+                var categoria = item.Categoria.ToString();
+                return categoria switch
+                {
+                    "Bebida" => RedirectToAction("Bebidas"),
+                    "Sobremesa" => RedirectToAction("Sobremesas"),
+                    "Prato" => RedirectToAction("Pratos"),
+                    "Lanche" => RedirectToAction("Lanches"),
+                    _ => RedirectToAction("Index"),
+                };
             } catch (Exception)
             {
                 TempData["Erro"] = "Não foi possível editar o item do cardápio.";
@@ -185,7 +219,22 @@ namespace Cardapp.WebApp.Controllers
 
         }
 
-
+        [HttpGet]
+        public IActionResult BuscarTodos(string nomeBusca)
+        {
+            if (HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao") == null)
+            {
+                TempData["Erro"] = "Faça o login para acessar o sistema!";
+                return RedirectToAction("Login", "Home");
+            }
+            GetItems("All");
+            if (!string.IsNullOrEmpty(nomeBusca))
+            {
+                return View(items.Where(i => i.Nome.Contains(nomeBusca)));
+            }
+            return View(items);
+            
+        }
 
     }
 }

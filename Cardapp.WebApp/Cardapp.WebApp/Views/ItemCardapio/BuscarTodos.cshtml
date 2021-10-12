@@ -1,0 +1,41 @@
+﻿@model IList<Item>
+
+@{
+    ViewData["Title"] = "Todos os itens";
+    Layout = "_LayoutNavSide";
+}
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="~/css/master.css" rel="stylesheet" />
+<link href="~/css/buttons.css" rel="stylesheet" />
+
+<style>
+    html {
+        background-color: #4196A6;
+    }
+</style>
+
+<div style="display: flex; flex-direction: column; margin-left: 7%;">
+    <div style="display: flex; flex-direction: column; justify-content: center; margin-left: 8%">
+        <h2 class="mt-4 text-light align-self-center">Itens cadastrados</h2><br />
+
+        <div class="card" style="width: 90%; border: 2px solid #800; margin-left: 4%; height: 80%">
+            @if (@TempData["Sucesso"] != null)
+            {
+                <Feedback Texto="@TempData["Sucesso"]" is-error="false"></Feedback>
+            }
+            else
+            {
+                <Feedback Texto="@TempData["Erro"]" is-error="true"></Feedback>
+            }
+
+            <div class="justify-content-end d-flex mt-3">
+                <form class="d-flex justify-content-center" asp-action="BuscarTodos">
+                    <input type="text" name="nomeBusca" class="form-control input" placeholder="Digite o nome do item" />
+                    <button type="submit" class="btn btn-danger btn-sm mr-3"><span class="material-icons">search</span></button>
+                </form>
+            </div>
+            <partial name="_ListItems" />
+        </div>
+    </div>
+</div>

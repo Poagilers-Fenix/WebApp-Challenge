@@ -11,31 +11,35 @@
 
 <div style="display: flex; flex-direction: column; justify-content: center; margin-left: 7%; height: 80vh">
     <div class="card mx-auto" style="width: 70%; height: 70%; border-radius: 20px; box-shadow: 6px 6px 15px #333; ">
-        <div class="d-flex row my-auto justify-content-around align-content-center">
-            <div class="col-md-5 div-warning">
-                <span style="display: flex; justify-content: center; font-size: 40px; color: #FFc107" class="material-icons ml-2 mb-1">manage_accounts</span>
-                <h2 style="display: flex; justify-content: center;" class="mb-5 bold">Gerenciar Conta</h2>
+        <row class="mt-4">
+            <div class="d-flex row my-auto justify-content-around align-content-center">
+                <div class="col-md-5 div-warning">
+                    <span style="display: flex; justify-content: center; font-size: 40px; color: #FFc107" class="material-icons ml-2 mb-1">manage_accounts</span>
+                    <h2 style="display: flex; justify-content: center;" class="mb-5 bold">Gerenciar Conta</h2>
 
-                <h3 style="display: flex; justify-content: center;" class="mb-3">Editar informações</h3>
-                <div class="mx-auto row justify-content-center">
-                    <a asp-action="EditarGerente" asp-controller="Estabelecimento" class="btn btn-warning mx-2">Gerente</a>
-                    <a asp-action="EditarEstabelecimento" asp-controller="Estabelecimento" class="btn btn-warning mx-2">Estabelecimento</a>
+                    <h3 style="display: flex; justify-content: center;" class="mb-3">Editar informações</h3>
+                    <div class="mx-auto row justify-content-center">
+                        <a asp-action="EditarGerente" asp-controller="Estabelecimento" class="btn btn-warning mx-2">Gerente</a>
+                        <a asp-action="EditarEstabelecimento" asp-controller="Estabelecimento" class="btn btn-warning mx-2">Estabelecimento</a>
+                    </div>
+                </div>
+                <div class="col-md-5 div-danger">
+                    <h2 style="display: flex; justify-content: center;" class="mb-3 bold"><span class="material-icons text-danger" style="font-size: 50px">report_gmailerrorred</span></h2>
+
+                    <h3 style="display: flex; justify-content: center;" class="mb-3">Apagar estabelecimento</h3>
+                    <div class="mx-auto row justify-content-center">
+                        <button onclick="idEstab.value = '@Model.CodigoEstabelecimento'" type="button" class="mb-3 btn btn-danger" data-toggle="modal" data-target="#modalConfirma">
+                            Apagar definitivamente
+                        </button>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-5 div-danger">
-                <h2 style="display: flex; justify-content: center;" class="mb-3 bold"><span class="material-icons text-danger" style="font-size: 50px">report_gmailerrorred</span></h2>
-
-                <h3 style="display: flex; justify-content: center;" class="mb-3">Apagar estabelecimento</h3>
-                <div class="mx-auto row justify-content-center">
-                    <button onclick="idEstab.value = '@Model.CodigoEstabelecimento'" type="button" class="mb-3 btn btn-danger" data-toggle="modal" data-target="#modalConfirma">
-                        Apagar definitivamente
-                    </button>
-                </div>
+        </row>
+        <row class="justify-content-center d-flex">
+            <div class="mt-4 align-items-start">
+                <a asp-action="Index" asp-controller="ItemCardapio" class="btn btn-voltar">Visualizar o cardápio</a>
             </div>
-            <div class="mt-4">
-                <a asp-action="Index" asp-controller="ItemCardapio" class="btn btn-voltar">Voltar para o cardápio</a>
-            </div>
-        </div>
+        </row>
     </div>
 </div>
 
