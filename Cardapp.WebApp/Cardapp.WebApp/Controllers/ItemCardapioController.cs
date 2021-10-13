@@ -1,15 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Cardapp.WebApp.Models;
-using System.Linq;
 using System;
-using Cardapp.WebApp.Repository.Context;
 using FireSharp.Interfaces;
 using FireSharp.Config;
 using FireSharp.Response;
 using Cardapp.WebApp.SessionHelper;
 using Newtonsoft.Json.Linq;
-using FireSharp;
 
 namespace Cardapp.WebApp.Controllers
 {

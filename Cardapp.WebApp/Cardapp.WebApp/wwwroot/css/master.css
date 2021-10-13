@@ -1,13 +1,8 @@
-﻿html{
-    background-color: #ccc;
-}
-
-.small-left-content {
-    background-color: #3c6f7a;
+﻿.small-left-content {
+    background-color: #B56357;
     width: 10%;
     float: left;
     height: 100vh;
-
     position: fixed;
 }
 

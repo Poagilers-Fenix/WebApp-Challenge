@@ -17,9 +17,9 @@
 
 <div style="display: flex; flex-direction: column; margin-left: 7%;">
     <div style="display: flex; flex-direction: column; justify-content: center; margin-left: 8%">
-        <h2 class="mt-4 text-light align-self-center">Itens cadastrados</h2><br />
+        <h2 class="mt-4 align-self-center">Itens cadastrados</h2><br />
 
-        <div class="card" style="width: 90%; border: 2px solid #800; margin-left: 4%; height: 80%">
+        <div class="card" style="width: 90%; border: 2px solid #800; box-shadow: 6px 5px 12px #333; margin-left: 4%; height: 80%">
             @if (@TempData["Sucesso"] != null)
             {
                 <Feedback Texto="@TempData["Sucesso"]" is-error="false"></Feedback>

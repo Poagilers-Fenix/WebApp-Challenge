@@ -9,7 +9,7 @@
 <link href="~/css/master.css" rel="stylesheet" />
 <link href="~/css/buttons.css" rel="stylesheet" />
 
-<div style="display: flex; flex-direction: column; justify-content: center; margin-left: 7%; height: 80vh">
+<div style="display: flex; flex-direction: column; justify-content: center; margin-left: 7%; min-height: 80vh">
     <div class="card mx-auto" style="width: 70%; height: 70%; border-radius: 20px; box-shadow: 6px 6px 15px #333; ">
         <row class="mt-4">
             <div class="d-flex row my-auto justify-content-around align-content-center">
@@ -37,7 +37,7 @@
         </row>
         <row class="justify-content-center d-flex">
             <div class="mt-4 align-items-start">
-                <a asp-action="Index" asp-controller="ItemCardapio" class="btn btn-voltar">Visualizar o cardápio</a>
+                <a asp-action="Index" asp-controller="ItemCardapio" class="btn btn-voltar mb-4">Visualizar o cardápio</a>
             </div>
         </row>
     </div>
@@ -45,7 +45,10 @@
 
 <style>
     html {
-        background-color: #4196A6;
+        background-color: #B56357;
+    }
+    body {
+        background: linear-gradient(90deg, #B56357, #EAE3EA);
     }
     .div-danger {
         border: #DC3545 solid 1px; 

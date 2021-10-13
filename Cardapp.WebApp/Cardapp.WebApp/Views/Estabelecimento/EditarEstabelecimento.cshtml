@@ -10,14 +10,14 @@
 <link href="~/css/form-card.css" rel="stylesheet" />
 
 <div style="display: flex; flex-direction: column; justify-content: center; margin-left: 8%;">
-    <h1 style="display: flex; justify-content: center;" class="my-5 text-white">Edite as informações do estabelecimento</h1>
-    <div class="card cardStyle mx-auto" style="width: 70%">
+    <h1 style="display: flex; justify-content: center;" class="my-5">Edite as informações do estabelecimento</h1>
+    <div class="card cardStyle mx-auto" style="width: 70%; padding: 3%">
         <form asp-action="EditarEstabelecimento">
             <input asp-for="CodigoEstabelecimento" type="hidden" />
             <partial name="_FormCreateUpdateEstabelecimento" />
 
             <div class="form-row formRowStyleButton">
-                <a asp-action="Index" class="btn btn-outline-danger px-5">Voltar</a>
+                <a asp-action="Index" class="btn btn-danger px-5">Voltar</a>
                 <input type="submit" value="Salvar alterações" class="btn btn-info ml-3 px-5" />
             </div>
         </form>

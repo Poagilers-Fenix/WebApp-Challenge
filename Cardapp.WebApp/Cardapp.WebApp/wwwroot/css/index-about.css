@@ -1,14 +1,14 @@
 ﻿@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 body, .page-content {
-    background-color: #ccc;
-    /*display: flex;*/
+    background-color: #EAE3EA;
 }
 
 .left-content {
     float: left;
     width: 18%;
-    background-color: #3c6f7a;
+    background-color: #B56357;
+    /*background-color: #AF473C;*/
     height: 100vh;
     position: fixed;
 }
@@ -41,7 +41,7 @@ body, .page-content {
     
     .page-title {
         font-size: 30px;
-        color: #CD9A37;
+        color: #3C3C3C;
         margin: 3% 5%;
         font-family: 'Wendy One', sans-serif;
     }
