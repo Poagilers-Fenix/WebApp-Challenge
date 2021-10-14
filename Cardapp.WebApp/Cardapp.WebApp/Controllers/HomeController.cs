@@ -9,6 +9,8 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Diagnostics;
+using System.Net;
+using System.Net.Mail;
 
 namespace Cardapp.WebApp.Controllers
 {
@@ -105,5 +107,6 @@ namespace Cardapp.WebApp.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }
