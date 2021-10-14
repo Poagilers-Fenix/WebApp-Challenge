@@ -129,13 +129,16 @@ namespace Cardapp.WebApp.Controllers
                 client = new FireSharp.FirebaseClient(config);
                 try
                 {
-                    foreach (var i in json)
+                    if (json != null)
                     {
-                        var itemJson = i.Value.ToObject<Item>();
-                        if (itemJson.Nome.ToLower() == item.Nome.ToLower())
+                        foreach (var i in json)
                         {
-                            TempData["Erro"] = "Um item com o nome '" + item.Nome + "' já está cadastrado!";
-                            return RedirectToAction("Cadastrar");
+                            var itemJson = i.Value.ToObject<Item>();
+                            if (itemJson.Nome.ToLower() == item.Nome.ToLower())
+                            {
+                                TempData["Erro"] = "Um item com o nome '" + item.Nome + "' já está cadastrado!";
+                                return RedirectToAction("Cadastrar");
+                            }
                         }
                     }
                     var estabelecimento = HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao");
