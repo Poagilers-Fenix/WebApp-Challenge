@@ -24,16 +24,35 @@ namespace Cardapp.WebApp.Controllers
         Gerente Gerente => HttpContext.Session.GetObjectFromJson<Gerente>("GerenteSessao");
         private ISession _session => HttpContext.Session;
 
+        private IActionResult isLogged(List<Item> items = null, Estabelecimento estab = null, Gerente gerente = null, String pag = null)
+        {
+            if (isNotLogged)
+            {
+                TempData["Erro"] = "Faça o login para acessar o sistema!";
+                return RedirectToAction("Login", "Home");
+            }
+            if (items != null)
+            {
+                return View(items);
+            }
+            else if (estab != null)
+            {
+                return View(estab);
+            }
+            else if (gerente != null)
+            {
+                return View(gerente);
+            }
+            else
+            {
+                return RedirectToAction(pag);
+            }
+        }
 
         [HttpGet]
         public IActionResult CadastroGerente()
         {
-            if (isNotLogged)
-            {
-                return RedirectToAction("CadastroEstabelecimento");
-            }
-            return View();
-
+            return isLogged(null, null, null, "CadastroEstabelecimento");
         }
 
         private void CadastraEstabelecimento()
@@ -80,23 +99,13 @@ namespace Cardapp.WebApp.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            if (isNotLogged)
-            {
-                TempData["Erro"] = "Faça o login para acessar o sistema!";
-                return RedirectToAction("Login", "Home");
-            }
-            return View(Estab);
+            return isLogged(null,Estab,null, null);
         }
 
         [HttpGet]
         public IActionResult EditarGerente()
         {
-            if (isNotLogged)
-            {
-                TempData["Erro"] = "Faça o login para acessar o sistema!";
-                return RedirectToAction("Login", "Home");
-            }
-            return View(Gerente);
+            return isLogged(null, null, Gerente, null);
         }
 
         [HttpPost]
@@ -137,29 +146,19 @@ namespace Cardapp.WebApp.Controllers
         [HttpGet]
         public IActionResult EditarEstabelecimento()
         {
-            if (isNotLogged)
-            {
-                TempData["Erro"] = "Faça o login para acessar o sistema!";
-                return RedirectToAction("Login", "Home");
-            }
-            return View(Estab);
+            return isLogged(null, Estab, null, null);
         }
 
         [HttpPost]
         public IActionResult EditarEstabelecimento(Estabelecimento estab)
         {
-            if (isNotLogged)
-            {
-                TempData["Erro"] = "Faça o login para acessar o sistema!";
-                return RedirectToAction("Login", "Home");
-            }
             try
             {
                 Client.Update("/estab/" + estab.CodigoEstabelecimento, estab);
                 _session.SetObjectAsJson("EstabelecimentoSessao", estab);
                 _session.SetString("NomeEstabelecimento", estab.NomeFantasia);
                 TempData["Sucesso"] = "Alterações salvas com sucesso!";
-                return RedirectToAction("Index");
+                return isLogged(null, null, null, "Index");
             }
             catch (Exception)
             {
