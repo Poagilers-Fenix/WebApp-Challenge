@@ -17,6 +17,7 @@ namespace Cardapp.WebApp.Models
         [Column("NM_RAZAO_SOCIAL")]
         [Display(Name = "Qual a razão social do seu estabelecimento?")]
         [Required(ErrorMessage ="Este campo é obrigatório.")]
+        [MinLength(5, ErrorMessage = "A razão social deve ter 5 caracteres ou mais.")]
         [MaxLength(50, ErrorMessage = "A razão social deve ter menos de 50 caracteres")]
         public string RazaoSocial { get; set; }
 
@@ -24,10 +25,10 @@ namespace Cardapp.WebApp.Models
         [Required(ErrorMessage = "Este campo é obrigatório.")]
         [Column("NM_FANTASIA")]
         [Display(Name = "Qual o nome fantasia do seu estabelecimento?")]
+        [MinLength(2, ErrorMessage = "O nome fantasia deve ter 2 caracteres ou mais.")]
         [MaxLength(50, ErrorMessage = "O nome fantasia deve ter menos de 50 caracteres")]
         public string NomeFantasia { get; set; }
 
-        //Temos que fazer um algoritmo pra checar se o cnpj é válido, no futuro
         [RegularExpression(@"[0-9]{2}\.?[0-9]{3}\.?[0-9]{3}\/?[0-9]{4}\-?[0-9]{2}", ErrorMessage = "O cnpj deve ter 14 caracteres sem pontuação. Exemplo: 12345678912345")]
         [Column("DS_CNPJ")]
         [Display(Name = "Cnpj do estabelecimento")]
@@ -38,6 +39,7 @@ namespace Cardapp.WebApp.Models
         [Required(ErrorMessage = "Este campo é obrigatório.")]
         [Column("DS_ENDERECO")]
         [Display(Name = "Qual o endereço do seu estabelecimento?")]
+        [MinLength(10, ErrorMessage = "O campo de endereço deve ter 10 caracteres ou mais.")]
         [MaxLength(100, ErrorMessage = "O endereço deve ter menos de 100 caracteres")]
         public string Endereco { get; set; }
 

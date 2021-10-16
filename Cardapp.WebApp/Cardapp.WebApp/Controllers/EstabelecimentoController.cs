@@ -111,17 +111,15 @@ namespace Cardapp.WebApp.Controllers
         [HttpPost]
         public IActionResult EditarGerente(Gerente gerente)
         {
-            try
+            if(ModelState.IsValid)
             {
                 Client.Update("/gerente/" + gerente.CodigoGerente, gerente);
                 _session.SetObjectAsJson("GerenteSessao", gerente);
                 TempData["Sucesso"] = "Alterações salvas com sucesso!";
                 return RedirectToAction("Index");
-            } catch(Exception)
-            {
-                TempData["Erro"] = "Não foi possível salvar as alterações!";
-                return RedirectToAction("EditarGerente");
-            }
+            } 
+            TempData["Erro"] = "Não foi possível salvar as alterações!";
+            return View();
         }
 
         [HttpGet]
@@ -152,7 +150,7 @@ namespace Cardapp.WebApp.Controllers
         [HttpPost]
         public IActionResult EditarEstabelecimento(Estabelecimento estab)
         {
-            try
+            if(ModelState.IsValid)
             {
                 Client.Update("/estab/" + estab.CodigoEstabelecimento, estab);
                 _session.SetObjectAsJson("EstabelecimentoSessao", estab);
@@ -160,11 +158,8 @@ namespace Cardapp.WebApp.Controllers
                 TempData["Sucesso"] = "Alterações salvas com sucesso!";
                 return isLogged(null, null, null, "Index");
             }
-            catch (Exception)
-            {
-                TempData["Erro"] = "Não foi possível salvar as alterações!";
-                return RedirectToAction("EditarEstabelecimento");
-            }
+            TempData["Erro"] = "Não foi possível salvar as alterações!";
+            return View();
         }
 
         [HttpPost]

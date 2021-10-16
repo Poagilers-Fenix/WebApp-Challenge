@@ -17,6 +17,7 @@ namespace Cardapp.WebApp.Models
 
         [Column("NM_GERENTE")]
         [Required(ErrorMessage = "Este campo é obrigatório.")]
+        [MinLength(2, ErrorMessage = "O nome deve ter 2 caracteres ou mais.")]
         [MaxLength(50, ErrorMessage = "O nome deve ter 50 caracteres ou menos.")]
         [Display(Name = "Qual o nome do gerente responsável pelo estabelecimento?")]
         public string NomeGerente { get; set; }
@@ -36,6 +37,7 @@ namespace Cardapp.WebApp.Models
 
         [Column("DS_ENDERECO")]
         [Required(ErrorMessage = "Este campo é obrigatório.")]
+        [MinLength(10, ErrorMessage = "O endereço deve ter 10 caracteres ou mais.")]
         [MaxLength(150, ErrorMessage = "O endereço deve ter 150 caracteres ou menos.")]
         [Display(Name = "Qual o endereço do gerente?")]
         public string Endereco { get; set; }
@@ -43,6 +45,7 @@ namespace Cardapp.WebApp.Models
         [Column("DS_SENHA")]
         [Required(ErrorMessage = "Este campo é obrigatório.")]
         [DataType(DataType.Password)]
+        [MinLength(5, ErrorMessage = "A senha deve ter 5 caracteres ou mais.")]
         [MaxLength(25, ErrorMessage = "A senha deve ter 25 caracteres ou menos.")]
         [Display(Name = "Informe a senha que será utilizada na sua conta")]
         public string Senha { get; set; }
