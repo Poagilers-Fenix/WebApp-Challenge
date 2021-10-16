@@ -13,6 +13,7 @@
 <div style="display: flex; flex-direction: column; justify-content: center; margin-left: 8%;">
     <h1 style="display: flex; justify-content: center;" class="my-5">Edite as informações do estabelecimento</h1>
     <div class="card cardStyle mx-auto" style="width: 70%; padding: 3%">
+        <Feedback Texto="@TempData["Erro"]" is-error="true"></Feedback>
         <form asp-action="EditarEstabelecimento">
             <input asp-for="CodigoEstabelecimento" type="hidden" />
             <partial name="_FormCreateUpdateEstabelecimento" />

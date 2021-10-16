@@ -26,12 +26,14 @@ namespace Cardapp.WebApp.Models
         [Column("NM_ITEM_CARDAPIO")]
         [Display(Name = "Nome")]
         [Required(ErrorMessage = "Este campo é obrigatório.")]
+        [MinLength(2, ErrorMessage = "O nome deve ter 2 caracteres ou mais.")]
         [MaxLength(50, ErrorMessage = "O nome do item deve ter 50 caracteres ou menos.")]
         public string Nome { get; set; }
 
         [Column("DS_ITEM_CARDAPIO")]
         [Display(Name = "Descrição")]
         [Required(ErrorMessage = "Este campo é obrigatório.")]
+        [MinLength(10, ErrorMessage = "A descrição deve ter 10 caracteres ou mais.")]
         [MaxLength(300, ErrorMessage = "A descrição do item deve ter 300 caracteres ou menos.")]
         public string Descricao { get; set; }
 
