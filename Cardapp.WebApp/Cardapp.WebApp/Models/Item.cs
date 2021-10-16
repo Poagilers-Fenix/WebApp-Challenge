@@ -10,13 +10,13 @@ namespace Cardapp.WebApp.Models
         [Column("CD_ITEM_CARDAPIO")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string CodigoItem { get; set; }
-        
+
         [HiddenInput]
         [Column("CD_ESTABELECIMENTO")]
         public string CodigoEstabelecimento { get; set; }
 
         [Column("CD_CATEGORIA")]
-        [Display(Name =  "Selecione a categoria do item")]
+        [Display(Name = "Selecione a categoria do item")]
         public CategoriaItem Categoria { get; set; }
 
         [Column("ST_DESTAQUE")]

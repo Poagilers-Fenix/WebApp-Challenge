@@ -2534,7 +2534,6 @@ C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebAp
 C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Cardapp.WebApp.TagHelpers.input.cache
 C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Cardapp.WebApp.TagHelpers.output.cache
 C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Cardapp.WebApp.RazorCoreGenerate.cache
-C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\About\Index.cshtml.g.cs
 C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Estabelecimento\CadastroEstabelecimento.cshtml.g.cs
 C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Estabelecimento\CadastroGerente.cshtml.g.cs
 C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
@@ -2546,7 +2545,6 @@ C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebAp
 C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\ItemCardapio\Lanches.cshtml.g.cs
 C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\ItemCardapio\Pratos.cshtml.g.cs
 C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\ItemCardapio\Sobremesas.cshtml.g.cs
-C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\ItemCardapio\_Form.cshtml.g.cs
 C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\ItemCardapio\_FormCreateUpdate.cshtml.g.cs
 C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
@@ -3519,3 +3517,17 @@ D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.W
 D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LeftContent.cshtml.g.cs
 D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Home\Contato.cshtml.g.cs
 D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_BotoesSessao.cshtml.g.cs
+C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.Web.BrowserLink.dll
+C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Estabelecimento\EditarEstabelecimento.cshtml.g.cs
+C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Estabelecimento\EditarGerente.cshtml.g.cs
+C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Estabelecimento\Index.cshtml.g.cs
+C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Estabelecimento\_FormCreateUpdateEstabelecimento.cshtml.g.cs
+C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Estabelecimento\_FormCreateUpdateGerente.cshtml.g.cs
+C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Home\Contato.cshtml.g.cs
+C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Home\Grupo.cshtml.g.cs
+C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Home\Projeto.cshtml.g.cs
+C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\ItemCardapio\BuscarTodos.cshtml.g.cs
+C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\ItemCardapio\_ListItems.cshtml.g.cs
+C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_BotoesSessao.cshtml.g.cs
+C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LeftContent.cshtml.g.cs
+D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Estabelecimento\Avaliacoes.cshtml.g.cs

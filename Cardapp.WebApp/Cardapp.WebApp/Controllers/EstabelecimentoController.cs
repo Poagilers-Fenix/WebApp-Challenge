@@ -18,58 +18,52 @@ namespace Cardapp.WebApp.Controllers
             AuthSecret = "wvg4O1GNPzXqpGK95uGjhVValAjRiLX4iIM3P6YK",
             BasePath = "https://cardapp-d8eba-default-rtdb.firebaseio.com/"
         };
-        private bool isNotLogged => Estab == null;
-        IFirebaseClient Client => new FireSharp.FirebaseClient(config);
-        Estabelecimento Estab => HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao");
-        Gerente Gerente => HttpContext.Session.GetObjectFromJson<Gerente>("GerenteSessao");
-        private ISession _session => HttpContext.Session;
+        IFirebaseClient client;
 
-        private IActionResult isLogged(List<Item> items = null, Estabelecimento estab = null, Gerente gerente = null, String pag = null)
+        [HttpGet]
+        public IActionResult Index()
         {
-            if (isNotLogged)
+            Estabelecimento estab = HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao");
+            if (estab == null)
             {
                 TempData["Erro"] = "Faça o login para acessar o sistema!";
                 return RedirectToAction("Login", "Home");
             }
-            if (items != null)
+            return View(estab);
+        }
+
+        [HttpGet]
+        public IActionResult Avaliacoes()
+        {
+            client = new FireSharp.FirebaseClient(config);
+            FirebaseResponse response = client.Get("/rating/");
+            JObject json = JObject.Parse(response.Body);
+            var lista = new List<Avaliacao>();
+            Estabelecimento estab = HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao");
+
+            foreach (var a in json)
             {
-                return View(items);
+                var avaliacao = a.Value.ToObject<Avaliacao>();
+                if (avaliacao.EstabId == estab.CodigoEstabelecimento)
+                {
+                    lista.Add(avaliacao);
+                }
             }
-            else if (estab != null)
-            {
-                return View(estab);
-            }
-            else if (gerente != null)
-            {
-                return View(gerente);
-            }
-            else
-            {
-                return RedirectToAction(pag);
-            }
+            ViewBag.avaliacoes = lista;
+            return View();
         }
 
         [HttpGet]
         public IActionResult CadastroGerente()
         {
-            return isLogged(null, null, null, "CadastroEstabelecimento");
-        }
+            var estabelecimento = HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao");
 
-        private void CadastraEstabelecimento()
-        {
-            Estabelecimento estabb = Estab;
-            PushResponse responseEstab = Client.Push("estab/", estabb);
-            estabb.CodigoEstabelecimento = responseEstab.Result.name;
-            Client.Set("estab/" + estabb.CodigoEstabelecimento, estabb);
-            _session.SetObjectAsJson("EstabelecimentoSessao", estabb);
-        }
+            if (estabelecimento == null)
+            {
+                return RedirectToAction("CadastroEstabelecimento");
+            }
+            return View();
 
-        private void CadastraGerente(Gerente gerente)
-        {
-            gerente.CodigoEstabelecimento = Estab.CodigoEstabelecimento;
-            PushResponse responseGerente = Client.Push("gerente/", gerente);
-            gerente.CodigoGerente = responseGerente.Result.name;
-            Client.Set("gerente/" + gerente.CodigoGerente, gerente);
         }
 
         [HttpPost]
@@ -79,13 +73,25 @@ namespace Cardapp.WebApp.Controllers
             {
                 try
                 {
-                    CadastraEstabelecimento();
-                    TempData["Sucesso"] = "Bem vindo(a) ao Cardapp!";
-                    CadastraGerente(gerente);
+                    client = new FireSharp.FirebaseClient(config);
 
-                    // seta gerente na sessão
-                    _session.SetObjectAsJson("GerenteSessao", gerente);
+                    var estabelecimento = HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao");
+                    PushResponse responseEstab = client.Push("estab/", estabelecimento);
+                    estabelecimento.CodigoEstabelecimento = responseEstab.Result.name;
+                    SetResponse setResponseEstab = client.Set("estab/" + estabelecimento.CodigoEstabelecimento, estabelecimento);
+                    TempData["Sucesso"] = "Bem vindo(a) ao Cardapp!";
+
+                    var data = gerente;
+                    gerente.CodigoEstabelecimento = estabelecimento.CodigoEstabelecimento;
+                    PushResponse responseGerente = client.Push("gerente/", data);
+                    data.CodigoGerente = responseGerente.Result.name;
+                    SetResponse setResponseGerente = client.Set("gerente/" + data.CodigoGerente, data);
+
+                    // Guardar estab na sessão novamente
+                    HttpContext.Session.SetObjectAsJson("EstabelecimentoSessao", estabelecimento);
+                    HttpContext.Session.SetObjectAsJson("GerenteSessao", gerente);
                     return RedirectToAction("index");
+
                 }
                 catch (Exception)
                 {
@@ -96,35 +102,62 @@ namespace Cardapp.WebApp.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult Index()
-        {
-            return isLogged(null,Estab,null, null);
-        }
 
         [HttpGet]
         public IActionResult EditarGerente()
         {
-            return isLogged(null, null, Gerente, null);
+            if (HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao") == null)
+            {
+                TempData["Erro"] = "Faça o login para acessar o sistema!";
+                return RedirectToAction("Login", "Home");
+            }
+            Gerente gerente = HttpContext.Session.GetObjectFromJson<Gerente>("GerenteSessao");
+
+            return View(gerente);
         }
 
         [HttpPost]
         public IActionResult EditarGerente(Gerente gerente)
         {
-            if(ModelState.IsValid)
+            try
             {
-                Client.Update("/gerente/" + gerente.CodigoGerente, gerente);
-                _session.SetObjectAsJson("GerenteSessao", gerente);
-                TempData["Sucesso"] = "Alterações salvas com sucesso!";
-                return RedirectToAction("Index");
-            } 
-            TempData["Erro"] = "Não foi possível salvar as alterações!";
-            return View();
+                if (ModelState.IsValid)
+                {
+                    client = new FireSharp.FirebaseClient(config);
+                    FirebaseResponse response = client.Get("/gerente/");
+                    JObject json = JObject.Parse(response.Body);
+
+                    foreach (var g in json)
+                    {
+                        Gerente gerenteBD = g.Value.ToObject<Gerente>();
+                        if (gerenteBD.CodigoGerente == gerente.CodigoGerente)
+                        {
+                            string senha = Request.Form["senhaAtual"];
+                            if (senha != gerenteBD.Senha)
+                            {
+                                TempData["Erro"] = "A senha informada está incorreta.";
+                                return RedirectToAction("EditarGerente");
+                            }
+                        }
+                    }
+                    client.Update("/gerente/" + gerente.CodigoGerente, gerente);
+                    HttpContext.Session.SetObjectAsJson("GerenteSessao", gerente);
+                    TempData["Sucesso"] = "Alterações salvas com sucesso!";
+                    return RedirectToAction("Index");
+                }
+                return View();
+            }
+            catch (Exception)
+            {
+                TempData["Erro"] = "Não foi possível salvar as alterações!";
+                return RedirectToAction("EditarGerente");
+            }
         }
 
         [HttpGet]
         public IActionResult CadastroEstabelecimento()
         {
+            HttpContext.Session.Clear();
             return View();
         }
 
@@ -133,8 +166,8 @@ namespace Cardapp.WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                _session.SetObjectAsJson("EstabelecimentoSessao", estab);
-                _session.SetString("NomeEstabelecimento", estab.NomeFantasia);
+                HttpContext.Session.SetObjectAsJson("EstabelecimentoSessao", estab);
+                HttpContext.Session.SetString("NomeEstabelecimento", estab.NomeFantasia);
                 return RedirectToAction("CadastroGerente");
             }
             TempData["Erro"] = "Erro ao cadastrar o estabelecimento, cheque se as informações estão corretas e tente novamente.";
@@ -144,28 +177,44 @@ namespace Cardapp.WebApp.Controllers
         [HttpGet]
         public IActionResult EditarEstabelecimento()
         {
-            return isLogged(null, Estab, null, null);
+            Estabelecimento estab = HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao");
+            return View(estab);
         }
 
         [HttpPost]
         public IActionResult EditarEstabelecimento(Estabelecimento estab)
         {
-            if(ModelState.IsValid)
+            if (HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao") == null)
             {
-                Client.Update("/estab/" + estab.CodigoEstabelecimento, estab);
-                _session.SetObjectAsJson("EstabelecimentoSessao", estab);
-                _session.SetString("NomeEstabelecimento", estab.NomeFantasia);
-                TempData["Sucesso"] = "Alterações salvas com sucesso!";
-                return isLogged(null, null, null, "Index");
+                TempData["Erro"] = "Faça o login para acessar o sistema!";
+                return RedirectToAction("Login", "Home");
             }
-            TempData["Erro"] = "Não foi possível salvar as alterações!";
-            return View();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    client = new FireSharp.FirebaseClient(config);
+                    client.Update("/estab/" + estab.CodigoEstabelecimento, estab);
+                    HttpContext.Session.SetObjectAsJson("EstabelecimentoSessao", estab);
+                    HttpContext.Session.SetString("NomeEstabelecimento", estab.NomeFantasia);
+                    TempData["Sucesso"] = "Alterações salvas com sucesso!";
+                    return RedirectToAction("Index");
+                }
+                return View();
+            }
+            catch (Exception)
+            {
+                TempData["Erro"] = "Não foi possível salvar as alterações!";
+                return RedirectToAction("EditarEstabelecimento");
+            }
         }
 
         [HttpPost]
         public IActionResult Remover(string id)
         {
-            FirebaseResponse response = Client.Get("/itemCardapio/");
+            client = new FireSharp.FirebaseClient(config);
+            Gerente gerente = HttpContext.Session.GetObjectFromJson<Gerente>("GerenteSessao");
+            FirebaseResponse response = client.Get("/itemCardapio/");
             if (response.Body != "null")
             {
                 JObject json = JObject.Parse(response.Body);
@@ -173,15 +222,18 @@ namespace Cardapp.WebApp.Controllers
                 foreach (var i in json)
                 {
                     var item = i.Value.ToObject<Item>();
-                    if (item.CodigoEstabelecimento == Gerente.CodigoEstabelecimento)
+                    if (item.CodigoEstabelecimento == gerente.CodigoEstabelecimento)
                     {
-                        Client.Delete("/itemCardapio/"+item.CodigoItem);
+                        client.Delete("/itemCardapio/" + item.CodigoItem);
                     }
                 }
 
             }
-            Client.Delete("/gerente/" + Gerente.CodigoGerente);
-            Client.Delete("/estab/" + Gerente.CodigoEstabelecimento);
+            client.Delete("/gerente/" + gerente.CodigoGerente);
+            client.Delete("/estab/" + gerente.CodigoEstabelecimento);
+
+            //GetItems(out items, out estab, out json);
+
             return RedirectToAction("Index", "Home");
         }
 

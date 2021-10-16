@@ -1,0 +1,32 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@model Avaliacao
+
+@{
+    ViewData["Title"] = "Avaliações";
+    Layout = "_LayoutNavSide";
+}
+
+<partial name="_BotoesSessao" />
+
+<div style="display: flex; flex-direction: column; min-width: 90%;" class="right-content mb-5">
+    <h2 style="display: flex; justify-content: center;" class="mb-5 mt-3">Avaliações - @HttpContextAccessor.HttpContext.Session.GetString("NomeEstabelecimento")</h2>
+
+    <div class="d-flex align-self-end border-danger" style="flex-wrap: wrap; min-width: 85%; margin-left: 10%">
+        @foreach (var a in ViewBag.avaliacoes)
+        {
+            <div class="card d-flex flex-column col-3 border-danger" style="padding: 4%; margin: 1%; border-radius: 15px; box-shadow: 5px 4px 12px #333">
+                <div>
+                    <h5>Avaliação de @a.UserName</h5>
+                    <p>E-mail: @a.UserEmail</p>
+                </div>
+                <p style="font-size: 1.5rem" class="text-center">@a.Rating <span class="material-icons text-warning mt-2">star</span></p>
+                <div class="d-flex">
+                    <b class="mr-2">Avaliação: </b>
+                    <p>@(a.Text != "" ? a.Text : "-------")</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>

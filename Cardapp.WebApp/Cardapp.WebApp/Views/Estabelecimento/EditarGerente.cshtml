@@ -17,6 +17,18 @@
             <input asp-for="CodigoGerente" type="hidden" />
             <partial name="_FormCreateUpdateGerente" />
 
+            <div class="d-flex">
+                <div class="form-row justify-content-center mx-auto my-3 col-6" style="width: 96%;">
+                    <label for="id-senha">Senha atual</label>
+                    <input for="id-senha" name="senhaAtual" class="form-control">
+                </div>
+                <div class="form-row justify-content-center mx-auto my-3 col-6" style="width: 96%;">
+                    <label asp-for="Senha">Nova Senha</label>
+                    <input asp-for="Senha" class="form-control">
+                    <span asp-validation-for="Senha" class="text-danger mb-3" style="text-align: center"></span>
+                </div>
+            </div>
+
             <div class="form-row formRowStyleButton">
                 <a asp-action="Index" class="btn btn-danger px-5">Voltar</a>
                 <input type="submit" value="Salvar alterações" class="btn btn-info ml-3 px-5" />

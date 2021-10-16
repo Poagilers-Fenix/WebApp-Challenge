@@ -7,13 +7,13 @@ using FireSharp.Config;
 using FireSharp.Response;
 using Cardapp.WebApp.SessionHelper;
 using Newtonsoft.Json.Linq;
-using Microsoft.AspNetCore.Http;
 
 namespace Cardapp.WebApp.Controllers
 {
     public class ItemCardapioController : Controller
     {
         List<Item> items; 
+        Estabelecimento estab;
         JObject json;
 
         IFirebaseConfig config = new FirebaseConfig
@@ -21,45 +21,21 @@ namespace Cardapp.WebApp.Controllers
             AuthSecret = "wvg4O1GNPzXqpGK95uGjhVValAjRiLX4iIM3P6YK",
             BasePath = "https://cardapp-d8eba-default-rtdb.firebaseio.com/"
         };
-        IFirebaseClient Client => new FireSharp.FirebaseClient(config);
-        Estabelecimento Estab => HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao");
-        private ISession _session => HttpContext.Session;
-        private bool isNotLogged => Estab == null;
-
-
-        private IActionResult isLogged(List<Item> items = null, Item item = null, String pag = null)
-        {
-            if (isNotLogged)
-            {
-                TempData["Erro"] = "Faça o login para acessar o sistema!";
-                return RedirectToAction("Login", "Home");
-            }
-            if(items != null)
-            {
-                return View(items);
-            }
-            else if(item != null)
-            {
-                return View(item);
-            }
-            else
-            {
-                return View(pag);
-            }
-        }
-
+        IFirebaseClient client;
 
         private void GetItems(string Categoria, bool Destaque = false)
         {
+            client = new FireSharp.FirebaseClient(config);
             items = new List<Item>();
-            FirebaseResponse response = Client.Get("/itemCardapio/");
+            estab = HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao");
+            FirebaseResponse response = client.Get("/itemCardapio/");
             if (response.Body != "null")
             {
                 json = JObject.Parse(response.Body);
                 foreach (var i in json)
                 {
                     var item = i.Value.ToObject<Item>();
-                    if (item.CodigoEstabelecimento == Estab.CodigoEstabelecimento)
+                    if (item.CodigoEstabelecimento == estab.CodigoEstabelecimento)
                     {
                         if(Categoria != "None" && Categoria != "All")
                         {
@@ -88,35 +64,60 @@ namespace Cardapp.WebApp.Controllers
 
         public IActionResult Index()
         {
+            if (HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao") == null)
+            {
+                TempData["Erro"] = "Faça o login para acessar o sistema!";
+                return RedirectToAction("Login", "Home");
+            }
             GetItems("None", true);
-            return isLogged(items);
+            return View(items);
         }
         public IActionResult Pratos()
         {
+            if (HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao") == null)
+            {
+                TempData["Erro"] = "Faça o login para acessar o sistema!";
+                return RedirectToAction("Login", "Home");
+            }
             GetItems("Prato");
-            return isLogged(items);
+            return View(items);
         }
         public IActionResult Bebidas()
         {
+            if (HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao") == null)
+            {
+                TempData["Erro"] = "Faça o login para acessar o sistema!";
+                return RedirectToAction("Login", "Home");
+            }
             GetItems("Bebida");
-            return isLogged(items);
+            return View(items);
         }
         public IActionResult Lanches()
         {
+            if (HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao") == null)
+            {
+                TempData["Erro"] = "Faça o login para acessar o sistema!";
+                return RedirectToAction("Login", "Home");
+            }
             GetItems("Lanche");
-            return isLogged(items);
+            return View(items);
         }
         public IActionResult Sobremesas()
         {
+            if (HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao") == null)
+            {
+                TempData["Erro"] = "Faça o login para acessar o sistema!";
+                return RedirectToAction("Login", "Home");
+            }
             GetItems("Sobremesa");
-            return isLogged(items);
+            return View(items);
         }
 
         [HttpGet]
         public IActionResult Cadastrar()
         {
             ViewBag.status = new List<string>(new string[] { "S", "N" });
-            return isLogged(null, null, "Cadastrar");
+            return View();
         }
 
         [HttpPost]
@@ -125,6 +126,7 @@ namespace Cardapp.WebApp.Controllers
             if (ModelState.IsValid)
             {
                 GetItems("All");
+                client = new FireSharp.FirebaseClient(config);
                 try
                 {
                     if (json != null)
@@ -139,10 +141,11 @@ namespace Cardapp.WebApp.Controllers
                             }
                         }
                     }
-                    item.CodigoEstabelecimento = Estab.CodigoEstabelecimento;
-                    PushResponse response = Client.Push("itemCardapio/", item);
+                    var estabelecimento = HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao");
+                    item.CodigoEstabelecimento = estabelecimento.CodigoEstabelecimento;
+                    PushResponse response = client.Push("itemCardapio/", item);
                     item.CodigoItem = response.Result.name;
-                    SetResponse setResponse = Client.Set("itemCardapio/" + item.CodigoItem, item);
+                    SetResponse setResponse = client.Set("itemCardapio/" + item.CodigoItem, item);
                     TempData["Sucesso"] = "Cadastrado com sucesso";
                     return RedirectToAction("Cadastrar");
                 }
@@ -160,11 +163,17 @@ namespace Cardapp.WebApp.Controllers
         [HttpGet]
         public IActionResult Editar(string id)
         {
-            FirebaseResponse response = Client.Get("/itemCardapio/"+id);
+            if (HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao") == null)
+            {
+                TempData["Erro"] = "Faça o login para acessar o sistema!";
+                return RedirectToAction("Login", "Home");
+            }
+            client = new FireSharp.FirebaseClient(config);
+            FirebaseResponse response = client.Get("/itemCardapio/"+id);
             json = JObject.Parse(response.Body);
             var item = json.ToObject<Item>();
             ViewBag.status = new List<string>(new string[] { "S", "N" });
-            return isLogged(null,item,null);
+            return View(item);
         }
 
         [HttpPost]
@@ -172,7 +181,8 @@ namespace Cardapp.WebApp.Controllers
         {
             try
             {
-                Client.Update("/itemCardapio/" + item.CodigoItem, item);
+                client = new FireSharp.FirebaseClient(config);
+                client.Update("/itemCardapio/" + item.CodigoItem, item);
                 TempData["Sucesso"] = "Item atualizado!";
                 var categoria = item.Categoria.ToString();
                 return categoria switch
@@ -195,7 +205,9 @@ namespace Cardapp.WebApp.Controllers
         {
             try
             {
-                Client.Delete("/itemCardapio/"+id);
+            client = new FireSharp.FirebaseClient(config);
+            client.Delete("/itemCardapio/"+id);
+            Console.WriteLine("id:"+id);
                 TempData["Sucesso"] = "Item Removido!";
                 return RedirectToAction("Index");
             }
@@ -209,6 +221,11 @@ namespace Cardapp.WebApp.Controllers
 
         public IActionResult BuscarTodos(string nomeBusca)
         {
+            if (HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao") == null)
+            {
+                TempData["Erro"] = "Faça o login para acessar o sistema!";
+                return RedirectToAction("Login", "Home");
+            }
             GetItems("All");
             if (!string.IsNullOrEmpty(nomeBusca))
             {

@@ -1,5 +1,4 @@
-﻿using Cardapp.WebApp.Models;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +8,7 @@ namespace Cardapp.WebApp.SessionHelper
 {
     public class SessionHelper2
     {
+
         private readonly IHttpContextAccessor _httpContextAccessor;
         private ISession _session => _httpContextAccessor.HttpContext.Session;
 
@@ -26,6 +26,5 @@ namespace Cardapp.WebApp.SessionHelper
         {
             var message = _session.GetString(param);
         }
-
     }
 }

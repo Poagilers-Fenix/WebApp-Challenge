@@ -1,5 +1,4 @@
-﻿using Cardapp.WebApp.Models;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,6 +9,7 @@ namespace Cardapp.WebApp.SessionHelper
 {
     public static class SessionHelper
     {
+
         //Seta um objeto como json como variável na sessão
         public static void SetObjectAsJson(this ISession session, string key, object value)
         {
@@ -22,16 +22,6 @@ namespace Cardapp.WebApp.SessionHelper
             var value = session.GetString(key);
 
             return value == null ? default : JsonConvert.DeserializeObject<T>(value);
-        }
-
-        public static bool IsNotLogged( Estabelecimento estab)
-        {
-
-            if (estab == null)
-            {
-                return true;
-            }
-            return true;
         }
 
 

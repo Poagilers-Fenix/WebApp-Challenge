@@ -7,8 +7,8 @@ body, .page-content {
 .left-content {
     float: left;
     width: 18%;
-    background-color: #B56357;
-    /*background-color: #AF473C;*/
+    /*background: linear-gradient(90deg, #B56357, #EAE3EA);*/
+    background-color: #B56347;
     height: 100vh;
     position: fixed;
 }

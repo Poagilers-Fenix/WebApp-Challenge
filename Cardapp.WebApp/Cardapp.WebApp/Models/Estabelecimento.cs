@@ -16,12 +16,12 @@ namespace Cardapp.WebApp.Models
 
         [Column("NM_RAZAO_SOCIAL")]
         [Display(Name = "Qual a razão social do seu estabelecimento?")]
-        [Required(ErrorMessage ="Este campo é obrigatório.")]
+        [Required(ErrorMessage = "Este campo é obrigatório.")]
         [MinLength(5, ErrorMessage = "A razão social deve ter 5 caracteres ou mais.")]
         [MaxLength(50, ErrorMessage = "A razão social deve ter menos de 50 caracteres")]
         public string RazaoSocial { get; set; }
 
-        
+
         [Required(ErrorMessage = "Este campo é obrigatório.")]
         [Column("NM_FANTASIA")]
         [Display(Name = "Qual o nome fantasia do seu estabelecimento?")]

@@ -16,14 +16,22 @@ namespace Cardapp.WebApp.Controllers
 {
     public class HomeController : Controller
     {
+
+        public bool Logado { get; set; }
+
         IFirebaseConfig config = new FirebaseConfig
         {
             AuthSecret = "wvg4O1GNPzXqpGK95uGjhVValAjRiLX4iIM3P6YK",
             BasePath = "https://cardapp-d8eba-default-rtdb.firebaseio.com/"
         };
-        IFirebaseClient Client => new FireSharp.FirebaseClient(config);
-        private ISession _session => HttpContext.Session;
+        IFirebaseClient client;
 
+        private readonly ILogger<HomeController> _logger;
+
+        public HomeController(ILogger<HomeController> logger)
+        {
+            _logger = logger;
+        }
 
         public IActionResult Index()
         {
@@ -54,26 +62,29 @@ namespace Cardapp.WebApp.Controllers
         [HttpPost]
         public IActionResult Login(string email, string senha)
         {
-            if (ModelState.IsValid)
-            {
-                FirebaseResponse response = Client.Get("/gerente/");
-                JObject json = JObject.Parse(response.Body);
+            client = new FireSharp.FirebaseClient(config);
 
-                foreach (var g in json)
+            FirebaseResponse response = client.Get("/gerente/");
+            JObject json = JObject.Parse(response.Body);
+
+            foreach (var g in json)
+            {
+                //Console.WriteLine(g.Value.ToObject<Gerente>().NomeGerente);
+                var gerente = g.Value.ToObject<Gerente>();
+                if (gerente.Email == email && gerente.Senha == senha)
                 {
-                    var gerente = g.Value.ToObject<Gerente>();
-                    if (gerente.Email == email && gerente.Senha == senha)
+                    if (ModelState.IsValid)
                     {
-                        response = Client.Get("/estab/");
+                        response = client.Get("/estab/");
                         json = JObject.Parse(response.Body);
                         foreach (var e in json)
                         {
                             var estab = e.Value.ToObject<Estabelecimento>();
                             if (gerente.CodigoEstabelecimento == estab.CodigoEstabelecimento)
                             {
-                                _session.SetObjectAsJson("EstabelecimentoSessao", estab);
-                                _session.SetObjectAsJson("GerenteSessao", gerente);
-                                _session.SetString("NomeEstabelecimento", estab.NomeFantasia);
+                                HttpContext.Session.SetObjectAsJson("EstabelecimentoSessao", estab);
+                                HttpContext.Session.SetObjectAsJson("GerenteSessao", gerente);
+                                HttpContext.Session.SetString("NomeEstabelecimento", estab.NomeFantasia);
                                 return RedirectToAction("Index", "Estabelecimento");
                             }
                         }
@@ -87,7 +98,7 @@ namespace Cardapp.WebApp.Controllers
 
         public IActionResult Logout()
         {
-            _session.Clear();
+            HttpContext.Session.Clear();
             return RedirectToAction("Index");
         }
 
