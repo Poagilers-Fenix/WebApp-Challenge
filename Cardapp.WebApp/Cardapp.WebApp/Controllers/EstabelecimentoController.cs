@@ -73,19 +73,38 @@ namespace Cardapp.WebApp.Controllers
             {
                 try
                 {
+
                     client = new FireSharp.FirebaseClient(config);
+                    FirebaseResponse response = client.Get("/gerente/");
+                    if (response.Body != "null")
+                    {
+                        JObject json = JObject.Parse(response.Body);
+
+                        foreach (var i in json)
+                        {
+                            var gerenteReceived = i.Value.ToObject<Gerente>();
+                            if (gerenteReceived.Email == gerente.Email)
+                            {
+                                TempData["Erro"] = "Erro ao cadastrar o gerente, esse email já foi cadastrado por outro gerente.";
+                                return View();
+                            }
+                        }
+
+                    }
 
                     var estabelecimento = HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao");
                     PushResponse responseEstab = client.Push("estab/", estabelecimento);
                     estabelecimento.CodigoEstabelecimento = responseEstab.Result.name;
                     SetResponse setResponseEstab = client.Set("estab/" + estabelecimento.CodigoEstabelecimento, estabelecimento);
-                    TempData["Sucesso"] = "Bem vindo(a) ao Cardapp!";
 
                     var data = gerente;
                     gerente.CodigoEstabelecimento = estabelecimento.CodigoEstabelecimento;
                     PushResponse responseGerente = client.Push("gerente/", data);
                     data.CodigoGerente = responseGerente.Result.name;
                     SetResponse setResponseGerente = client.Set("gerente/" + data.CodigoGerente, data);
+
+                    TempData["Sucesso"] = "Bem vindo(a) ao Cardapp!";
+
 
                     // Guardar estab na sessão novamente
                     HttpContext.Session.SetObjectAsJson("EstabelecimentoSessao", estabelecimento);
@@ -121,6 +140,7 @@ namespace Cardapp.WebApp.Controllers
         {
             try
             {
+
                 if (ModelState.IsValid)
                 {
                     client = new FireSharp.FirebaseClient(config);
@@ -130,6 +150,11 @@ namespace Cardapp.WebApp.Controllers
                     foreach (var g in json)
                     {
                         Gerente gerenteBD = g.Value.ToObject<Gerente>();
+                        if (gerenteBD.Email == gerente.Email)
+                        {
+                            TempData["Erro"] = "Erro ao editar o gerente, esse email já foi cadastrado por outro gerente.";
+                            return View();
+                        }
                         if (gerenteBD.CodigoGerente == gerente.CodigoGerente)
                         {
                             string senha = Request.Form["senhaAtual"];
@@ -157,7 +182,6 @@ namespace Cardapp.WebApp.Controllers
         [HttpGet]
         public IActionResult CadastroEstabelecimento()
         {
-            HttpContext.Session.Clear();
             return View();
         }
 
@@ -166,6 +190,31 @@ namespace Cardapp.WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                client = new FireSharp.FirebaseClient(config);
+                FirebaseResponse response = client.Get("/estab/");
+                if (response.Body != "null")
+                {
+                    JObject json = JObject.Parse(response.Body);
+                    foreach (var i in json)
+                    {
+                        var estabelecimento = i.Value.ToObject<Estabelecimento>();
+                        if (estabelecimento.Cnpj == estab.Cnpj)
+                        {
+                            TempData["Erro"] = "Erro ao cadastrar o estabelecimento, esse CNPJ já foi cadastrado por outro estabelecimento.";
+                            return View();
+                        }
+                        else if(estabelecimento.Email == estab.Email)
+                        {
+                            TempData["Erro"] = "Erro ao cadastrar o estabelecimento, esse email já foi cadastrado por outro estabelecimento.";
+                            return View();
+                        }
+                        else if (estabelecimento.Telefone == estab.Telefone)
+                        {
+                            TempData["Erro"] = "Erro ao cadastrar o estabelecimento, esse telefone já foi cadastrado por outro estabelecimento.";
+                            return View();
+                        }
+                    }
+                }
                 HttpContext.Session.SetObjectAsJson("EstabelecimentoSessao", estab);
                 HttpContext.Session.SetString("NomeEstabelecimento", estab.NomeFantasia);
                 return RedirectToAction("CadastroGerente");
@@ -178,22 +227,43 @@ namespace Cardapp.WebApp.Controllers
         public IActionResult EditarEstabelecimento()
         {
             Estabelecimento estab = HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao");
+            if(estab == null)
+            {
+                TempData["Erro"] = "Faça o login para acessar o sistema!";
+                return RedirectToAction("Login", "Home");
+            }
             return View(estab);
         }
 
         [HttpPost]
         public IActionResult EditarEstabelecimento(Estabelecimento estab)
         {
-            if (HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao") == null)
-            {
-                TempData["Erro"] = "Faça o login para acessar o sistema!";
-                return RedirectToAction("Login", "Home");
-            }
             try
             {
                 if (ModelState.IsValid)
                 {
                     client = new FireSharp.FirebaseClient(config);
+                    FirebaseResponse response = client.Get("/estab/");
+                    JObject json = JObject.Parse(response.Body);
+                    foreach (var i in json)
+                    {
+                        var estabelecimento = i.Value.ToObject<Estabelecimento>();
+                        if (estabelecimento.Cnpj == estab.Cnpj)
+                        {
+                            TempData["Erro"] = "Erro ao editar o estabelecimento, esse CNPJ já foi cadastrado por outro estabelecimento.";
+                            return View();
+                        }
+                        else if (estabelecimento.Email == estab.Email)
+                        {
+                            TempData["Erro"] = "Erro ao editar o estabelecimento, esse email já foi cadastrado por outro estabelecimento.";
+                            return View();
+                        }
+                        else if (estabelecimento.Telefone == estab.Telefone)
+                        {
+                            TempData["Erro"] = "Erro ao editar o estabelecimento, esse telefone já foi cadastrado por outro estabelecimento.";
+                            return View();
+                        }
+                    }
                     client.Update("/estab/" + estab.CodigoEstabelecimento, estab);
                     HttpContext.Session.SetObjectAsJson("EstabelecimentoSessao", estab);
                     HttpContext.Session.SetString("NomeEstabelecimento", estab.NomeFantasia);
