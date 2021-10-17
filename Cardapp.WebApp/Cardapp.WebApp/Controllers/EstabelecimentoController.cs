@@ -150,7 +150,7 @@ namespace Cardapp.WebApp.Controllers
                     foreach (var g in json)
                     {
                         Gerente gerenteBD = g.Value.ToObject<Gerente>();
-                        if (gerenteBD.Email == gerente.Email)
+                        if (gerenteBD.Email == gerente.Email && gerenteBD.CodigoGerente != gerente.CodigoGerente)
                         {
                             TempData["Erro"] = "Erro ao editar o gerente, esse email já foi cadastrado por outro gerente.";
                             return View();
@@ -163,6 +163,9 @@ namespace Cardapp.WebApp.Controllers
                                 TempData["Erro"] = "A senha informada está incorreta.";
                                 return RedirectToAction("EditarGerente");
                             }
+                            if (senha == "") {
+                                gerenteBD.Senha = senha;
+                            }
                         }
                     }
                     client.Update("/gerente/" + gerente.CodigoGerente, gerente);
@@ -174,6 +177,7 @@ namespace Cardapp.WebApp.Controllers
             }
             catch (Exception)
             {
+                Console.WriteLine("Entrou no catch");
                 TempData["Erro"] = "Não foi possível salvar as alterações!";
                 return RedirectToAction("EditarGerente");
             }
@@ -248,17 +252,17 @@ namespace Cardapp.WebApp.Controllers
                     foreach (var i in json)
                     {
                         var estabelecimento = i.Value.ToObject<Estabelecimento>();
-                        if (estabelecimento.Cnpj == estab.Cnpj)
+                        if (estabelecimento.Cnpj == estab.Cnpj && estabelecimento.CodigoEstabelecimento != estab.CodigoEstabelecimento)
                         {
                             TempData["Erro"] = "Erro ao editar o estabelecimento, esse CNPJ já foi cadastrado por outro estabelecimento.";
                             return View();
                         }
-                        else if (estabelecimento.Email == estab.Email)
+                        else if (estabelecimento.Email == estab.Email && estabelecimento.CodigoEstabelecimento != estab.CodigoEstabelecimento)
                         {
                             TempData["Erro"] = "Erro ao editar o estabelecimento, esse email já foi cadastrado por outro estabelecimento.";
                             return View();
                         }
-                        else if (estabelecimento.Telefone == estab.Telefone)
+                        else if (estabelecimento.Telefone == estab.Telefone && estabelecimento.CodigoEstabelecimento != estab.CodigoEstabelecimento)
                         {
                             TempData["Erro"] = "Erro ao editar o estabelecimento, esse telefone já foi cadastrado por outro estabelecimento.";
                             return View();
