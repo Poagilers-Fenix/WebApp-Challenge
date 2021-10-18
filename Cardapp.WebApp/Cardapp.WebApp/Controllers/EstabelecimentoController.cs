@@ -311,5 +311,37 @@ namespace Cardapp.WebApp.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
+        public IActionResult Relatorio()
+        {
+            client = new FireSharp.FirebaseClient(config);
+            Estabelecimento estab = HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao");
+            FirebaseResponse response = client.Get("/Relatorio/");
+            JObject json = JObject.Parse(response.Body);
+            foreach (var i in json)
+            {
+                var Relatorio = i.Value.ToObject<Relatorio>();
+                if (Relatorio.CodigoEstabelecimento == estab.CodigoEstabelecimento)
+                {
+                    return View(Relatorio);
+
+                }
+            }
+            return View();
+
+
+            /*
+            Relatorio relatorio = new Relatorio
+            {
+                ItemMaisAcessado = "Hambúrguer",
+                NumeroAcessosTotal = 30,
+                NumeroAcessosItemCardapio = 25,
+                NumeroAtivacaoLuz = 15,
+                CodigoEstabelecimento = "xesque",
+                CodigoRelatorio = "sei la",
+            };
+            */
+        }
+
     }
 }
