@@ -97,6 +97,16 @@ namespace Cardapp.WebApp.Controllers
                     estabelecimento.CodigoEstabelecimento = responseEstab.Result.name;
                     SetResponse setResponseEstab = client.Set("estab/" + estabelecimento.CodigoEstabelecimento, estabelecimento);
 
+                    Relatorio relatorio = new Relatorio
+                    {
+                        CodigoEstabelecimento = responseEstab.Result.name,
+                        NomeItemMaisAcessado = ""
+                        
+                    };
+                    PushResponse responseRelatorio = client.Push("Relatorio/", relatorio);
+                    relatorio.CodigoRelatorio = responseRelatorio.Result.name;
+                    SetResponse setResponseRelatorio = client.Set("Relatorio/" + relatorio.CodigoRelatorio, relatorio);
+
                     var data = gerente;
                     gerente.CodigoEstabelecimento = estabelecimento.CodigoEstabelecimento;
                     PushResponse responseGerente = client.Push("gerente/", data);
@@ -328,19 +338,6 @@ namespace Cardapp.WebApp.Controllers
                 }
             }
             return View();
-
-
-            /*
-            Relatorio relatorio = new Relatorio
-            {
-                ItemMaisAcessado = "Hambúrguer",
-                NumeroAcessosTotal = 30,
-                NumeroAcessosItemCardapio = 25,
-                NumeroAtivacaoLuz = 15,
-                CodigoEstabelecimento = "xesque",
-                CodigoRelatorio = "sei la",
-            };
-            */
         }
 
     }
