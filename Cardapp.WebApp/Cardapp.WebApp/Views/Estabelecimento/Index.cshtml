@@ -26,6 +26,14 @@
 
 <div style="display: flex; flex-direction: column; justify-content: center; margin-left: 7%; min-height: 80vh">
     <div class="card mx-auto" style="width: 70%; height: 70%; border-radius: 20px; box-shadow: 6px 6px 15px #333; ">
+        @if (@TempData["Sucesso"] != null)
+        {
+            <Feedback Texto="@TempData["Sucesso"]" is-error="false"></Feedback>
+        }
+        else
+        {
+            <Feedback Texto="@TempData["Erro"]" is-error="true"></Feedback>
+        }
         <row class="mt-4">
             <div class="d-flex row my-auto justify-content-around align-content-center">
                 <div class="col-md-5 div-warning">

@@ -19,7 +19,7 @@ namespace Cardapp.WebApp.Models
         [Required(ErrorMessage = "Este campo é obrigatório.")]
         [MinLength(2, ErrorMessage = "O nome deve ter 2 caracteres ou mais.")]
         [MaxLength(50, ErrorMessage = "O nome deve ter 50 caracteres ou menos.")]
-        [Display(Name = "Qual o nome do gerente responsável pelo estabelecimento?")]
+        [Display(Name = "Qual é o nome do gerente?")]
         public string NomeGerente { get; set; }
 
         [EmailAddress]
@@ -28,12 +28,6 @@ namespace Cardapp.WebApp.Models
         [MaxLength(65, ErrorMessage = "O email deve ter 65 caracteres ou menos.")]
         [Display(Name = "Qual o email do gerente?")]
         public string Email { get; set; }
-
-        [Column("VL_SALARIO")]
-        [RegularExpression(@"(^[0-9]{0,5}[,][0-9]{2})", ErrorMessage = "O salário deve ser somente números. Ex: 1000,00.")]
-        [Display(Name = "Qual o valor do salário do gerente?")]
-        [Required(ErrorMessage = "Este campo é obrigatório.")]
-        public decimal? Salario { get; set; }
 
         [Column("DS_ENDERECO")]
         [Required(ErrorMessage = "Este campo é obrigatório.")]

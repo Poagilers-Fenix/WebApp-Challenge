@@ -1,0 +1,51 @@
+﻿@model Gerente
+
+@{
+    ViewData["Title"] = "Editar Senha";
+    Layout = "_LayoutNavSide";
+}
+
+<partial name="_BotoesSessao" />
+
+
+<div style="display: flex; flex-direction: column; justify-content: center; margin-left: 8%;">
+    <h2 style="display: flex; justify-content: center;" class="my-5">Editar Senha</h2>
+
+    <div class="card cardStyle mx-auto" style="width: 70%; padding: 3%">
+        @if (@TempData["Sucesso"] != null)
+        {
+            <Feedback Texto="@TempData["Sucesso"]" is-error="false"></Feedback>
+        }
+        else
+        {
+            <Feedback Texto="@TempData["Erro"]" is-error="true"></Feedback>
+        }
+        <form asp-action="EditarSenha">
+            <input asp-for="CodigoGerente" type="hidden" />
+            <input asp-for="CodigoEstabelecimento" type="hidden" />
+            <input asp-for="Email" type="hidden" />
+            <input asp-for="Endereco" type="hidden" />
+            <input asp-for="NomeGerente" type="hidden" />
+
+            <div class="d-flex mt-3">
+                <div class="form-row justify-content-center mx-auto my-3 col-6" style="width: 96%;">
+                    <label for="id-senha">Senha atual</label>
+                    <input for="id-senha" name="senhaAtual" class="form-control">
+                    <span asp-validation-for="Senha" class="text-danger mb-3" style="text-align: center"></span>
+                </div>
+                <div class="form-row justify-content-center mx-auto my-3 col-6" style="width: 96%;">
+                    <label asp-for="Senha">Nova Senha</label>
+                    <input asp-for="Senha" class="form-control">
+                    <span asp-validation-for="Senha" class="text-danger mb-3" style="text-align: center"></span>
+                </div>
+            </div>
+
+            <div class="form-row formRowStyleButton">
+                <a asp-action="Index" class="btn btn-danger px-5">Voltar</a>
+                <input type="submit" value="Salvar alterações" class="btn btn-info ml-3 px-5" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
