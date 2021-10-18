@@ -1,0 +1,27 @@
+﻿@model Relatorio
+
+@{
+    ViewData["Title"] = "Relatório";
+    Layout = "_LayoutNavSide";
+}
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="~/css/master.css" rel="stylesheet" />
+<link href="~/css/buttons.css" rel="stylesheet" />
+
+
+<div style="display: flex; flex-direction: column; justify-content: center; margin-left: 7%; min-height: 80vh">
+    <div class="card mx-auto" style="width: 70%; height: 70%; border-radius: 20px; box-shadow: 6px 6px 15px #333; ">
+        <row class="my-4 mx-auto justify-content-center">
+            <h1 class="mb-5">Relatório de dados do estabelecimento</h1>
+            <p class="h4">Número total de acessos: @Model.NumeroAcessosTotal</p>
+            <p class="h4 mt-3">Número total de acesso a itens do cardápio: @Model.NumeroAcessosItemCardapio</p>
+            <p class="h4 mt-3">Item do cardápio mais acessado: @Model.NomeItemMaisAcessado</p>
+            <p class="h4 mt-3">Número de vezes que a função de iluminação da mesa foi utilizada: @Model.NumeroAtivacaoLuz</p>
+            <button class="btn btn-lg btn-dark mt-5">Baixe esse relatório</button>
+        </row>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,30 @@
+﻿
+html {
+    background-color: #B56357;
+}
+
+body {
+    background: linear-gradient(90deg, #B56357, #EAE3EA);
+}
+
+.div-danger {
+    border: #DC3545 solid 1px;
+    border-radius: 20px;
+    padding: 5% 0;
+}
+
+.div-warning {
+    border: #FFC107 solid 1px;
+    border-radius: 20px;
+    padding: 2.5% 0;
+}
+
+.botao {
+    background-color: #b00;
+    color: aliceblue;
+}
+
+    .botao:hover {
+        background-color: #900;
+        color: aliceblue;
+    }

@@ -97,6 +97,16 @@ namespace Cardapp.WebApp.Controllers
                     estabelecimento.CodigoEstabelecimento = responseEstab.Result.name;
                     SetResponse setResponseEstab = client.Set("estab/" + estabelecimento.CodigoEstabelecimento, estabelecimento);
 
+                    Relatorio relatorio = new Relatorio
+                    {
+                        CodigoEstabelecimento = responseEstab.Result.name,
+                        NomeItemMaisAcessado = ""
+                        
+                    };
+                    PushResponse responseRelatorio = client.Push("Relatorio/", relatorio);
+                    relatorio.CodigoRelatorio = responseRelatorio.Result.name;
+                    SetResponse setResponseRelatorio = client.Set("Relatorio/" + relatorio.CodigoRelatorio, relatorio);
+
                     var data = gerente;
                     gerente.CodigoEstabelecimento = estabelecimento.CodigoEstabelecimento;
                     PushResponse responseGerente = client.Push("gerente/", data);
@@ -309,6 +319,25 @@ namespace Cardapp.WebApp.Controllers
             //GetItems(out items, out estab, out json);
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult Relatorio()
+        {
+            client = new FireSharp.FirebaseClient(config);
+            Estabelecimento estab = HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao");
+            FirebaseResponse response = client.Get("/Relatorio/");
+            JObject json = JObject.Parse(response.Body);
+            foreach (var i in json)
+            {
+                var Relatorio = i.Value.ToObject<Relatorio>();
+                if (Relatorio.CodigoEstabelecimento == estab.CodigoEstabelecimento)
+                {
+                    return View(Relatorio);
+
+                }
+            }
+            return View();
         }
 
     }
