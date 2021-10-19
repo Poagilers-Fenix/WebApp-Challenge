@@ -33,15 +33,23 @@
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <h5 style="margin: 20px;">Sugestões de músicas</h5>
-        @foreach (var m in ViewBag.sugestoes)
+        @if (ViewBag.sugestoes.Count <= 9)
         {
-            <div class="dropdown-item d-flex justify-content-between">
-                <p class="text-center mt-2">@m.MusicName - @m.ArtistName</p>
-                <form asp-action="ApagarNotificacao">
-                    <input name="id" type="hidden" value="@m.SuggestMusicId" />
-                    <button type="submit" class="btn"><span class="material-icons ml-2 text-danger">delete_outline</span></button>
-                </form>
-            </div>
+            @foreach (var m in ViewBag.sugestoes)
+            {
+                <div class="dropdown-item d-flex justify-content-between">
+                    <p class="text-center mt-2">@m.MusicName - @m.ArtistName</p>
+                    <form asp-action="ApagarNotificacao">
+                        <input name="id" type="hidden" value="@m.SuggestMusicId" />
+                        <button type="submit" class="btn"><span class="material-icons ml-2 text-danger">delete_outline</span></button>
+                    </form>
+                </div>
+            }
+        }
+        @if (ViewBag.sugestoes.Count > 0)
+        {
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item text-center text-info" asp-action="Sugestoes">Ver todas</a>
         }
         @if (ViewBag.sugestoes.Count == 0)
         {
