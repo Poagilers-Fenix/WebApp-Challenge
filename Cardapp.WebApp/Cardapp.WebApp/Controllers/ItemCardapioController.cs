@@ -205,9 +205,8 @@ namespace Cardapp.WebApp.Controllers
         {
             try
             {
-            client = new FireSharp.FirebaseClient(config);
-            client.Delete("/itemCardapio/"+id);
-            Console.WriteLine("id:"+id);
+                client = new FireSharp.FirebaseClient(config);
+                client.Delete("/itemCardapio/"+id);
                 TempData["Sucesso"] = "Item Removido!";
                 return RedirectToAction("Index");
             }

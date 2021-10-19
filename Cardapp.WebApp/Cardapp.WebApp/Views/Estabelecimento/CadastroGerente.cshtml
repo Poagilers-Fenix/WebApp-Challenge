@@ -16,7 +16,7 @@
     <div class="right-content" style="display: flex; flex-direction: column; justify-content: center; margin-left: 8%;">
         <Feedback Texto="@TempData["Erro"]" is-error="true"></Feedback>
         <h1 style="display: flex; justify-content: center;" class="my-5">Cadastre um gerente</h1>
-        <div class="card cardStyle mx-auto" style="width: 70%">
+        <div class="card cardStyle mx-auto" style="width: 70%; box-shadow: 6px 6px 10px #333;">
             <form asp-action="CadastroGerente">
                 <partial name="_FormCreateUpdateGerente" />
                 <div class="form-row justify-content-center mx-auto my-3" style="width: 96%;">

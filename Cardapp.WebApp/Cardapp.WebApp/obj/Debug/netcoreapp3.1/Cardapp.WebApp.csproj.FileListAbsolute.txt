@@ -3531,3 +3531,5 @@ C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebAp
 C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_BotoesSessao.cshtml.g.cs
 C:\Users\Henrique\Documents\GitHub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LeftContent.cshtml.g.cs
 D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Estabelecimento\Avaliacoes.cshtml.g.cs
+D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Estabelecimento\EditarSenha.cshtml.g.cs
+D:\Arquivos de Programas (x86)\Git-Hub\WebApp-Challenge\Cardapp.WebApp\Cardapp.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Estabelecimento\Relatorio.cshtml.g.cs

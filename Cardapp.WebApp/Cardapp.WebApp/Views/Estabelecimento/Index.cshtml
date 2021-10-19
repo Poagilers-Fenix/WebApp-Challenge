@@ -4,27 +4,49 @@
     ViewData["Title"] = "Gerenciar Conta";
     Layout = "_LayoutNavSide";
 }
+<style>
+    .no-border:focus {
+        outline: none;
+        box-shadow: none;
+    }
+
+    .no-border:hover {
+        color: #555
+    }
+</style>
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="~/css/master.css" rel="stylesheet" />
 <link href="~/css/buttons.css" rel="stylesheet" />
+<link href="~/css/indexEstabelecimento.css" rel="stylesheet" />
+
+<meta http-equiv="refresh" content="60" />
 
 <div class="mr-5 mt-5 d-flex justify-content-end">
-    <a class="btn btn-danger btn-lg menu-button ml-2" role="button" style="box-shadow: 6px 6px 10px #333;" asp-action="Logout" asp-controller="Home">
+    <a class="btn btn-danger btn-lg menu-button ml-2" role="button" style="box-shadow: 6px 6px 10px #333; padding-left: 20px" asp-action="Logout" asp-controller="Home">
         <span class="material-icons text-light">logout</span>
     </a>
 </div>
+<div class="dropdown mx-5 my-2 dropleft d-flex justify-content-end">
+    <button class="btn btn-warning dropdown-toggle no-border" type="button" style="box-shadow: 6px 6px 10px #333;" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="material-icons no-border">notifications</span> <span class="text-danger" style="font-weight: bold">@ViewBag.sugestoes.Count</span>
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <h5 style="text-indent: 20px; margin-top: 1%">Sugestões de músicas</h5>
+        @foreach(var m in ViewBag.sugestoes)
+        {
+            <div class="dropdown-item d-flex justify-content-between">
+                <p>@m.MusicName - @m.ArtistName</p>
+                <form asp-action="ApagarNotificacao">
+                    <input name="id" type="hidden" value="@m.SuggestMusicId" />
+                    <button type="submit" class="btn"><span class="material-icons ml-2 text-danger">delete_outline</span></button>
+                </form>
+            </div> 
+        }
+    </div>
+</div>
 
-<style>
-    html { background-color: #B56357; }
-    body { background: linear-gradient(90deg, #B56357, #EAE3EA); }
-    .div-danger { border: #DC3545 solid 1px;  border-radius: 20px;  padding: 5% 0; }
-    .div-warning { border: #FFC107 solid 1px; border-radius: 20px; padding: 2.5% 0; }
-    .botao { background-color: #b00; color: aliceblue;   }
-    .botao:hover { background-color: #900; color: aliceblue; }
-</style>
-
-<div style="display: flex; flex-direction: column; justify-content: center; margin-left: 7%; min-height: 80vh">
+<div style="display: flex; flex-direction: column; margin-top: 3%; margin-left: 7%; min-height: 80vh">
     <div class="card mx-auto" style="width: 70%; height: 70%; border-radius: 20px; box-shadow: 6px 6px 15px #333; ">
         @if (@TempData["Sucesso"] != null)
         {

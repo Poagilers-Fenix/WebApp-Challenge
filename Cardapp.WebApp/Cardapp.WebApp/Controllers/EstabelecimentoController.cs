@@ -23,12 +23,24 @@ namespace Cardapp.WebApp.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            client = new FireSharp.FirebaseClient(config);
+
             Estabelecimento estab = HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao");
             if (estab == null)
             {
                 TempData["Erro"] = "Faça o login para acessar o sistema!";
                 return RedirectToAction("Login", "Home");
             }
+            FirebaseResponse response = client.Get("/suggestMusic/");
+            JObject json = JObject.Parse(response.Body);
+            var lista = new List<Musica>();
+            foreach(var m in json)
+            {
+                var musica = m.Value.ToObject<Musica>();
+                //if(musica.)
+                lista.Add(musica);
+            }
+            ViewBag.sugestoes = lista;
             return View(estab);
         }
 
@@ -150,34 +162,24 @@ namespace Cardapp.WebApp.Controllers
         {
             try
             {
-
                 if (ModelState.IsValid)
                 {
                     client = new FireSharp.FirebaseClient(config);
-                    FirebaseResponse response = client.Get("/gerente/");
-                    JObject json = JObject.Parse(response.Body);
+                    Gerente gerenteSessao = HttpContext.Session.GetObjectFromJson<Gerente>("GerenteSessao");
 
-                    foreach (var g in json)
-                    {
-                        Gerente gerenteBD = g.Value.ToObject<Gerente>();
-                        if (gerenteBD.Email == gerente.Email && gerenteBD.CodigoGerente != gerente.CodigoGerente)
+                        if (gerenteSessao.Email == gerente.Email && gerenteSessao.CodigoGerente != gerente.CodigoGerente)
                         {
                             TempData["Erro"] = "Erro ao editar o gerente, esse email já foi cadastrado por outro gerente.";
                             return View();
                         }
-                        if (gerenteBD.CodigoGerente == gerente.CodigoGerente)
+                        if (gerenteSessao.CodigoGerente == gerente.CodigoGerente)
                         {
-                            string senha = Request.Form["senhaAtual"];
-                            if (senha != gerenteBD.Senha)
+                            if (gerente.Senha != gerenteSessao.Senha)
                             {
                                 TempData["Erro"] = "A senha informada está incorreta.";
                                 return RedirectToAction("EditarGerente");
                             }
-                            if (senha == "") {
-                                gerenteBD.Senha = senha;
-                            }
                         }
-                    }
                     client.Update("/gerente/" + gerente.CodigoGerente, gerente);
                     HttpContext.Session.SetObjectAsJson("GerenteSessao", gerente);
                     TempData["Sucesso"] = "Alterações salvas com sucesso!";
@@ -190,6 +192,40 @@ namespace Cardapp.WebApp.Controllers
                 Console.WriteLine("Entrou no catch");
                 TempData["Erro"] = "Não foi possível salvar as alterações!";
                 return RedirectToAction("EditarGerente");
+            }
+        }
+
+        [HttpGet]
+        public IActionResult EditarSenha()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult EditarSenha(string novaSenha)
+        {
+            try
+            {
+                client = new FireSharp.FirebaseClient(config);
+                Gerente gerenteSessao = HttpContext.Session.GetObjectFromJson<Gerente>("GerenteSessao");
+
+                string senha = Request.Form["senhaAtual"];
+                if (senha != gerenteSessao.Senha)
+                {
+                    TempData["Erro"] = "A senha informada está incorreta.";
+                    return RedirectToAction("EditarGerente");
+                }
+                gerenteSessao.Senha = novaSenha;
+                Console.WriteLine(gerenteSessao.Senha);
+                client.Update("/gerente/" + gerenteSessao.CodigoGerente, gerenteSessao);
+                HttpContext.Session.SetObjectAsJson("GerenteSessao", gerenteSessao);
+                TempData["Sucesso"] = "Alterações salvas com sucesso!";
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                TempData["Erro"] = "Houve um erro ao tentar atualizar senha.";
+                return View();
             }
         }
 
@@ -338,6 +374,15 @@ namespace Cardapp.WebApp.Controllers
                 }
             }
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult ApagarNotificacao(string id)
+        {
+            client = new FireSharp.FirebaseClient(config);
+            client.Delete("/suggestMusic/" + id);
+            TempData["Sucesso"] = "Sugestão apagada com sucesso!";
+            return RedirectToAction("Index");
         }
 
     }
