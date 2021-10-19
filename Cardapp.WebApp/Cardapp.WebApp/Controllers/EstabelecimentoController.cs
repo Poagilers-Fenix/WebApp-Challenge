@@ -37,8 +37,10 @@ namespace Cardapp.WebApp.Controllers
             foreach(var m in json)
             {
                 var musica = m.Value.ToObject<Musica>();
-                //if(musica.)
-                lista.Add(musica);
+                if (musica.EstabId == estab.CodigoEstabelecimento)
+                {
+                    lista.Add(musica);
+                }
             }
             ViewBag.sugestoes = lista;
             return View(estab);
@@ -330,7 +332,7 @@ namespace Cardapp.WebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Remover(string id)
+        public IActionResult Remover()
         {
             client = new FireSharp.FirebaseClient(config);
             Gerente gerente = HttpContext.Session.GetObjectFromJson<Gerente>("GerenteSessao");
