@@ -27,6 +27,12 @@
                         <td><a asp-action="ApagarNotificacao"><span class="material-icons text-danger">delete_outline</span></a></td>
                     </tr>
                 }
+                @if (Model.Count == 0)
+                {
+                    <tr>
+                        <td class="text-info" colspan="2">Nenhuma sugestão por enquanto.</td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>
