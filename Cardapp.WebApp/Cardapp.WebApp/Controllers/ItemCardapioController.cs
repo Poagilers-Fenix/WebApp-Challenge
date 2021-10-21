@@ -134,7 +134,7 @@ namespace Cardapp.WebApp.Controllers
                         foreach (var i in json)
                         {
                             var itemJson = i.Value.ToObject<Item>();
-                            if (itemJson.Nome.ToLower() == item.Nome.ToLower())
+                            if (itemJson.Nome.ToLower() == item.Nome.ToLower() && itemJson.CodigoEstabelecimento == item.CodigoEstabelecimento)
                             {
                                 TempData["Erro"] = "Um item com o nome '" + item.Nome + "' já está cadastrado!";
                                 return RedirectToAction("Cadastrar");
