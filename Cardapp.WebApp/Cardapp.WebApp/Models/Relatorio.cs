@@ -17,8 +17,6 @@ namespace Cardapp.WebApp.Models
 
         public int NumeroAcessosItemCardapio { get; set; }
 
-        public string NomeItemMaisAcessado { get; set; }
-
         public int NumeroAtivacaoLuz { get; set; }
 
     }

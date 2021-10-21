@@ -130,8 +130,6 @@ namespace Cardapp.WebApp.Controllers
                     Relatorio relatorio = new Relatorio
                     {
                         CodigoEstabelecimento = responseEstab.Result.name,
-                        NomeItemMaisAcessado = ""
-
                     };
                     PushResponse responseRelatorio = client.Push("Relatorio/", relatorio);
                     relatorio.CodigoRelatorio = responseRelatorio.Result.name;
