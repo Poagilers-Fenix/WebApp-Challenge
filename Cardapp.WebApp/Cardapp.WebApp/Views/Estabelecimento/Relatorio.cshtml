@@ -17,10 +17,8 @@
             <p class="h4">Número total de acessos: @Model.NumeroAcessosTotal</p>
             <p class="h4 mt-3">Número total de acesso a itens do cardápio: @Model.NumeroAcessosItemCardapio</p>
             <p class="h4 mt-3">Número de vezes que a função de iluminação da mesa foi utilizada: @Model.NumeroAtivacaoLuz</p>
-            <button class="btn btn-lg btn-dark mt-5">Baixe esse relatório</button>
+            <a class="btn btn-lg btn-dark mt-5" asp-action="DownloadTxt" asp-controller="Estabelecimento">Baixe esse relatório</a>
         </row>
     </div>
 </div>
-
-
 

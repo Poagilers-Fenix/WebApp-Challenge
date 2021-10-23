@@ -8,6 +8,10 @@ using Microsoft.AspNetCore.Http;
 using Cardapp.WebApp.SessionHelper;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using System.IO;
+using System.Text;
+using Microsoft.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace Cardapp.WebApp.Controllers
 {
@@ -390,6 +394,40 @@ namespace Cardapp.WebApp.Controllers
                 }
             }
             return View();
+        }
+
+        [HttpGet]
+        public FileStreamResult DownloadTxt()
+        {
+            client = new FireSharp.FirebaseClient(config);
+            Estabelecimento estab = HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao");
+            FirebaseResponse response = client.Get("/Relatorio/");
+            JObject json = JObject.Parse(response.Body);
+            foreach (var i in json)
+            {
+                var Relatorio = i.Value.ToObject<Relatorio>();
+                if (Relatorio.CodigoEstabelecimento == estab.CodigoEstabelecimento)
+                {
+                    string Header = ("Relatório de dados do estabelecimento");
+                    string lines1 = ("\r\nNúmero total de acessos ao estabelecimento: " + Relatorio.NumeroAcessosTotal.ToString());
+                    string lines2 = ("\r\nNúmero total de acessos aos itens do cardápio: " + Relatorio.NumeroAcessosItemCardapio.ToString());
+                    string lines3 = ("\r\nNúmero de vezes que a função de iluminação foi utilizada: " + Relatorio.NumeroAtivacaoLuz.ToString());
+                    DateTime date1 = DateTime.Now;
+
+                    string resposta = (Header + lines1 + lines2 + lines3 + ("\r\nRelatório gerado em: " + date1.ToString()));
+
+                    var stream = new MemoryStream(Encoding.UTF8.GetBytes(resposta.ToString()));
+                    return new FileStreamResult(stream, "text/plain")
+                    {
+                        FileDownloadName = "Relatorio.txt"
+                    };
+                }
+            }
+            var stream1 = new MemoryStream(Encoding.UTF8.GetBytes("Foi impossível realizar o download do relatório, tente novamente!"));
+            return new FileStreamResult(stream1,"text/plain")
+            {
+                FileDownloadName = "Erro.txt"
+            };
         }
 
         [HttpPost]
