@@ -216,9 +216,8 @@ namespace Cardapp.WebApp.Controllers
                         }
                         gerenteSessao.Senha = senha;
                     }
-                    //client.Update("/gerente/" + gerente.CodigoGerente, gerente);
-                    //HttpContext.Session.SetObjectAsJson("GerenteSessao", gerente);
-                    Console.WriteLine(gerenteSessao.Senha);
+                    client.Update("/gerente/" + gerente.CodigoGerente, gerente);
+                    HttpContext.Session.SetObjectAsJson("GerenteSessao", gerente);
                     TempData["Sucesso"] = "Alterações salvas com sucesso!";
                     return RedirectToAction("Index");
                 }
