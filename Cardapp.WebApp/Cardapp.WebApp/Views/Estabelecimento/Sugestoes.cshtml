@@ -24,13 +24,17 @@
                     <tr>
                         <td>@m.MusicName - @m.ArtistName</td>
                         <td>@m.UserEmail</td>
-                        <td><a asp-action="ApagarNotificacao"><span class="material-icons text-danger">delete_outline</span></a></td>
-                    </tr>
-                }
-                @if (Model.Count == 0)
-                {
-                    <tr>
-                        <td class="text-info" colspan="2">Nenhuma sugestão por enquanto.</td>
+                        <td>
+                            @if (m.SuggestMusicId != "empty-list")
+                            {
+                                <form asp-action="ApagarNotificacao">
+                                    <input type="hidden" asp-for="@m.SuggestMusicId" />
+                                    <button class="btn">
+                                        <span class="material-icons text-danger">delete_outline</span>
+                                    </button>
+                                </form>
+                            }
+                        </td>
                     </tr>
                 }
             </tbody>

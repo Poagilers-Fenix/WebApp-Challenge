@@ -46,17 +46,30 @@ namespace Cardapp.WebApp.Controllers
 
             estab = HttpContext.Session.GetObjectFromJson<Estabelecimento>("EstabelecimentoSessao");
             FirebaseResponse response = client.Get("/suggestMusic/");
-            JObject json = JObject.Parse(response.Body);
+            JObject json;
             lista = new List<Musica>();
-            foreach (var m in json)
+            try
             {
-                var musica = m.Value.ToObject<Musica>();
-                if (musica.EstabId == estab.CodigoEstabelecimento)
+                json = JObject.Parse(response.Body);
+                foreach (var m in json)
                 {
-                    lista.Add(musica);
+                    var musica = m.Value.ToObject<Musica>();
+                    if (musica.EstabId == estab.CodigoEstabelecimento)
+                    {
+                        lista.Add(musica);
+                    }
                 }
-
+            } catch (Exception)
+            {
+                Musica musica = new Musica
+                {
+                    MusicName = "Nenhuma música adicionada ainda!",
+                    UserEmail = " ",
+                    SuggestMusicId = "empty-list"
+                };
+                lista.Add(musica);
             }
+
         }
 
         [HttpGet]
@@ -194,14 +207,18 @@ namespace Cardapp.WebApp.Controllers
                     }
                     if (gerenteSessao.CodigoGerente == gerente.CodigoGerente)
                     {
-                        if (gerente.Senha != gerenteSessao.Senha)
+                        string senha = Request.Form["senhaAtual"];
+                        Console.WriteLine(senha);
+                        if (senha != gerenteSessao.Senha)
                         {
                             TempData["Erro"] = "A senha informada está incorreta.";
                             return RedirectToAction("EditarGerente");
                         }
+                        gerenteSessao.Senha = senha;
                     }
-                    client.Update("/gerente/" + gerente.CodigoGerente, gerente);
-                    HttpContext.Session.SetObjectAsJson("GerenteSessao", gerente);
+                    //client.Update("/gerente/" + gerente.CodigoGerente, gerente);
+                    //HttpContext.Session.SetObjectAsJson("GerenteSessao", gerente);
+                    Console.WriteLine(gerenteSessao.Senha);
                     TempData["Sucesso"] = "Alterações salvas com sucesso!";
                     return RedirectToAction("Index");
                 }

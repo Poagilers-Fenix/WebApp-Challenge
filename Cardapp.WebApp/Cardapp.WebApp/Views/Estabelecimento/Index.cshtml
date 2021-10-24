@@ -29,7 +29,11 @@
 </div>
 <div class="dropdown mx-5 my-2 dropleft d-flex justify-content-end">
     <button class="btn btn-warning dropdown-toggle no-border" type="button" style="box-shadow: 6px 6px 10px #333;" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="material-icons no-border">notifications</span> <span class="text-danger" style="font-weight: bold">@ViewBag.sugestoes.Count</span>
+        <span class="material-icons no-border">notifications</span>
+        @if (ViewBag.sugestoes.Count > 0 && ViewBag.sugestoes[0].SuggestMusicId != "empty-list")
+        {
+            <span class="text-danger" style="font-weight: bold">@ViewBag.sugestoes.Count</span>
+        }
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <h5 style="margin: 20px;">Sugestões de músicas</h5>
@@ -39,10 +43,13 @@
             {
                 <div class="dropdown-item d-flex justify-content-between">
                     <p class="text-center mt-2">@m.MusicName - @m.ArtistName</p>
-                    <form asp-action="ApagarNotificacao">
-                        <input name="id" type="hidden" value="@m.SuggestMusicId" />
-                        <button type="submit" class="btn"><span class="material-icons ml-2 text-danger">delete_outline</span></button>
-                    </form>
+                    @if (m.SuggestMusicId != "empty-list")
+                    {
+                        <form asp-action="ApagarNotificacao">
+                            <input name="id" type="hidden" value="@m.SuggestMusicId" />
+                            <button type="submit" class="btn"><span class="material-icons ml-2 text-danger">delete_outline</span></button>
+                        </form>
+                    }
                 </div>
             }
         }
